@@ -1471,7 +1471,74 @@
                                     </tr>
                                 </thead>
                                 <tbody id="contactsTable">
-                                    <!-- Contacts will be populated here -->
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="rounded-circle bg-primary text-white p-2 me-2" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">JA</div>
+                                                <strong>John Anderson</strong>
+                                            </div>
+                                        </td>
+                                        <td>TechCorp Solutions</td>
+                                        <td>john@techcorp.com</td>
+                                        <td>(555) 123-4567</td>
+                                        <td><span class="badge bg-warning">VIP</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-info" onclick="viewContact('John Anderson')"><i class="fas fa-eye"></i></button>
+                                            <button class="btn btn-sm btn-warning" onclick="editContact('John Anderson')"><i class="fas fa-edit"></i></button>
+                                            <button class="btn btn-sm btn-primary" onclick="emailContact('john@techcorp.com')"><i class="fas fa-envelope"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="rounded-circle bg-success text-white p-2 me-2" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">SM</div>
+                                                <strong>Sarah Mitchell</strong>
+                                            </div>
+                                        </td>
+                                        <td>Innovate.io</td>
+                                        <td>sarah@innovate.io</td>
+                                        <td>(555) 234-5678</td>
+                                        <td><span class="badge bg-primary">Customer</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-info" onclick="viewContact('Sarah Mitchell')"><i class="fas fa-eye"></i></button>
+                                            <button class="btn btn-sm btn-warning" onclick="editContact('Sarah Mitchell')"><i class="fas fa-edit"></i></button>
+                                            <button class="btn btn-sm btn-primary" onclick="emailContact('sarah@innovate.io')"><i class="fas fa-envelope"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="rounded-circle bg-info text-white p-2 me-2" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">MC</div>
+                                                <strong>Michael Chen</strong>
+                                            </div>
+                                        </td>
+                                        <td>StartupHub</td>
+                                        <td>m.chen@startup.com</td>
+                                        <td>(555) 345-6789</td>
+                                        <td><span class="badge bg-success">Partner</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-info" onclick="viewContact('Michael Chen')"><i class="fas fa-eye"></i></button>
+                                            <button class="btn btn-sm btn-warning" onclick="editContact('Michael Chen')"><i class="fas fa-edit"></i></button>
+                                            <button class="btn btn-sm btn-primary" onclick="emailContact('m.chen@startup.com')"><i class="fas fa-envelope"></i></button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="rounded-circle bg-danger text-white p-2 me-2" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">EJ</div>
+                                                <strong>Emily Johnson</strong>
+                                            </div>
+                                        </td>
+                                        <td>Global Enterprises</td>
+                                        <td>emily.j@global.com</td>
+                                        <td>(555) 456-7890</td>
+                                        <td><span class="badge bg-primary">Customer</span></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-info" onclick="viewContact('Emily Johnson')"><i class="fas fa-eye"></i></button>
+                                            <button class="btn btn-sm btn-warning" onclick="editContact('Emily Johnson')"><i class="fas fa-edit"></i></button>
+                                            <button class="btn btn-sm btn-primary" onclick="emailContact('emily.j@global.com')"><i class="fas fa-envelope"></i></button>
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -1564,7 +1631,70 @@
                                     </tr>
                                 </thead>
                                 <tbody id="leadsTable">
-                                    <!-- Leads will be populated here -->
+                                    <tr>
+                                        <td><strong>Robert Williams</strong></td>
+                                        <td>Future Tech Inc</td>
+                                        <td>r.williams@futuretech.com</td>
+                                        <td><span class="badge bg-primary">New</span></td>
+                                        <td>
+                                            <div class="progress" style="width: 100px; height: 20px;">
+                                                <div class="progress-bar bg-success" style="width: 85%">85</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-sm btn-success" onclick="qualifyLead('Robert Williams')">Qualify</button>
+                                            <button class="btn btn-sm btn-info" onclick="viewLead('Robert Williams')">View</button>
+                                            <button class="btn btn-sm btn-primary" onclick="convertLead('Robert Williams')">Convert</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Lisa Thompson</strong></td>
+                                        <td>Creative Agency</td>
+                                        <td>lisa@creative.agency</td>
+                                        <td><span class="badge bg-warning">Qualified</span></td>
+                                        <td>
+                                            <div class="progress" style="width: 100px; height: 20px;">
+                                                <div class="progress-bar bg-warning" style="width: 70%">70</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-sm btn-success" onclick="createProposal('Lisa Thompson')">Proposal</button>
+                                            <button class="btn btn-sm btn-info" onclick="viewLead('Lisa Thompson')">View</button>
+                                            <button class="btn btn-sm btn-primary" onclick="convertLead('Lisa Thompson')">Convert</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>David Martinez</strong></td>
+                                        <td>Retail Solutions</td>
+                                        <td>d.martinez@retail.com</td>
+                                        <td><span class="badge bg-info">Contacted</span></td>
+                                        <td>
+                                            <div class="progress" style="width: 100px; height: 20px;">
+                                                <div class="progress-bar bg-info" style="width: 60%">60</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-sm btn-warning" onclick="followUp('David Martinez')">Follow Up</button>
+                                            <button class="btn btn-sm btn-info" onclick="viewLead('David Martinez')">View</button>
+                                            <button class="btn btn-sm btn-danger" onclick="disqualifyLead('David Martinez')">Disqualify</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Jennifer Lee</strong></td>
+                                        <td>Healthcare Plus</td>
+                                        <td>j.lee@healthcare.com</td>
+                                        <td><span class="badge bg-success">Proposal</span></td>
+                                        <td>
+                                            <div class="progress" style="width: 100px; height: 20px;">
+                                                <div class="progress-bar bg-success" style="width: 90%">90</div>
+                                            </div>
+                                        </td>
+                                        <td>
+                                            <button class="btn btn-sm btn-success" onclick="closeDeal('Jennifer Lee')">Close Deal</button>
+                                            <button class="btn btn-sm btn-info" onclick="viewLead('Jennifer Lee')">View</button>
+                                            <button class="btn btn-sm btn-warning" onclick="negotiate('Jennifer Lee')">Negotiate</button>
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -1941,7 +2071,61 @@
         }
 
         function showSpaceMap() {
-            showNotification('Opening map view...', 'info');
+            // Create and show map modal
+            const mapModal = document.createElement('div');
+            mapModal.className = 'modal fade';
+            mapModal.id = 'mapModal';
+            mapModal.innerHTML = `
+                <div class="modal-dialog modal-xl">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title"><i class="fas fa-map-marked-alt me-2"></i>Space Locations Map</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                        </div>
+                        <div class="modal-body">
+                            <iframe 
+                                width="100%" 
+                                height="600" 
+                                frameborder="0" 
+                                style="border:0"
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d52874089.07629641!2d-161.3536806028049!3d35.98912749978602!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x54eab584e432360b%3A0x1c3bb99243deb742!2sUnited%20States!5e0!3m2!1sen!2sus!4v1635959890123!5m2!1sen!2sus"
+                                allowfullscreen>
+                            </iframe>
+                            <div class="mt-3">
+                                <h6>Our Locations:</h6>
+                                <div class="row">
+                                    <div class="col-md-3"><i class="fas fa-map-pin text-primary"></i> San Francisco, CA</div>
+                                    <div class="col-md-3"><i class="fas fa-map-pin text-primary"></i> New York, NY</div>
+                                    <div class="col-md-3"><i class="fas fa-map-pin text-primary"></i> Chicago, IL</div>
+                                    <div class="col-md-3"><i class="fas fa-map-pin text-primary"></i> Seattle, WA</div>
+                                    <div class="col-md-3"><i class="fas fa-map-pin text-primary"></i> Los Angeles, CA</div>
+                                    <div class="col-md-3"><i class="fas fa-map-pin text-primary"></i> Boston, MA</div>
+                                    <div class="col-md-3"><i class="fas fa-map-pin text-primary"></i> Austin, TX</div>
+                                    <div class="col-md-3"><i class="fas fa-map-pin text-primary"></i> Denver, CO</div>
+                                    <div class="col-md-3"><i class="fas fa-map-pin text-primary"></i> Miami, FL</div>
+                                    <div class="col-md-3"><i class="fas fa-map-pin text-primary"></i> Portland, OR</div>
+                                    <div class="col-md-3"><i class="fas fa-map-pin text-primary"></i> Atlanta, GA</div>
+                                    <div class="col-md-3"><i class="fas fa-map-pin text-primary"></i> Phoenix, AZ</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        </div>
+                    </div>
+                </div>
+            `;
+            
+            // Add modal to body if it doesn't exist
+            if (!document.getElementById('mapModal')) {
+                document.body.appendChild(mapModal);
+            }
+            
+            // Show the modal
+            const modal = new bootstrap.Modal(document.getElementById('mapModal'));
+            modal.show();
+            
+            showNotification('Showing space locations on map', 'info');
         }
 
         // Reservation Management
@@ -2026,6 +2210,30 @@
         // Lead Management
         function createLead() {
             showNotification('Creating new lead...', 'info');
+        }
+        
+        function createProposal(name) {
+            showNotification(`Creating proposal for ${name}...`, 'success');
+        }
+        
+        function followUp(name) {
+            showNotification(`Scheduling follow-up for ${name}...`, 'info');
+        }
+        
+        function closeDeal(name) {
+            if (confirm(`Close deal with ${name}?`)) {
+                showNotification(`Deal closed successfully with ${name}!`, 'success');
+            }
+        }
+        
+        function negotiate(name) {
+            showNotification(`Opening negotiation details for ${name}...`, 'info');
+        }
+        
+        function disqualifyLead(name) {
+            if (confirm(`Disqualify lead ${name}?`)) {
+                showNotification(`Lead ${name} has been disqualified`, 'warning');
+            }
         }
 
         function importLeads() {
