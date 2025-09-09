@@ -1,0 +1,20 @@
+# Mac OS
+.DS_Store
+
+# Temporary files
+*.tmp
+*.bak
+
+# PowerShell scripts (not needed for web)
+*.ps1
+*.ps1xml
+
+# JSON configuration files
+*.json
+
+# Markdown files (documentation)
+*.md
+
+# Keep only HTML files for the website
+!index.html
+!easy-spaces-enhanced.html

@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Easy Spaces Portal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .hero { background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 60px 0; }
+        .space-card, .stat-card { border-radius: 15px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); margin-bottom: 20px; }
+        .space-card:hover { transform: translateY(-5px); transition: 0.3s; }
+        .nav-pills .nav-link.active { background: #667eea; }
+        .price { font-size: 24px; color: #667eea; font-weight: bold; }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background: #667eea;">
+        <div class="container">
+            <a class="navbar-brand" href="#home">Easy Spaces</a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="#home">Home</a>
+                <a class="nav-link" href="#spaces">Spaces</a>
+                <a class="nav-link" href="#reservations">Reservations</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Tab Navigation -->
+    <div class="container mt-4">
+        <ul class="nav nav-pills mb-4" id="mainTabs">
+            <li class="nav-item">
+                <a class="nav-link active" data-bs-toggle="pill" href="#home">Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="pill" href="#spaces">Space Designer</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-bs-toggle="pill" href="#reservations">Reservations</a>
+            </li>
+        </ul>
+
+        <!-- Tab Content -->
+        <div class="tab-content">
+            <!-- Home Tab -->
+            <div class="tab-pane fade show active" id="home">
+                <div class="hero rounded">
+                    <div class="text-center">
+                        <h1>Welcome to Easy Spaces</h1>
+                        <p class="lead">Premium Space Reservation Platform</p>
+                        <p>Migrated from Salesforce to Microsoft Power Platform</p>
+                    </div>
+                </div>
+                <div class="row mt-4">
+                    <div class="col-md-6">
+                        <div class="card space-card">
+                            <div class="card-body">
+                                <h5>Space Designer</h5>
+                                <p>Browse and select from 50+ premium spaces across 12 markets.</p>
+                                <a href="#spaces" onclick="document.querySelector('[href=\'#spaces\']').click();" class="btn btn-primary">Browse Spaces</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="card space-card">
+                            <div class="card-body">
+                                <h5>Reservation Manager</h5>
+                                <p>Manage bookings, track revenue, and monitor availability.</p>
+                                <a href="#reservations" onclick="document.querySelector('[href=\'#reservations\']').click();" class="btn btn-success">Manage Bookings</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Space Designer Tab -->
+            <div class="tab-pane fade" id="spaces">
+                <h2>Space Designer</h2>
+                <p class="lead">Browse and select available spaces</p>
+                
+                <div class="row mb-4">
+                    <div class="col-md-3">
+                        <select class="form-select">
+                            <option>All Locations</option>
+                            <option>San Francisco</option>
+                            <option>New York</option>
+                            <option>Chicago</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-select">
+                            <option>All Types</option>
+                            <option>Office</option>
+                            <option>Conference</option>
+                            <option>Event Space</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <select class="form-select">
+                            <option>Any Capacity</option>
+                            <option>1-10</option>
+                            <option>11-50</option>
+                            <option>50+</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <button class="btn btn-primary w-100">Apply Filters</button>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="card space-card">
+                            <div class="card-body">
+                                <h5>Executive Suite</h5>
+                                <p>📍 San Francisco<br>🏢 Office<br>👥 20 people</p>
+                                <div class="price">$800/day</div>
+                                <button class="btn btn-primary btn-sm mt-2">Select Space</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card space-card">
+                            <div class="card-body">
+                                <h5>Conference Room A</h5>
+                                <p>📍 New York<br>🏢 Conference<br>👥 12 people</p>
+                                <div class="price">$400/day</div>
+                                <button class="btn btn-primary btn-sm mt-2">Select Space</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card space-card">
+                            <div class="card-body">
+                                <h5>Innovation Hub</h5>
+                                <p>📍 Chicago<br>🏢 Open Space<br>👥 50 people</p>
+                                <div class="price">$1,200/day</div>
+                                <button class="btn btn-primary btn-sm mt-2">Select Space</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card space-card">
+                            <div class="card-body">
+                                <h5>Training Center</h5>
+                                <p>📍 Seattle<br>🏢 Training Room<br>👥 30 people</p>
+                                <div class="price">$600/day</div>
+                                <button class="btn btn-primary btn-sm mt-2">Select Space</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card space-card">
+                            <div class="card-body">
+                                <h5>Event Ballroom</h5>
+                                <p>📍 Los Angeles<br>🏢 Event Space<br>👥 100 people</p>
+                                <div class="price">$2,500/day</div>
+                                <button class="btn btn-primary btn-sm mt-2">Select Space</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card space-card">
+                            <div class="card-body">
+                                <h5>Harbor View Office</h5>
+                                <p>📍 Boston<br>🏢 Office<br>👥 10 people</p>
+                                <div class="price">$500/day</div>
+                                <button class="btn btn-primary btn-sm mt-2">Select Space</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reservations Tab -->
+            <div class="tab-pane fade" id="reservations">
+                <h2>Reservation Manager</h2>
+                <p class="lead">Track and manage all bookings</p>
+                
+                <div class="row mb-4">
+                    <div class="col-md-3">
+                        <div class="card stat-card bg-primary text-white">
+                            <div class="card-body text-center">
+                                <h2>24</h2>
+                                <p class="mb-0">Total Reservations</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card stat-card bg-success text-white">
+                            <div class="card-body text-center">
+                                <h2>18</h2>
+                                <p class="mb-0">Confirmed</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card stat-card bg-warning text-white">
+                            <div class="card-body text-center">
+                                <h2>4</h2>
+                                <p class="mb-0">Pending</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="card stat-card bg-info text-white">
+                            <div class="card-body text-center">
+                                <h2>$12.4K</h2>
+                                <p class="mb-0">Revenue</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between">
+                        <h4 class="mb-0">Recent Reservations</h4>
+                        <button class="btn btn-success btn-sm">+ New Reservation</button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Space</th>
+                                        <th>Customer</th>
+                                        <th>Dates</th>
+                                        <th>Status</th>
+                                        <th>Amount</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>RES-001</td>
+                                        <td>Executive Suite</td>
+                                        <td>John Anderson</td>
+                                        <td>Dec 15-17</td>
+                                        <td><span class="badge bg-success">Confirmed</span></td>
+                                        <td>$2,400</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-info">View</button>
+                                            <button class="btn btn-sm btn-warning">Edit</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>RES-002</td>
+                                        <td>Conference Room A</td>
+                                        <td>Sarah Mitchell</td>
+                                        <td>Dec 18</td>
+                                        <td><span class="badge bg-warning">Pending</span></td>
+                                        <td>$400</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-info">View</button>
+                                            <button class="btn btn-sm btn-warning">Edit</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>RES-003</td>
+                                        <td>Innovation Hub</td>
+                                        <td>Michael Chen</td>
+                                        <td>Dec 20-22</td>
+                                        <td><span class="badge bg-success">Confirmed</span></td>
+                                        <td>$3,600</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-info">View</button>
+                                            <button class="btn btn-sm btn-warning">Edit</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

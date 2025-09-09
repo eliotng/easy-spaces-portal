@@ -1,0 +1,1681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Easy Spaces - Interactive Portal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        * { transition: all 0.3s ease; }
+        
+        .hero { 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+            color: white; 
+            padding: 80px 0; 
+            border-radius: 0 0 30px 30px;
+        }
+        
+        .space-card { 
+            border: none;
+            border-radius: 15px; 
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1); 
+            margin-bottom: 20px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+        
+        .space-card:hover { 
+            transform: translateY(-10px); 
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+        }
+        
+        .space-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 48px;
+        }
+        
+        .nav-pills .nav-link.active { 
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+        }
+        
+        .price { 
+            font-size: 28px; 
+            color: #667eea; 
+            font-weight: bold; 
+        }
+        
+        .stat-card { 
+            border-radius: 15px; 
+            padding: 20px;
+            text-align: center;
+            color: white;
+            cursor: pointer;
+        }
+        
+        .stat-card:hover {
+            transform: scale(1.05);
+        }
+        
+        .btn-action {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 25px;
+            padding: 10px 25px;
+        }
+        
+        .btn-action:hover {
+            background: linear-gradient(135deg, #764ba2 0%, #667eea 100%);
+            color: white;
+            transform: scale(1.05);
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            display: none;
+        }
+        
+        .selected-space {
+            border: 3px solid #667eea;
+            background: #f0f4ff;
+        }
+        
+        .filter-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .modal-content {
+            border-radius: 15px;
+        }
+        
+        .badge-status {
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <!-- Notification Toast -->
+    <div id="notification" class="notification">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <strong id="notificationText">Success!</strong>
+            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+        </div>
+    </div>
+
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+        <div class="container">
+            <a class="navbar-brand" href="#home" onclick="showTab('home')">
+                <strong>🏢 Easy Spaces</strong>
+            </a>
+            <div class="navbar-nav ms-auto">
+                <a class="nav-link" href="#home" onclick="showTab('home')">Home</a>
+                <a class="nav-link" href="#spaces" onclick="showTab('spaces')">Space Designer</a>
+                <a class="nav-link" href="#reservations" onclick="showTab('reservations')">Reservations</a>
+                <a class="nav-link" href="#contacts" onclick="showTab('contacts')">Contacts</a>
+                <a class="nav-link" href="#leads" onclick="showTab('leads')">Leads</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container mt-4">
+        <!-- Tab Navigation -->
+        <ul class="nav nav-pills mb-4" id="mainTabs">
+            <li class="nav-item">
+                <a class="nav-link active" id="home-tab" onclick="showTab('home')" href="#home">🏠 Home</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="spaces-tab" onclick="showTab('spaces')" href="#spaces">🏢 Space Designer</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="reservations-tab" onclick="showTab('reservations')" href="#reservations">📅 Reservations</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="contacts-tab" onclick="showTab('contacts')" href="#contacts">👥 Contacts</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="leads-tab" onclick="showTab('leads')" href="#leads">🎯 Leads</a>
+            </li>
+        </ul>
+
+        <!-- Tab Content -->
+        <div class="tab-content">
+            <!-- Home Tab -->
+            <div class="tab-pane show active" id="home">
+                <div class="hero rounded">
+                    <div class="text-center">
+                        <h1 class="display-4">Welcome to Easy Spaces</h1>
+                        <p class="lead">Premium Space Reservation Platform</p>
+                        <p>Successfully migrated from Salesforce to Microsoft Power Platform</p>
+                        <div class="mt-4">
+                            <button class="btn btn-light btn-lg me-2" onclick="showTab('spaces')">
+                                Browse Spaces
+                            </button>
+                            <button class="btn btn-outline-light btn-lg" onclick="showTab('reservations')">
+                                View Reservations
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row mt-5">
+                    <div class="col-md-4 text-center mb-4">
+                        <div class="p-4">
+                            <div style="font-size: 48px;">🏢</div>
+                            <h3>50+ Spaces</h3>
+                            <p>Premium locations across 12 major markets</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-center mb-4">
+                        <div class="p-4">
+                            <div style="font-size: 48px;">⚡</div>
+                            <h3>Instant Booking</h3>
+                            <p>Reserve spaces in seconds with real-time availability</p>
+                        </div>
+                    </div>
+                    <div class="col-md-4 text-center mb-4">
+                        <div class="p-4">
+                            <div style="font-size: 48px;">💼</div>
+                            <h3>Enterprise Ready</h3>
+                            <p>Powered by Microsoft Dynamics 365</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Space Designer Tab -->
+            <div class="tab-pane" id="spaces" style="display: none;">
+                <h2>Space Designer</h2>
+                <p class="lead">Browse and select from our premium spaces</p>
+                
+                <!-- Filters -->
+                <div class="filter-section">
+                    <div class="row">
+                        <div class="col-md-3 mb-2">
+                            <label class="form-label">Location</label>
+                            <select class="form-select" id="locationFilter" onchange="filterSpaces()">
+                                <option value="">All Locations</option>
+                                <option value="San Francisco">San Francisco</option>
+                                <option value="New York">New York</option>
+                                <option value="Chicago">Chicago</option>
+                                <option value="Seattle">Seattle</option>
+                                <option value="Los Angeles">Los Angeles</option>
+                                <option value="Boston">Boston</option>
+                                <option value="Austin">Austin</option>
+                                <option value="Denver">Denver</option>
+                                <option value="Miami">Miami</option>
+                                <option value="Portland">Portland</option>
+                                <option value="Atlanta">Atlanta</option>
+                                <option value="Phoenix">Phoenix</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 mb-2">
+                            <label class="form-label">Space Type</label>
+                            <select class="form-select" id="typeFilter" onchange="filterSpaces()">
+                                <option value="">All Types</option>
+                                <option value="Office">Office</option>
+                                <option value="Conference">Conference Room</option>
+                                <option value="Open Space">Open Space</option>
+                                <option value="Training">Training Room</option>
+                                <option value="Event">Event Space</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 mb-2">
+                            <label class="form-label">Capacity</label>
+                            <select class="form-select" id="capacityFilter" onchange="filterSpaces()">
+                                <option value="">Any Capacity</option>
+                                <option value="1-10">1-10 People</option>
+                                <option value="11-25">11-25 People</option>
+                                <option value="26-50">26-50 People</option>
+                                <option value="50+">50+ People</option>
+                            </select>
+                        </div>
+                        <div class="col-md-3 mb-2">
+                            <label class="form-label">Actions</label>
+                            <button class="btn btn-action w-100" onclick="clearFilters()">Clear Filters</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Spaces Grid -->
+                <div class="row" id="spacesGrid">
+                    <!-- Space 1 -->
+                    <div class="col-lg-4 col-md-6 space-item" data-location="San Francisco" data-type="Office" data-capacity="20">
+                        <div class="card space-card" onclick="selectSpace('Executive Suite', 800)">
+                            <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&h=200&fit=crop" class="space-image" alt="Executive Suite" loading="lazy">
+                            <div class="card-body">
+                                <h5 class="card-title">Executive Suite</h5>
+                                <p class="text-muted mb-2">📍 San Francisco - Financial District</p>
+                                <div class="mb-2">
+                                    <span class="badge bg-primary">Office</span>
+                                    <span class="badge bg-info">20 People</span>
+                                    <span class="badge bg-success">Available</span>
+                                </div>
+                                <p class="card-text">Premium corner office with city views, conference area, and executive amenities.</p>
+                                <div class="price">$800/day</div>
+                                <button class="btn btn-action w-100 mt-2">Reserve Now</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Space 2 -->
+                    <div class="col-lg-4 col-md-6 space-item" data-location="New York" data-type="Conference" data-capacity="12">
+                        <div class="card space-card" onclick="selectSpace('Madison Conference Room', 400)">
+                            <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=400&h=200&fit=crop" class="space-image" alt="Conference Room" loading="lazy">
+                            <div class="card-body">
+                                <h5 class="card-title">Madison Conference Room</h5>
+                                <p class="text-muted mb-2">📍 New York - Midtown Manhattan</p>
+                                <div class="mb-2">
+                                    <span class="badge bg-primary">Conference</span>
+                                    <span class="badge bg-info">12 People</span>
+                                    <span class="badge bg-success">Available</span>
+                                </div>
+                                <p class="card-text">State-of-the-art meeting room with video conferencing and presentation tools.</p>
+                                <div class="price">$400/day</div>
+                                <button class="btn btn-action w-100 mt-2">Reserve Now</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Space 3 -->
+                    <div class="col-lg-4 col-md-6 space-item" data-location="Chicago" data-type="Open Space" data-capacity="50">
+                        <div class="card space-card" onclick="selectSpace('Innovation Hub', 1200)">
+                            <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=400&h=200&fit=crop" class="space-image" alt="Innovation Hub" loading="lazy">
+                            <div class="card-body">
+                                <h5 class="card-title">Innovation Hub</h5>
+                                <p class="text-muted mb-2">📍 Chicago - The Loop</p>
+                                <div class="mb-2">
+                                    <span class="badge bg-primary">Open Space</span>
+                                    <span class="badge bg-info">50 People</span>
+                                    <span class="badge bg-warning">Limited</span>
+                                </div>
+                                <p class="card-text">Collaborative workspace with flexible seating and creative zones.</p>
+                                <div class="price">$1,200/day</div>
+                                <button class="btn btn-action w-100 mt-2">Reserve Now</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Space 4 -->
+                    <div class="col-lg-4 col-md-6 space-item" data-location="Seattle" data-type="Training" data-capacity="30">
+                        <div class="card space-card" onclick="selectSpace('Tech Training Center', 600)">
+                            <img src="https://images.unsplash.com/photo-1524634126442-357e0eac3c14?w=400&h=200&fit=crop" class="space-image" alt="Training Center" loading="lazy">
+                            <div class="card-body">
+                                <h5 class="card-title">Tech Training Center</h5>
+                                <p class="text-muted mb-2">📍 Seattle - South Lake Union</p>
+                                <div class="mb-2">
+                                    <span class="badge bg-primary">Training</span>
+                                    <span class="badge bg-info">30 People</span>
+                                    <span class="badge bg-success">Available</span>
+                                </div>
+                                <p class="card-text">Equipped training facility with computers and workshop materials.</p>
+                                <div class="price">$600/day</div>
+                                <button class="btn btn-action w-100 mt-2">Reserve Now</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Space 5 -->
+                    <div class="col-lg-4 col-md-6 space-item" data-location="Los Angeles" data-type="Event" data-capacity="100">
+                        <div class="card space-card" onclick="selectSpace('Sunset Ballroom', 2500)">
+                            <img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=400&h=200&fit=crop" class="space-image" alt="Event Ballroom" loading="lazy">
+                            <div class="card-body">
+                                <h5 class="card-title">Sunset Ballroom</h5>
+                                <p class="text-muted mb-2">📍 Los Angeles - Beverly Hills</p>
+                                <div class="mb-2">
+                                    <span class="badge bg-primary">Event</span>
+                                    <span class="badge bg-info">100 People</span>
+                                    <span class="badge bg-success">Available</span>
+                                </div>
+                                <p class="card-text">Elegant venue for corporate events and celebrations.</p>
+                                <div class="price">$2,500/day</div>
+                                <button class="btn btn-action w-100 mt-2">Reserve Now</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Space 6 -->
+                    <div class="col-lg-4 col-md-6 space-item" data-location="Boston" data-type="Office" data-capacity="10">
+                        <div class="card space-card" onclick="selectSpace('Harbor View Office', 500)">
+                            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=200&fit=crop" class="space-image" alt="Harbor View Office" loading="lazy">
+                            <div class="card-body">
+                                <h5 class="card-title">Harbor View Office</h5>
+                                <p class="text-muted mb-2">📍 Boston - Seaport District</p>
+                                <div class="mb-2">
+                                    <span class="badge bg-primary">Office</span>
+                                    <span class="badge bg-info">10 People</span>
+                                    <span class="badge bg-success">Available</span>
+                                </div>
+                                <p class="card-text">Modern office with stunning harbor views, perfect for small teams.</p>
+                                <div class="price">$500/day</div>
+                                <button class="btn btn-action w-100 mt-2">Reserve Now</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Space 7 -->
+                    <div class="col-lg-4 col-md-6 space-item" data-location="Austin" data-type="Office" data-capacity="15">
+                        <div class="card space-card" onclick="selectSpace('Tech Hub Austin', 650)">
+                            <img src="https://images.unsplash.com/photo-1556761175-4b46a572b786?w=400&h=200&fit=crop" class="space-image" alt="Tech Hub" loading="lazy">
+                            <div class="card-body">
+                                <h5 class="card-title">Tech Hub Austin</h5>
+                                <p class="text-muted mb-2">📍 Austin - Downtown</p>
+                                <div class="mb-2">
+                                    <span class="badge bg-primary">Office</span>
+                                    <span class="badge bg-info">15 People</span>
+                                    <span class="badge bg-success">Available</span>
+                                </div>
+                                <p class="card-text">Modern tech workspace in the heart of Austin's startup scene.</p>
+                                <div class="price">$650/day</div>
+                                <button class="btn btn-action w-100 mt-2">Reserve Now</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Space 8 -->
+                    <div class="col-lg-4 col-md-6 space-item" data-location="Denver" data-type="Conference" data-capacity="8">
+                        <div class="card space-card" onclick="selectSpace('Mountain View Meeting', 350)">
+                            <img src="https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?w=400&h=200&fit=crop" class="space-image" alt="Meeting Room" loading="lazy">
+                            <div class="card-body">
+                                <h5 class="card-title">Mountain View Meeting</h5>
+                                <p class="text-muted mb-2">📍 Denver - LoDo</p>
+                                <div class="mb-2">
+                                    <span class="badge bg-primary">Conference</span>
+                                    <span class="badge bg-info">8 People</span>
+                                    <span class="badge bg-success">Available</span>
+                                </div>
+                                <p class="card-text">Intimate meeting room with mountain views and modern tech.</p>
+                                <div class="price">$350/day</div>
+                                <button class="btn btn-action w-100 mt-2">Reserve Now</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Space 9 -->
+                    <div class="col-lg-4 col-md-6 space-item" data-location="Miami" data-type="Event" data-capacity="75">
+                        <div class="card space-card" onclick="selectSpace('Beach View Pavilion', 2000)">
+                            <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?w=400&h=200&fit=crop" class="space-image" alt="Event Space" loading="lazy">
+                            <div class="card-body">
+                                <h5 class="card-title">Beach View Pavilion</h5>
+                                <p class="text-muted mb-2">📍 Miami - South Beach</p>
+                                <div class="mb-2">
+                                    <span class="badge bg-primary">Event</span>
+                                    <span class="badge bg-info">75 People</span>
+                                    <span class="badge bg-warning">Limited</span>
+                                </div>
+                                <p class="card-text">Stunning beachfront venue perfect for corporate events.</p>
+                                <div class="price">$2,000/day</div>
+                                <button class="btn btn-action w-100 mt-2">Reserve Now</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Space 10 -->
+                    <div class="col-lg-4 col-md-6 space-item" data-location="Portland" data-type="Open Space" data-capacity="40">
+                        <div class="card space-card" onclick="selectSpace('Creative Commons', 900)">
+                            <img src="https://images.unsplash.com/photo-1527192491265-7e15c55b1ed2?w=400&h=200&fit=crop" class="space-image" alt="Open Space" loading="lazy">
+                            <div class="card-body">
+                                <h5 class="card-title">Creative Commons</h5>
+                                <p class="text-muted mb-2">📍 Portland - Pearl District</p>
+                                <div class="mb-2">
+                                    <span class="badge bg-primary">Open Space</span>
+                                    <span class="badge bg-info">40 People</span>
+                                    <span class="badge bg-success">Available</span>
+                                </div>
+                                <p class="card-text">Collaborative workspace with industrial design and natural light.</p>
+                                <div class="price">$900/day</div>
+                                <button class="btn btn-action w-100 mt-2">Reserve Now</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Space 11 -->
+                    <div class="col-lg-4 col-md-6 space-item" data-location="Atlanta" data-type="Training" data-capacity="25">
+                        <div class="card space-card" onclick="selectSpace('Southern Learning Center', 550)">
+                            <img src="https://images.unsplash.com/photo-1580894742597-87bc8789db3d?w=400&h=200&fit=crop" class="space-image" alt="Training Room" loading="lazy">
+                            <div class="card-body">
+                                <h5 class="card-title">Southern Learning Center</h5>
+                                <p class="text-muted mb-2">📍 Atlanta - Midtown</p>
+                                <div class="mb-2">
+                                    <span class="badge bg-primary">Training</span>
+                                    <span class="badge bg-info">25 People</span>
+                                    <span class="badge bg-success">Available</span>
+                                </div>
+                                <p class="card-text">Modern training facility with AV equipment and breakout areas.</p>
+                                <div class="price">$550/day</div>
+                                <button class="btn btn-action w-100 mt-2">Reserve Now</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Space 12 -->
+                    <div class="col-lg-4 col-md-6 space-item" data-location="Phoenix" data-type="Office" data-capacity="18">
+                        <div class="card space-card" onclick="selectSpace('Desert Sky Office', 700)">
+                            <img src="https://images.unsplash.com/photo-1604328698692-f76ea9498e76?w=400&h=200&fit=crop" class="space-image" alt="Office Space" loading="lazy">
+                            <div class="card-body">
+                                <h5 class="card-title">Desert Sky Office</h5>
+                                <p class="text-muted mb-2">📍 Phoenix - Scottsdale</p>
+                                <div class="mb-2">
+                                    <span class="badge bg-primary">Office</span>
+                                    <span class="badge bg-info">18 People</span>
+                                    <span class="badge bg-success">Available</span>
+                                </div>
+                                <p class="card-text">Southwest-inspired office with mountain views and outdoor terrace.</p>
+                                <div class="price">$700/day</div>
+                                <button class="btn btn-action w-100 mt-2">Reserve Now</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Space 13 -->
+                    <div class="col-lg-4 col-md-6 space-item" data-location="San Francisco" data-type="Conference" data-capacity="16">
+                        <div class="card space-card" onclick="selectSpace('Golden Gate Conference', 750)">
+                            <img src="https://images.unsplash.com/photo-1571624436279-b272aff752b5?w=400&h=200&fit=crop" class="space-image" alt="Conference Room" loading="lazy">
+                            <div class="card-body">
+                                <h5 class="card-title">Golden Gate Conference</h5>
+                                <p class="text-muted mb-2">📍 San Francisco - SOMA</p>
+                                <div class="mb-2">
+                                    <span class="badge bg-primary">Conference</span>
+                                    <span class="badge bg-info">16 People</span>
+                                    <span class="badge bg-success">Available</span>
+                                </div>
+                                <p class="card-text">Premium conference room with bridge views and latest tech.</p>
+                                <div class="price">$750/day</div>
+                                <button class="btn btn-action w-100 mt-2">Reserve Now</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Space 14 -->
+                    <div class="col-lg-4 col-md-6 space-item" data-location="New York" data-type="Office" data-capacity="25">
+                        <div class="card space-card" onclick="selectSpace('Manhattan Tower Suite', 1100)">
+                            <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=200&fit=crop" class="space-image" alt="Tower Office" loading="lazy">
+                            <div class="card-body">
+                                <h5 class="card-title">Manhattan Tower Suite</h5>
+                                <p class="text-muted mb-2">📍 New York - Financial District</p>
+                                <div class="mb-2">
+                                    <span class="badge bg-primary">Office</span>
+                                    <span class="badge bg-info">25 People</span>
+                                    <span class="badge bg-warning">Limited</span>
+                                </div>
+                                <p class="card-text">High-floor office suite with panoramic city views.</p>
+                                <div class="price">$1,100/day</div>
+                                <button class="btn btn-action w-100 mt-2">Reserve Now</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Space 15 -->
+                    <div class="col-lg-4 col-md-6 space-item" data-location="Chicago" data-type="Training" data-capacity="35">
+                        <div class="card space-card" onclick="selectSpace('Lakeside Learning Lab', 750)">
+                            <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=400&h=200&fit=crop" class="space-image" alt="Learning Lab" loading="lazy">
+                            <div class="card-body">
+                                <h5 class="card-title">Lakeside Learning Lab</h5>
+                                <p class="text-muted mb-2">📍 Chicago - Navy Pier</p>
+                                <div class="mb-2">
+                                    <span class="badge bg-primary">Training</span>
+                                    <span class="badge bg-info">35 People</span>
+                                    <span class="badge bg-success">Available</span>
+                                </div>
+                                <p class="card-text">Waterfront training facility with modern equipment.</p>
+                                <div class="price">$750/day</div>
+                                <button class="btn btn-action w-100 mt-2">Reserve Now</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Space 16 -->
+                    <div class="col-lg-4 col-md-6 space-item" data-location="Seattle" data-type="Open Space" data-capacity="60">
+                        <div class="card space-card" onclick="selectSpace('Pike Place Commons', 1400)">
+                            <img src="https://images.unsplash.com/photo-1606836576983-8b458e75221d?w=400&h=200&fit=crop" class="space-image" alt="Commons" loading="lazy">
+                            <div class="card-body">
+                                <h5 class="card-title">Pike Place Commons</h5>
+                                <p class="text-muted mb-2">📍 Seattle - Capitol Hill</p>
+                                <div class="mb-2">
+                                    <span class="badge bg-primary">Open Space</span>
+                                    <span class="badge bg-info">60 People</span>
+                                    <span class="badge bg-success">Available</span>
+                                </div>
+                                <p class="card-text">Vibrant community space near Pike Place Market.</p>
+                                <div class="price">$1,400/day</div>
+                                <button class="btn btn-action w-100 mt-2">Reserve Now</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Space 17 -->
+                    <div class="col-lg-4 col-md-6 space-item" data-location="Los Angeles" data-type="Office" data-capacity="22">
+                        <div class="card space-card" onclick="selectSpace('Hollywood Hills Office', 950)">
+                            <img src="https://images.unsplash.com/photo-1582653291997-079a1c04e5a1?w=400&h=200&fit=crop" class="space-image" alt="Hills Office" loading="lazy">
+                            <div class="card-body">
+                                <h5 class="card-title">Hollywood Hills Office</h5>
+                                <p class="text-muted mb-2">📍 Los Angeles - West Hollywood</p>
+                                <div class="mb-2">
+                                    <span class="badge bg-primary">Office</span>
+                                    <span class="badge bg-info">22 People</span>
+                                    <span class="badge bg-success">Available</span>
+                                </div>
+                                <p class="card-text">Creative office space with Hollywood sign views.</p>
+                                <div class="price">$950/day</div>
+                                <button class="btn btn-action w-100 mt-2">Reserve Now</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Space 18 -->
+                    <div class="col-lg-4 col-md-6 space-item" data-location="Boston" data-type="Conference" data-capacity="14">
+                        <div class="card space-card" onclick="selectSpace('Freedom Trail Meeting', 450)">
+                            <img src="https://images.unsplash.com/photo-1577412647305-991150c7d163?w=400&h=200&fit=crop" class="space-image" alt="Meeting Space" loading="lazy">
+                            <div class="card-body">
+                                <h5 class="card-title">Freedom Trail Meeting</h5>
+                                <p class="text-muted mb-2">📍 Boston - Back Bay</p>
+                                <div class="mb-2">
+                                    <span class="badge bg-primary">Conference</span>
+                                    <span class="badge bg-info">14 People</span>
+                                    <span class="badge bg-success">Available</span>
+                                </div>
+                                <p class="card-text">Historic meeting room in the heart of Boston.</p>
+                                <div class="price">$450/day</div>
+                                <button class="btn btn-action w-100 mt-2">Reserve Now</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Space 19 -->
+                    <div class="col-lg-4 col-md-6 space-item" data-location="Austin" data-type="Event" data-capacity="150">
+                        <div class="card space-card" onclick="selectSpace('Music City Venue', 3000)">
+                            <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&h=200&fit=crop" class="space-image" alt="Event Venue" loading="lazy">
+                            <div class="card-body">
+                                <h5 class="card-title">Music City Venue</h5>
+                                <p class="text-muted mb-2">📍 Austin - 6th Street</p>
+                                <div class="mb-2">
+                                    <span class="badge bg-primary">Event</span>
+                                    <span class="badge bg-info">150 People</span>
+                                    <span class="badge bg-warning">Limited</span>
+                                </div>
+                                <p class="card-text">Premier event space in Austin's entertainment district.</p>
+                                <div class="price">$3,000/day</div>
+                                <button class="btn btn-action w-100 mt-2">Reserve Now</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Space 20 -->
+                    <div class="col-lg-4 col-md-6 space-item" data-location="Denver" data-type="Office" data-capacity="30">
+                        <div class="card space-card" onclick="selectSpace('Mile High Executive', 850)">
+                            <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&h=200&fit=crop" class="space-image" alt="Executive Office" loading="lazy">
+                            <div class="card-body">
+                                <h5 class="card-title">Mile High Executive</h5>
+                                <p class="text-muted mb-2">📍 Denver - Downtown</p>
+                                <div class="mb-2">
+                                    <span class="badge bg-primary">Office</span>
+                                    <span class="badge bg-info">30 People</span>
+                                    <span class="badge bg-success">Available</span>
+                                </div>
+                                <p class="card-text">Executive office with Rocky Mountain views.</p>
+                                <div class="price">$850/day</div>
+                                <button class="btn btn-action w-100 mt-2">Reserve Now</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Space 21 -->
+                    <div class="col-lg-4 col-md-6 space-item" data-location="Miami" data-type="Office" data-capacity="28">
+                        <div class="card space-card" onclick="selectSpace('Biscayne Bay Office', 1050)">
+                            <img src="https://images.unsplash.com/photo-1562113430-9ba2da2f7674?w=400&h=200&fit=crop" class="space-image" alt="Bay Office" loading="lazy">
+                            <div class="card-body">
+                                <h5 class="card-title">Biscayne Bay Office</h5>
+                                <p class="text-muted mb-2">📍 Miami - Brickell</p>
+                                <div class="mb-2">
+                                    <span class="badge bg-primary">Office</span>
+                                    <span class="badge bg-info">28 People</span>
+                                    <span class="badge bg-success">Available</span>
+                                </div>
+                                <p class="card-text">Waterfront office with panoramic bay views.</p>
+                                <div class="price">$1,050/day</div>
+                                <button class="btn btn-action w-100 mt-2">Reserve Now</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Space 22 -->
+                    <div class="col-lg-4 col-md-6 space-item" data-location="Portland" data-type="Conference" data-capacity="20">
+                        <div class="card space-card" onclick="selectSpace('Rose City Conference', 550)">
+                            <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=400&h=200&fit=crop" class="space-image" alt="Conference" loading="lazy">
+                            <div class="card-body">
+                                <h5 class="card-title">Rose City Conference</h5>
+                                <p class="text-muted mb-2">📍 Portland - Downtown</p>
+                                <div class="mb-2">
+                                    <span class="badge bg-primary">Conference</span>
+                                    <span class="badge bg-info">20 People</span>
+                                    <span class="badge bg-success">Available</span>
+                                </div>
+                                <p class="card-text">Eco-friendly meeting space with sustainable design.</p>
+                                <div class="price">$550/day</div>
+                                <button class="btn btn-action w-100 mt-2">Reserve Now</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Space 23 -->
+                    <div class="col-lg-4 col-md-6 space-item" data-location="Atlanta" data-type="Open Space" data-capacity="45">
+                        <div class="card space-card" onclick="selectSpace('Peachtree Commons', 1000)">
+                            <img src="https://images.unsplash.com/photo-1555212697-194d092e3b8f?w=400&h=200&fit=crop" class="space-image" alt="Commons" loading="lazy">
+                            <div class="card-body">
+                                <h5 class="card-title">Peachtree Commons</h5>
+                                <p class="text-muted mb-2">📍 Atlanta - Buckhead</p>
+                                <div class="mb-2">
+                                    <span class="badge bg-primary">Open Space</span>
+                                    <span class="badge bg-info">45 People</span>
+                                    <span class="badge bg-success">Available</span>
+                                </div>
+                                <p class="card-text">Flexible workspace in Atlanta's business district.</p>
+                                <div class="price">$1,000/day</div>
+                                <button class="btn btn-action w-100 mt-2">Reserve Now</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Space 24 -->
+                    <div class="col-lg-4 col-md-6 space-item" data-location="Phoenix" data-type="Training" data-capacity="40">
+                        <div class="card space-card" onclick="selectSpace('Sonoran Training Suite', 800)">
+                            <img src="https://images.unsplash.com/photo-1517502884422-41eaead166d4?w=400&h=200&fit=crop" class="space-image" alt="Training" loading="lazy">
+                            <div class="card-body">
+                                <h5 class="card-title">Sonoran Training Suite</h5>
+                                <p class="text-muted mb-2">📍 Phoenix - Tempe</p>
+                                <div class="mb-2">
+                                    <span class="badge bg-primary">Training</span>
+                                    <span class="badge bg-info">40 People</span>
+                                    <span class="badge bg-success">Available</span>
+                                </div>
+                                <p class="card-text">Climate-controlled training facility with desert views.</p>
+                                <div class="price">$800/day</div>
+                                <button class="btn btn-action w-100 mt-2">Reserve Now</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Space 25 -->
+                    <div class="col-lg-4 col-md-6 space-item" data-location="San Francisco" data-type="Event" data-capacity="200">
+                        <div class="card space-card" onclick="selectSpace('Bay Area Grand Hall', 4500)">
+                            <img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=400&h=200&fit=crop" class="space-image" alt="Grand Hall" loading="lazy">
+                            <div class="card-body">
+                                <h5 class="card-title">Bay Area Grand Hall</h5>
+                                <p class="text-muted mb-2">📍 San Francisco - Mission Bay</p>
+                                <div class="mb-2">
+                                    <span class="badge bg-primary">Event</span>
+                                    <span class="badge bg-info">200 People</span>
+                                    <span class="badge bg-danger">Booked</span>
+                                </div>
+                                <p class="card-text">Luxurious event space for large corporate gatherings.</p>
+                                <div class="price">$4,500/day</div>
+                                <button class="btn btn-action w-100 mt-2" disabled>Unavailable</button>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+
+                <!-- No Results Message -->
+                <div id="noResults" class="alert alert-info" style="display: none;">
+                    No spaces found matching your criteria. Try adjusting the filters.
+                </div>
+            </div>
+
+            <!-- Reservations Tab -->
+            <div class="tab-pane" id="reservations" style="display: none;">
+                <h2>Reservation Manager</h2>
+                <p class="lead">Track and manage all space bookings</p>
+                
+                <!-- Statistics -->
+                <div class="row mb-4">
+                    <div class="col-md-3">
+                        <div class="stat-card bg-primary" onclick="showNotification('24 total reservations')">
+                            <h2 class="mb-0">24</h2>
+                            <p class="mb-0">Total Reservations</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-card bg-success" onclick="showNotification('18 confirmed bookings')">
+                            <h2 class="mb-0">18</h2>
+                            <p class="mb-0">Confirmed</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-card bg-warning" onclick="showNotification('4 pending approvals')">
+                            <h2 class="mb-0">4</h2>
+                            <p class="mb-0">Pending</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-card bg-info" onclick="showNotification('$12,400 total revenue')">
+                            <h2 class="mb-0">$12.4K</h2>
+                            <p class="mb-0">Revenue</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reservations Table -->
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0">Recent Reservations</h4>
+                        <button class="btn btn-success" onclick="createReservation()">
+                            + New Reservation
+                        </button>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Space</th>
+                                        <th>Customer</th>
+                                        <th>Check-in</th>
+                                        <th>Check-out</th>
+                                        <th>Status</th>
+                                        <th>Amount</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="reservationsTable">
+                                    <tr>
+                                        <td><strong>RES-001</strong></td>
+                                        <td>Executive Suite</td>
+                                        <td>
+                                            <div>John Anderson</div>
+                                            <small class="text-muted">john@techcorp.com</small>
+                                        </td>
+                                        <td>Dec 15, 2024</td>
+                                        <td>Dec 17, 2024</td>
+                                        <td><span class="badge bg-success badge-status">Confirmed</span></td>
+                                        <td><strong>$2,400</strong></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-info" onclick="viewReservation('RES-001')">View</button>
+                                            <button class="btn btn-sm btn-warning" onclick="editReservation('RES-001')">Edit</button>
+                                            <button class="btn btn-sm btn-danger" onclick="cancelReservation('RES-001')">Cancel</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>RES-002</strong></td>
+                                        <td>Madison Conference Room</td>
+                                        <td>
+                                            <div>Sarah Mitchell</div>
+                                            <small class="text-muted">sarah@innovate.io</small>
+                                        </td>
+                                        <td>Dec 18, 2024</td>
+                                        <td>Dec 18, 2024</td>
+                                        <td><span class="badge bg-warning badge-status">Pending</span></td>
+                                        <td><strong>$400</strong></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-info" onclick="viewReservation('RES-002')">View</button>
+                                            <button class="btn btn-sm btn-success" onclick="confirmReservation('RES-002')">Confirm</button>
+                                            <button class="btn btn-sm btn-danger" onclick="cancelReservation('RES-002')">Cancel</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>RES-003</strong></td>
+                                        <td>Innovation Hub</td>
+                                        <td>
+                                            <div>Michael Chen</div>
+                                            <small class="text-muted">m.chen@startup.com</small>
+                                        </td>
+                                        <td>Dec 20, 2024</td>
+                                        <td>Dec 22, 2024</td>
+                                        <td><span class="badge bg-success badge-status">Confirmed</span></td>
+                                        <td><strong>$3,600</strong></td>
+                                        <td>
+                                            <button class="btn btn-sm btn-info" onclick="viewReservation('RES-003')">View</button>
+                                            <button class="btn btn-sm btn-warning" onclick="editReservation('RES-003')">Edit</button>
+                                            <button class="btn btn-sm btn-primary" onclick="sendInvoice('RES-003')">Invoice</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contacts Tab -->
+            <div class="tab-pane" id="contacts" style="display: none;">
+                <h2>Contact Management</h2>
+                <p class="lead">Manage customer contacts and relationships</p>
+                
+                <!-- Contact Statistics -->
+                <div class="row mb-4">
+                    <div class="col-md-3">
+                        <div class="stat-card bg-primary">
+                            <h2 class="mb-0">342</h2>
+                            <p class="mb-0">Total Contacts</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-card bg-success">
+                            <h2 class="mb-0">89</h2>
+                            <p class="mb-0">Active Customers</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-card bg-info">
+                            <h2 class="mb-0">45</h2>
+                            <p class="mb-0">New This Month</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3">
+                        <div class="stat-card bg-warning">
+                            <h2 class="mb-0">12</h2>
+                            <p class="mb-0">VIP Clients</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contacts Table -->
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0">All Contacts</h4>
+                        <div>
+                            <button class="btn btn-outline-primary btn-sm me-2" onclick="filterContacts()">
+                                🔍 Filter
+                            </button>
+                            <button class="btn btn-success" onclick="createContact()">
+                                + New Contact
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Company</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
+                                        <th>Type</th>
+                                        <th>Last Activity</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="contactsTable">
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="rounded-circle bg-primary text-white p-2 me-2" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">JA</div>
+                                                <div>
+                                                    <strong>John Anderson</strong>
+                                                    <div class="text-muted small">CEO</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>TechCorp Solutions</td>
+                                        <td>john@techcorp.com</td>
+                                        <td>(555) 123-4567</td>
+                                        <td><span class="badge bg-warning">VIP</span></td>
+                                        <td>2 hours ago</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-info" onclick="viewContact('John Anderson')">View</button>
+                                            <button class="btn btn-sm btn-warning" onclick="editContact('John Anderson')">Edit</button>
+                                            <button class="btn btn-sm btn-primary" onclick="emailContact('john@techcorp.com')">Email</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="rounded-circle bg-success text-white p-2 me-2" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">SM</div>
+                                                <div>
+                                                    <strong>Sarah Mitchell</strong>
+                                                    <div class="text-muted small">Product Manager</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>Innovate.io</td>
+                                        <td>sarah@innovate.io</td>
+                                        <td>(555) 234-5678</td>
+                                        <td><span class="badge bg-primary">Customer</span></td>
+                                        <td>Yesterday</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-info" onclick="viewContact('Sarah Mitchell')">View</button>
+                                            <button class="btn btn-sm btn-warning" onclick="editContact('Sarah Mitchell')">Edit</button>
+                                            <button class="btn btn-sm btn-primary" onclick="emailContact('sarah@innovate.io')">Email</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="rounded-circle bg-info text-white p-2 me-2" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">MC</div>
+                                                <div>
+                                                    <strong>Michael Chen</strong>
+                                                    <div class="text-muted small">Founder</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>StartupHub</td>
+                                        <td>m.chen@startup.com</td>
+                                        <td>(555) 345-6789</td>
+                                        <td><span class="badge bg-success">Partner</span></td>
+                                        <td>3 days ago</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-info" onclick="viewContact('Michael Chen')">View</button>
+                                            <button class="btn btn-sm btn-warning" onclick="editContact('Michael Chen')">Edit</button>
+                                            <button class="btn btn-sm btn-primary" onclick="emailContact('m.chen@startup.com')">Email</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>
+                                            <div class="d-flex align-items-center">
+                                                <div class="rounded-circle bg-danger text-white p-2 me-2" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">EJ</div>
+                                                <div>
+                                                    <strong>Emily Johnson</strong>
+                                                    <div class="text-muted small">Marketing Director</div>
+                                                </div>
+                                            </div>
+                                        </td>
+                                        <td>Global Enterprises</td>
+                                        <td>emily.j@global.com</td>
+                                        <td>(555) 456-7890</td>
+                                        <td><span class="badge bg-primary">Customer</span></td>
+                                        <td>1 week ago</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-info" onclick="viewContact('Emily Johnson')">View</button>
+                                            <button class="btn btn-sm btn-warning" onclick="editContact('Emily Johnson')">Edit</button>
+                                            <button class="btn btn-sm btn-primary" onclick="emailContact('emily.j@global.com')">Email</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Leads Tab -->
+            <div class="tab-pane" id="leads" style="display: none;">
+                <h2>Lead Management</h2>
+                <p class="lead">Track and convert potential customers</p>
+                
+                <!-- Lead Pipeline -->
+                <div class="row mb-4">
+                    <div class="col-md-2">
+                        <div class="card border-primary">
+                            <div class="card-body text-center">
+                                <h4>New</h4>
+                                <h2 class="text-primary">28</h2>
+                                <small>Unqualified</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="card border-info">
+                            <div class="card-body text-center">
+                                <h4>Contacted</h4>
+                                <h2 class="text-info">15</h2>
+                                <small>In Progress</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="card border-warning">
+                            <div class="card-body text-center">
+                                <h4>Qualified</h4>
+                                <h2 class="text-warning">12</h2>
+                                <small>Ready</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="card border-success">
+                            <div class="card-body text-center">
+                                <h4>Proposal</h4>
+                                <h2 class="text-success">8</h2>
+                                <small>Sent</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="card border-danger">
+                            <div class="card-body text-center">
+                                <h4>Negotiation</h4>
+                                <h2 class="text-danger">5</h2>
+                                <small>Active</small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="card border-dark">
+                            <div class="card-body text-center">
+                                <h4>Won</h4>
+                                <h2 class="text-dark">42</h2>
+                                <small>This Month</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Leads Table -->
+                <div class="card">
+                    <div class="card-header d-flex justify-content-between align-items-center">
+                        <h4 class="mb-0">Lead Pipeline</h4>
+                        <div>
+                            <button class="btn btn-outline-primary btn-sm me-2" onclick="filterLeads()">
+                                🔍 Filter
+                            </button>
+                            <button class="btn btn-outline-secondary btn-sm me-2" onclick="importLeads()">
+                                📥 Import
+                            </button>
+                            <button class="btn btn-success" onclick="createLead()">
+                                + New Lead
+                            </button>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>Lead Name</th>
+                                        <th>Company</th>
+                                        <th>Email</th>
+                                        <th>Source</th>
+                                        <th>Status</th>
+                                        <th>Score</th>
+                                        <th>Owner</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="leadsTable">
+                                    <tr>
+                                        <td><strong>Robert Williams</strong></td>
+                                        <td>Future Tech Inc</td>
+                                        <td>r.williams@futuretech.com</td>
+                                        <td><span class="badge bg-info">Website</span></td>
+                                        <td><span class="badge bg-primary">New</span></td>
+                                        <td>
+                                            <div class="progress" style="width: 100px; height: 20px;">
+                                                <div class="progress-bar bg-success" style="width: 85%">85</div>
+                                            </div>
+                                        </td>
+                                        <td>Sales Team</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-success" onclick="qualifyLead('Robert Williams')">Qualify</button>
+                                            <button class="btn btn-sm btn-info" onclick="viewLead('Robert Williams')">View</button>
+                                            <button class="btn btn-sm btn-primary" onclick="convertLead('Robert Williams')">Convert</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Lisa Thompson</strong></td>
+                                        <td>Creative Agency</td>
+                                        <td>lisa@creative.agency</td>
+                                        <td><span class="badge bg-success">Referral</span></td>
+                                        <td><span class="badge bg-warning">Qualified</span></td>
+                                        <td>
+                                            <div class="progress" style="width: 100px; height: 20px;">
+                                                <div class="progress-bar bg-warning" style="width: 70%">70</div>
+                                            </div>
+                                        </td>
+                                        <td>John Doe</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-success" onclick="createProposal('Lisa Thompson')">Proposal</button>
+                                            <button class="btn btn-sm btn-info" onclick="viewLead('Lisa Thompson')">View</button>
+                                            <button class="btn btn-sm btn-primary" onclick="convertLead('Lisa Thompson')">Convert</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>David Martinez</strong></td>
+                                        <td>Retail Solutions</td>
+                                        <td>d.martinez@retail.com</td>
+                                        <td><span class="badge bg-primary">LinkedIn</span></td>
+                                        <td><span class="badge bg-info">Contacted</span></td>
+                                        <td>
+                                            <div class="progress" style="width: 100px; height: 20px;">
+                                                <div class="progress-bar bg-info" style="width: 60%">60</div>
+                                            </div>
+                                        </td>
+                                        <td>Sarah Smith</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-warning" onclick="followUp('David Martinez')">Follow Up</button>
+                                            <button class="btn btn-sm btn-info" onclick="viewLead('David Martinez')">View</button>
+                                            <button class="btn btn-sm btn-danger" onclick="disqualifyLead('David Martinez')">Disqualify</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Jennifer Lee</strong></td>
+                                        <td>Healthcare Plus</td>
+                                        <td>j.lee@healthcare.com</td>
+                                        <td><span class="badge bg-warning">Trade Show</span></td>
+                                        <td><span class="badge bg-success">Proposal</span></td>
+                                        <td>
+                                            <div class="progress" style="width: 100px; height: 20px;">
+                                                <div class="progress-bar bg-success" style="width: 90%">90</div>
+                                            </div>
+                                        </td>
+                                        <td>Mike Johnson</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-success" onclick="closeDeal('Jennifer Lee')">Close Deal</button>
+                                            <button class="btn btn-sm btn-info" onclick="viewLead('Jennifer Lee')">View</button>
+                                            <button class="btn btn-sm btn-warning" onclick="negotiate('Jennifer Lee')">Negotiate</button>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Thomas Brown</strong></td>
+                                        <td>Finance Corp</td>
+                                        <td>t.brown@finance.com</td>
+                                        <td><span class="badge bg-danger">Cold Call</span></td>
+                                        <td><span class="badge bg-danger">Negotiation</span></td>
+                                        <td>
+                                            <div class="progress" style="width: 100px; height: 20px;">
+                                                <div class="progress-bar bg-danger" style="width: 95%">95</div>
+                                            </div>
+                                        </td>
+                                        <td>Sales Team</td>
+                                        <td>
+                                            <button class="btn btn-sm btn-success" onclick="closeDeal('Thomas Brown')">Close Deal</button>
+                                            <button class="btn btn-sm btn-info" onclick="viewLead('Thomas Brown')">View</button>
+                                            <button class="btn btn-sm btn-primary" onclick="updateTerms('Thomas Brown')">Update</button>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reservation Modal -->
+    <div class="modal fade" id="reservationModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Create New Reservation</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="reservationForm">
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Customer Name</label>
+                                <input type="text" class="form-control" id="customerName" required>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-control" id="customerEmail" required>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <label class="form-label">Space</label>
+                                <select class="form-select" id="spaceSelect">
+                                    <option>Executive Suite - $800/day</option>
+                                    <option>Madison Conference Room - $400/day</option>
+                                    <option>Innovation Hub - $1,200/day</option>
+                                    <option>Tech Training Center - $600/day</option>
+                                    <option>Sunset Ballroom - $2,500/day</option>
+                                    <option>Harbor View Office - $500/day</option>
+                                    <option>Tech Hub Austin - $650/day</option>
+                                    <option>Mountain View Meeting - $350/day</option>
+                                    <option>Beach View Pavilion - $2,000/day</option>
+                                    <option>Creative Commons - $900/day</option>
+                                    <option>Southern Learning Center - $550/day</option>
+                                    <option>Desert Sky Office - $700/day</option>
+                                    <option>Golden Gate Conference - $750/day</option>
+                                    <option>Manhattan Tower Suite - $1,100/day</option>
+                                    <option>Lakeside Learning Lab - $750/day</option>
+                                    <option>Pike Place Commons - $1,400/day</option>
+                                    <option>Hollywood Hills Office - $950/day</option>
+                                    <option>Freedom Trail Meeting - $450/day</option>
+                                    <option>Music City Venue - $3,000/day</option>
+                                    <option>Mile High Executive - $850/day</option>
+                                    <option>Biscayne Bay Office - $1,050/day</option>
+                                    <option>Rose City Conference - $550/day</option>
+                                    <option>Peachtree Commons - $1,000/day</option>
+                                    <option>Sonoran Training Suite - $800/day</option>
+                                    <option>Bay Area Grand Hall - $4,500/day</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label class="form-label">Check-in</label>
+                                <input type="date" class="form-control" id="checkIn">
+                            </div>
+                            <div class="col-md-3 mb-3">
+                                <label class="form-label">Check-out</label>
+                                <input type="date" class="form-control" id="checkOut">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <label class="form-label">Special Requests</label>
+                                <textarea class="form-control" rows="3"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-action" onclick="saveReservation()">Create Reservation</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Tab Management
+        function showTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-pane').forEach(tab => {
+                tab.style.display = 'none';
+                tab.classList.remove('show', 'active');
+            });
+            
+            // Remove active from all nav links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // Show selected tab
+            document.getElementById(tabName).style.display = 'block';
+            document.getElementById(tabName).classList.add('show', 'active');
+            document.getElementById(tabName + '-tab').classList.add('active');
+        }
+
+        // Space Selection
+        function selectSpace(spaceName, price) {
+            // Prevent button click from triggering
+            if (event.target.tagName === 'BUTTON') {
+                event.stopPropagation();
+                // Open reservation modal with pre-filled space
+                openReservationForSpace(spaceName, price);
+                return;
+            }
+            
+            showNotification(`Selected: ${spaceName} - $${price}/day`);
+            
+            // Add selected class
+            event.currentTarget.classList.add('selected-space');
+            setTimeout(() => {
+                event.currentTarget.classList.remove('selected-space');
+            }, 1000);
+        }
+        
+        // Open reservation modal for specific space
+        function openReservationForSpace(spaceName, price) {
+            // Reset form
+            document.getElementById('reservationForm').reset();
+            
+            // Set modal title
+            document.querySelector('.modal-title').innerText = 'Create New Reservation';
+            
+            // Enable all fields
+            const form = document.getElementById('reservationForm');
+            form.querySelectorAll('input, select, textarea').forEach(field => {
+                field.removeAttribute('readonly');
+                field.removeAttribute('disabled');
+            });
+            
+            // Pre-select the space
+            const spaceSelect = document.getElementById('spaceSelect');
+            const options = spaceSelect.options;
+            for (let i = 0; i < options.length; i++) {
+                if (options[i].text.includes(spaceName)) {
+                    spaceSelect.selectedIndex = i;
+                    break;
+                }
+            }
+            
+            // Set today's date
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('checkIn').value = today;
+            document.getElementById('checkOut').value = today;
+            
+            // Update modal footer
+            document.querySelector('.modal-footer').innerHTML = `
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-action" onclick="saveReservation()">Create Reservation</button>
+            `;
+            
+            // Show modal
+            const modal = new bootstrap.Modal(document.getElementById('reservationModal'));
+            modal.show();
+            
+            showNotification(`Booking ${spaceName} - $${price}/day`);
+        }
+
+        // Filter Spaces
+        function filterSpaces() {
+            const location = document.getElementById('locationFilter').value.toLowerCase();
+            const type = document.getElementById('typeFilter').value.toLowerCase();
+            const capacity = document.getElementById('capacityFilter').value;
+            
+            const spaces = document.querySelectorAll('.space-item');
+            let visibleCount = 0;
+            
+            spaces.forEach(space => {
+                const spaceLocation = space.dataset.location.toLowerCase();
+                const spaceType = space.dataset.type.toLowerCase();
+                const spaceCapacity = parseInt(space.dataset.capacity);
+                
+                let show = true;
+                
+                if (location && !spaceLocation.includes(location)) show = false;
+                if (type && !spaceType.includes(type)) show = false;
+                
+                if (capacity) {
+                    if (capacity === '1-10' && spaceCapacity > 10) show = false;
+                    if (capacity === '11-25' && (spaceCapacity < 11 || spaceCapacity > 25)) show = false;
+                    if (capacity === '26-50' && (spaceCapacity < 26 || spaceCapacity > 50)) show = false;
+                    if (capacity === '50+' && spaceCapacity < 50) show = false;
+                }
+                
+                space.style.display = show ? '' : 'none';
+                if (show) visibleCount++;
+            });
+            
+            // Show/hide no results message
+            document.getElementById('noResults').style.display = visibleCount === 0 ? 'block' : 'none';
+        }
+
+        // Clear Filters
+        function clearFilters() {
+            document.getElementById('locationFilter').value = '';
+            document.getElementById('typeFilter').value = '';
+            document.getElementById('capacityFilter').value = '';
+            filterSpaces();
+            showNotification('Filters cleared');
+        }
+
+        // Reservation Functions
+        function createReservation() {
+            const modal = new bootstrap.Modal(document.getElementById('reservationModal'));
+            modal.show();
+        }
+
+        function saveReservation() {
+            const name = document.getElementById('customerName').value;
+            const email = document.getElementById('customerEmail').value;
+            const space = document.getElementById('spaceSelect').value;
+            
+            if (name && email) {
+                // Add new row to table
+                const newId = 'RES-' + String(Math.floor(Math.random() * 900) + 100);
+                const table = document.getElementById('reservationsTable');
+                const newRow = table.insertRow(0);
+                
+                newRow.innerHTML = `
+                    <td><strong>${newId}</strong></td>
+                    <td>${space.split(' - ')[0]}</td>
+                    <td>
+                        <div>${name}</div>
+                        <small class="text-muted">${email}</small>
+                    </td>
+                    <td>${new Date().toLocaleDateString()}</td>
+                    <td>${new Date().toLocaleDateString()}</td>
+                    <td><span class="badge bg-warning badge-status">Pending</span></td>
+                    <td><strong>${space.split('$')[1]}</strong></td>
+                    <td>
+                        <button class="btn btn-sm btn-info" onclick="viewReservation('${newId}')">View</button>
+                        <button class="btn btn-sm btn-success" onclick="confirmReservation('${newId}')">Confirm</button>
+                        <button class="btn btn-sm btn-danger" onclick="cancelReservation('${newId}')">Cancel</button>
+                    </td>
+                `;
+                
+                // Close modal
+                bootstrap.Modal.getInstance(document.getElementById('reservationModal')).hide();
+                
+                // Clear form
+                document.getElementById('reservationForm').reset();
+                
+                // Show success
+                showNotification(`Reservation ${newId} created successfully!`);
+            }
+        }
+
+        function viewReservation(id) {
+            // Create a modal to view reservation details
+            const modal = new bootstrap.Modal(document.getElementById('reservationModal'));
+            document.querySelector('.modal-title').innerText = 'View Reservation ' + id;
+            
+            // Pre-fill form with existing data (read-only)
+            const form = document.getElementById('reservationForm');
+            form.querySelectorAll('input, select, textarea').forEach(field => {
+                field.setAttribute('readonly', true);
+                field.setAttribute('disabled', true);
+            });
+            
+            // Update modal footer buttons
+            document.querySelector('.modal-footer').innerHTML = `
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+            `;
+            
+            modal.show();
+            showNotification(`Viewing reservation ${id}`);
+        }
+
+        function editReservation(id) {
+            // Create a modal to edit reservation
+            const modal = new bootstrap.Modal(document.getElementById('reservationModal'));
+            document.querySelector('.modal-title').innerText = 'Edit Reservation ' + id;
+            
+            // Enable form fields for editing
+            const form = document.getElementById('reservationForm');
+            form.querySelectorAll('input, select, textarea').forEach(field => {
+                field.removeAttribute('readonly');
+                field.removeAttribute('disabled');
+            });
+            
+            // Pre-fill with sample data
+            document.getElementById('customerName').value = 'John Anderson';
+            document.getElementById('customerEmail').value = 'john@techcorp.com';
+            
+            // Update modal footer buttons
+            document.querySelector('.modal-footer').innerHTML = `
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-action" onclick="updateReservation('${id}')">Save Changes</button>
+            `;
+            
+            modal.show();
+            showNotification(`Editing reservation ${id}`);
+        }
+        
+        function updateReservation(id) {
+            bootstrap.Modal.getInstance(document.getElementById('reservationModal')).hide();
+            showNotification(`Reservation ${id} updated successfully!`);
+        }
+
+        function confirmReservation(id) {
+            // Find the row and update status
+            const rows = document.querySelectorAll('#reservationsTable tr');
+            rows.forEach(row => {
+                if (row.cells[0].innerText === id) {
+                    row.cells[5].innerHTML = '<span class="badge bg-success badge-status">Confirmed</span>';
+                }
+            });
+            showNotification(`Reservation ${id} confirmed!`);
+        }
+
+        function cancelReservation(id) {
+            if (confirm(`Are you sure you want to cancel reservation ${id}?`)) {
+                // Find the row and update status
+                const rows = document.querySelectorAll('#reservationsTable tr');
+                rows.forEach(row => {
+                    if (row.cells[0].innerText === id) {
+                        row.cells[5].innerHTML = '<span class="badge bg-danger badge-status">Cancelled</span>';
+                    }
+                });
+                showNotification(`Reservation ${id} cancelled`);
+            }
+        }
+
+        function sendInvoice(id) {
+            showNotification(`Invoice sent for reservation ${id}`);
+        }
+
+        // Show Notification
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            document.getElementById('notificationText').innerText = message;
+            notification.style.display = 'block';
+            
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
+        }
+
+        // Contact Management Functions
+        function createContact() {
+            showNotification('Opening new contact form...');
+        }
+        
+        function viewContact(name) {
+            showNotification(`Viewing contact: ${name}`);
+        }
+        
+        function editContact(name) {
+            showNotification(`Editing contact: ${name}`);
+        }
+        
+        function emailContact(email) {
+            window.location.href = `mailto:${email}`;
+            showNotification(`Opening email client for ${email}`);
+        }
+        
+        function filterContacts() {
+            showNotification('Opening contact filter options...');
+        }
+        
+        // Lead Management Functions
+        function createLead() {
+            showNotification('Creating new lead...');
+        }
+        
+        function viewLead(name) {
+            showNotification(`Viewing lead: ${name}`);
+        }
+        
+        function qualifyLead(name) {
+            // Update lead status to qualified
+            const rows = document.querySelectorAll('#leadsTable tr');
+            rows.forEach(row => {
+                if (row.cells[0].innerText.includes(name)) {
+                    row.cells[4].innerHTML = '<span class="badge bg-warning">Qualified</span>';
+                }
+            });
+            showNotification(`Lead ${name} has been qualified!`);
+        }
+        
+        function convertLead(name) {
+            if (confirm(`Convert ${name} to a contact?`)) {
+                // Remove from leads table
+                const rows = document.querySelectorAll('#leadsTable tr');
+                rows.forEach(row => {
+                    if (row.cells[0].innerText.includes(name)) {
+                        row.remove();
+                    }
+                });
+                
+                // Add to contacts table (simulation)
+                const contactsTable = document.getElementById('contactsTable');
+                const newRow = contactsTable.insertRow(0);
+                const initials = name.split(' ').map(n => n[0]).join('');
+                
+                newRow.innerHTML = `
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <div class="rounded-circle bg-success text-white p-2 me-2" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">${initials}</div>
+                            <div>
+                                <strong>${name}</strong>
+                                <div class="text-muted small">New Contact</div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>Converted Lead</td>
+                    <td>email@example.com</td>
+                    <td>(555) 000-0000</td>
+                    <td><span class="badge bg-success">New</span></td>
+                    <td>Just now</td>
+                    <td>
+                        <button class="btn btn-sm btn-info" onclick="viewContact('${name}')">View</button>
+                        <button class="btn btn-sm btn-warning" onclick="editContact('${name}')">Edit</button>
+                        <button class="btn btn-sm btn-primary" onclick="emailContact('email@example.com')">Email</button>
+                    </td>
+                `;
+                
+                showNotification(`Lead ${name} converted to contact successfully!`);
+            }
+        }
+        
+        function disqualifyLead(name) {
+            if (confirm(`Disqualify lead ${name}?`)) {
+                const rows = document.querySelectorAll('#leadsTable tr');
+                rows.forEach(row => {
+                    if (row.cells[0].innerText.includes(name)) {
+                        row.cells[4].innerHTML = '<span class="badge bg-secondary">Disqualified</span>';
+                    }
+                });
+                showNotification(`Lead ${name} has been disqualified`);
+            }
+        }
+        
+        function createProposal(name) {
+            showNotification(`Creating proposal for ${name}...`);
+        }
+        
+        function followUp(name) {
+            showNotification(`Scheduling follow-up for ${name}...`);
+        }
+        
+        function closeDeal(name) {
+            if (confirm(`Close deal with ${name}?`)) {
+                const rows = document.querySelectorAll('#leadsTable tr');
+                rows.forEach(row => {
+                    if (row.cells[0].innerText.includes(name)) {
+                        row.cells[4].innerHTML = '<span class="badge bg-success">Won</span>';
+                    }
+                });
+                showNotification(`Deal closed successfully with ${name}!`);
+            }
+        }
+        
+        function negotiate(name) {
+            showNotification(`Opening negotiation details for ${name}...`);
+        }
+        
+        function updateTerms(name) {
+            showNotification(`Updating terms for ${name}...`);
+        }
+        
+        function filterLeads() {
+            showNotification('Opening lead filter options...');
+        }
+        
+        function importLeads() {
+            showNotification('Opening lead import wizard...');
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set today's date as default
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('checkIn').value = today;
+            document.getElementById('checkOut').value = today;
+        });
+    </script>
+</body>
+</html>
