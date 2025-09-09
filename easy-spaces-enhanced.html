@@ -1,0 +1,2120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Easy Spaces - Premium Space Management Platform</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            --success-gradient: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);
+            --danger-gradient: linear-gradient(135deg, #eb3349 0%, #f45c43 100%);
+            --info-gradient: linear-gradient(135deg, #2196f3 0%, #21cbf3 100%);
+            --warning-gradient: linear-gradient(135deg, #f2994a 0%, #f2c94c 100%);
+            --dark-gradient: linear-gradient(135deg, #232526 0%, #414345 100%);
+        }
+
+        * { 
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            min-height: 100vh;
+        }
+
+        /* Enhanced Navigation */
+        .navbar {
+            background: var(--primary-gradient);
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+            padding: 1rem 0;
+        }
+
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .navbar-nav .nav-link {
+            color: rgba(255,255,255,0.9) !important;
+            font-weight: 500;
+            margin: 0 10px;
+            padding: 8px 16px !important;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .navbar-nav .nav-link:hover {
+            background: rgba(255,255,255,0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Enhanced Hero Section */
+        .hero {
+            background: var(--primary-gradient);
+            color: white;
+            padding: 100px 0;
+            border-radius: 0 0 50px 50px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="white" fill-opacity="0.1" d="M0,192L48,197.3C96,203,192,213,288,229.3C384,245,480,267,576,250.7C672,235,768,181,864,181.3C960,181,1056,235,1152,234.7C1248,235,1344,181,1392,154.7L1440,128L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>');
+            background-size: cover;
+            opacity: 0.3;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            margin-bottom: 20px;
+            animation: fadeInUp 0.8s ease;
+        }
+
+        /* Enhanced Cards */
+        .space-card {
+            border: none;
+            border-radius: 20px;
+            overflow: hidden;
+            background: white;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            height: 100%;
+        }
+
+        .space-card:hover {
+            transform: translateY(-15px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(102, 126, 234, 0.3);
+        }
+
+        .space-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            position: relative;
+        }
+
+        .space-card .badge {
+            font-size: 0.75rem;
+            padding: 5px 10px;
+            margin: 2px;
+        }
+
+        /* Enhanced Buttons */
+        .btn-action {
+            background: var(--primary-gradient);
+            color: white;
+            border: none;
+            border-radius: 30px;
+            padding: 12px 30px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 15px rgba(102, 126, 234, 0.4);
+            transition: all 0.3s ease;
+        }
+
+        .btn-action:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.5);
+            color: white;
+        }
+
+        .btn-success-gradient {
+            background: var(--success-gradient);
+            box-shadow: 0 4px 15px rgba(17, 153, 142, 0.4);
+        }
+
+        .btn-danger-gradient {
+            background: var(--danger-gradient);
+            box-shadow: 0 4px 15px rgba(235, 51, 73, 0.4);
+        }
+
+        .btn-info-gradient {
+            background: var(--info-gradient);
+            box-shadow: 0 4px 15px rgba(33, 150, 243, 0.4);
+        }
+
+        /* Enhanced Statistics Cards */
+        .stat-card {
+            border-radius: 20px;
+            padding: 30px;
+            text-align: center;
+            color: white;
+            position: relative;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        .stat-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: rgba(255,255,255,0.1);
+            transform: rotate(45deg);
+            transition: all 0.5s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+
+        .stat-card:hover::before {
+            top: -100%;
+            right: -100%;
+        }
+
+        .stat-card h2 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+
+        /* Enhanced Tables */
+        .table {
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .table thead {
+            background: var(--primary-gradient);
+            color: white;
+        }
+
+        .table tbody tr {
+            transition: all 0.3s ease;
+        }
+
+        .table tbody tr:hover {
+            background: #f8f9fa;
+            transform: scale(1.01);
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        /* Enhanced Modals */
+        .modal-content {
+            border-radius: 20px;
+            border: none;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+        }
+
+        .modal-header {
+            background: var(--primary-gradient);
+            color: white;
+            border-radius: 20px 20px 0 0;
+            border: none;
+        }
+
+        /* Enhanced Form Controls */
+        .form-control, .form-select {
+            border-radius: 10px;
+            border: 2px solid #e0e0e0;
+            padding: 12px;
+            transition: all 0.3s ease;
+        }
+
+        .form-control:focus, .form-select:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 0.2rem rgba(102, 126, 234, 0.25);
+        }
+
+        /* Enhanced Badges */
+        .badge {
+            padding: 8px 12px;
+            border-radius: 15px;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        /* Enhanced Progress Bars */
+        .progress {
+            height: 25px;
+            border-radius: 15px;
+            background: #f0f0f0;
+            overflow: visible;
+        }
+
+        .progress-bar {
+            border-radius: 15px;
+            font-weight: 600;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+
+        /* Enhanced Notification */
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 9999;
+            animation: slideInRight 0.5s ease;
+        }
+
+        .alert {
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+            }
+            to {
+                transform: translateX(0);
+            }
+        }
+
+        /* Enhanced Navigation Pills */
+        .nav-pills .nav-link {
+            border-radius: 20px;
+            padding: 12px 24px;
+            margin: 0 5px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            background: white;
+            color: #667eea;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .nav-pills .nav-link:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+        }
+
+        .nav-pills .nav-link.active {
+            background: var(--primary-gradient);
+            color: white;
+            box-shadow: 0 5px 20px rgba(102, 126, 234, 0.4);
+        }
+
+        /* Feature Cards */
+        .feature-card {
+            padding: 30px;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.2);
+        }
+
+        .feature-icon {
+            width: 80px;
+            height: 80px;
+            background: var(--primary-gradient);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: var(--primary-gradient);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555;
+        }
+
+        /* Loading Animation */
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #667eea;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <!-- Enhanced Notification Toast -->
+    <div id="notification" class="notification" style="display: none;">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            <i class="fas fa-check-circle me-2"></i>
+            <strong id="notificationText">Success!</strong>
+            <button type="button" class="btn-close" onclick="hideNotification()"></button>
+        </div>
+    </div>
+
+    <!-- Enhanced Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="#home" onclick="showTab('home'); return false;">
+                <i class="fas fa-building me-2"></i>Easy Spaces
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <div class="navbar-nav ms-auto">
+                    <a class="nav-link" href="#home" onclick="showTab('home'); return false;">
+                        <i class="fas fa-home me-1"></i> Home
+                    </a>
+                    <a class="nav-link" href="#spaces" onclick="showTab('spaces'); return false;">
+                        <i class="fas fa-th me-1"></i> Spaces
+                    </a>
+                    <a class="nav-link" href="#reservations" onclick="showTab('reservations'); return false;">
+                        <i class="fas fa-calendar-check me-1"></i> Reservations
+                    </a>
+                    <a class="nav-link" href="#contacts" onclick="showTab('contacts'); return false;">
+                        <i class="fas fa-address-book me-1"></i> Contacts
+                    </a>
+                    <a class="nav-link" href="#leads" onclick="showTab('leads'); return false;">
+                        <i class="fas fa-chart-line me-1"></i> Leads
+                    </a>
+                    <a class="nav-link" href="#analytics" onclick="showTab('analytics'); return false;">
+                        <i class="fas fa-chart-bar me-1"></i> Analytics
+                    </a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container-fluid px-4 py-4">
+        <!-- Enhanced Tab Navigation -->
+        <ul class="nav nav-pills mb-4 justify-content-center" id="mainTabs">
+            <li class="nav-item">
+                <a class="nav-link active" id="home-tab" onclick="showTab('home'); return false;" href="#home">
+                    <i class="fas fa-home me-2"></i>Dashboard
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="spaces-tab" onclick="showTab('spaces'); return false;" href="#spaces">
+                    <i class="fas fa-building me-2"></i>Space Designer
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="reservations-tab" onclick="showTab('reservations'); return false;" href="#reservations">
+                    <i class="fas fa-calendar-alt me-2"></i>Reservations
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="contacts-tab" onclick="showTab('contacts'); return false;" href="#contacts">
+                    <i class="fas fa-users me-2"></i>Contacts
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="leads-tab" onclick="showTab('leads'); return false;" href="#leads">
+                    <i class="fas fa-funnel-dollar me-2"></i>Leads
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="analytics-tab" onclick="showTab('analytics'); return false;" href="#analytics">
+                    <i class="fas fa-analytics me-2"></i>Analytics
+                </a>
+            </li>
+        </ul>
+
+        <!-- Tab Content -->
+        <div class="tab-content">
+            <!-- Home/Dashboard Tab -->
+            <div class="tab-pane show active" id="home">
+                <div class="hero rounded-5 mb-5">
+                    <div class="text-center position-relative">
+                        <h1 class="display-3 fw-bold mb-3">Welcome to Easy Spaces</h1>
+                        <p class="lead fs-4 mb-4">Premium Space Reservation Platform</p>
+                        <p class="fs-5 mb-5">Powered by Microsoft Dynamics 365</p>
+                        <div class="d-flex justify-content-center gap-3">
+                            <button class="btn btn-light btn-lg px-5" onclick="showTab('spaces')">
+                                <i class="fas fa-search me-2"></i>Browse Spaces
+                            </button>
+                            <button class="btn btn-outline-light btn-lg px-5" onclick="quickBooking()">
+                                <i class="fas fa-bolt me-2"></i>Quick Booking
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dashboard Stats -->
+                <div class="row mb-5">
+                    <div class="col-md-3 mb-4">
+                        <div class="stat-card bg-primary">
+                            <i class="fas fa-building fa-3x mb-3"></i>
+                            <h2>50+</h2>
+                            <p class="mb-0">Premium Spaces</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-4">
+                        <div class="stat-card bg-success">
+                            <i class="fas fa-users fa-3x mb-3"></i>
+                            <h2>342</h2>
+                            <p class="mb-0">Active Customers</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-4">
+                        <div class="stat-card bg-warning">
+                            <i class="fas fa-calendar-check fa-3x mb-3"></i>
+                            <h2>89%</h2>
+                            <p class="mb-0">Occupancy Rate</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-4">
+                        <div class="stat-card bg-info">
+                            <i class="fas fa-dollar-sign fa-3x mb-3"></i>
+                            <h2>$125K</h2>
+                            <p class="mb-0">Monthly Revenue</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Quick Actions -->
+                <h3 class="mb-4">Quick Actions</h3>
+                <div class="row mb-5">
+                    <div class="col-md-4 mb-4">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-plus"></i>
+                            </div>
+                            <h4>Create Reservation</h4>
+                            <p class="text-muted">Book a space for your next meeting or event</p>
+                            <button class="btn btn-action w-100" onclick="createReservation()">
+                                Get Started
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-user-plus"></i>
+                            </div>
+                            <h4>Add New Contact</h4>
+                            <p class="text-muted">Register a new customer or partner</p>
+                            <button class="btn btn-action w-100" onclick="createContact()">
+                                Add Contact
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <h4>View Analytics</h4>
+                            <p class="text-muted">Track performance and insights</p>
+                            <button class="btn btn-action w-100" onclick="showTab('analytics')">
+                                View Reports
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <h3 class="mb-4">Recent Activity</h3>
+                <div class="card border-0 shadow-sm rounded-4">
+                    <div class="card-body">
+                        <div class="list-group list-group-flush">
+                            <div class="list-group-item d-flex justify-content-between align-items-center">
+                                <div>
+                                    <i class="fas fa-check-circle text-success me-2"></i>
+                                    <strong>John Anderson</strong> booked Executive Suite
+                                </div>
+                                <small class="text-muted">2 minutes ago</small>
+                            </div>
+                            <div class="list-group-item d-flex justify-content-between align-items-center">
+                                <div>
+                                    <i class="fas fa-user-plus text-info me-2"></i>
+                                    New lead: <strong>Robert Williams</strong> from Future Tech
+                                </div>
+                                <small class="text-muted">15 minutes ago</small>
+                            </div>
+                            <div class="list-group-item d-flex justify-content-between align-items-center">
+                                <div>
+                                    <i class="fas fa-edit text-warning me-2"></i>
+                                    Reservation <strong>RES-002</strong> updated
+                                </div>
+                                <small class="text-muted">1 hour ago</small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Space Designer Tab -->
+            <div class="tab-pane" id="spaces" style="display: none;">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div>
+                        <h2 class="mb-1">Space Designer</h2>
+                        <p class="text-muted mb-0">Browse and reserve premium spaces</p>
+                    </div>
+                    <button class="btn btn-action" onclick="showSpaceMap()">
+                        <i class="fas fa-map me-2"></i>Map View
+                    </button>
+                </div>
+
+                <!-- Enhanced Filters -->
+                <div class="card border-0 shadow-sm rounded-4 mb-4">
+                    <div class="card-body">
+                        <div class="row g-3">
+                            <div class="col-md-3">
+                                <label class="form-label fw-bold">
+                                    <i class="fas fa-map-marker-alt me-1"></i>Location
+                                </label>
+                                <select class="form-select" id="locationFilter" onchange="filterSpaces()">
+                                    <option value="">All Locations</option>
+                                    <option value="San Francisco">San Francisco</option>
+                                    <option value="New York">New York</option>
+                                    <option value="Chicago">Chicago</option>
+                                    <option value="Seattle">Seattle</option>
+                                    <option value="Los Angeles">Los Angeles</option>
+                                    <option value="Boston">Boston</option>
+                                    <option value="Austin">Austin</option>
+                                    <option value="Denver">Denver</option>
+                                    <option value="Miami">Miami</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label fw-bold">
+                                    <i class="fas fa-building me-1"></i>Space Type
+                                </label>
+                                <select class="form-select" id="typeFilter" onchange="filterSpaces()">
+                                    <option value="">All Types</option>
+                                    <option value="Office">Office</option>
+                                    <option value="Conference">Conference Room</option>
+                                    <option value="Open Space">Open Space</option>
+                                    <option value="Training">Training Room</option>
+                                    <option value="Event">Event Space</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label fw-bold">
+                                    <i class="fas fa-users me-1"></i>Capacity
+                                </label>
+                                <select class="form-select" id="capacityFilter" onchange="filterSpaces()">
+                                    <option value="">Any Capacity</option>
+                                    <option value="1-10">1-10 People</option>
+                                    <option value="11-25">11-25 People</option>
+                                    <option value="26-50">26-50 People</option>
+                                    <option value="50+">50+ People</option>
+                                </select>
+                            </div>
+                            <div class="col-md-3">
+                                <label class="form-label fw-bold">
+                                    <i class="fas fa-dollar-sign me-1"></i>Price Range
+                                </label>
+                                <select class="form-select" id="priceFilter" onchange="filterSpaces()">
+                                    <option value="">Any Price</option>
+                                    <option value="0-500">Under $500/day</option>
+                                    <option value="500-1000">$500-$1000/day</option>
+                                    <option value="1000-2000">$1000-$2000/day</option>
+                                    <option value="2000+">$2000+/day</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row mt-3">
+                            <div class="col-12 d-flex gap-2">
+                                <button class="btn btn-outline-secondary" onclick="clearFilters()">
+                                    <i class="fas fa-times me-1"></i>Clear Filters
+                                </button>
+                                <button class="btn btn-outline-primary" onclick="saveSearch()">
+                                    <i class="fas fa-save me-1"></i>Save Search
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Spaces Grid -->
+                <div class="row" id="spacesGrid">
+                    <!-- Space 1 -->
+                    <div class="col-lg-4 col-md-6 mb-4 space-item" data-location="San Francisco" data-type="Office" data-capacity="20" data-price="800">
+                        <div class="card space-card">
+                            <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&h=220&fit=crop" class="space-image" alt="Executive Suite">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Executive Suite</h5>
+                                <p class="text-muted mb-2">
+                                    <i class="fas fa-map-marker-alt me-1"></i>San Francisco - Financial District
+                                </p>
+                                <div class="mb-3">
+                                    <span class="badge bg-primary">Office</span>
+                                    <span class="badge bg-info">20 People</span>
+                                    <span class="badge bg-success">Available</span>
+                                </div>
+                                <p class="card-text">Premium corner office with panoramic city views and executive amenities.</p>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <div class="price">$800/day</div>
+                                    <button class="btn btn-action" onclick="bookSpace('Executive Suite', 800)">
+                                        Reserve Now
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Space 2 -->
+                    <div class="col-lg-4 col-md-6 mb-4 space-item" data-location="New York" data-type="Conference" data-capacity="12" data-price="400">
+                        <div class="card space-card">
+                            <img src="https://images.unsplash.com/photo-1497366811353-6870744d04b2?w=400&h=220&fit=crop" class="space-image" alt="Conference Room">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Madison Conference Room</h5>
+                                <p class="text-muted mb-2">
+                                    <i class="fas fa-map-marker-alt me-1"></i>New York - Midtown Manhattan
+                                </p>
+                                <div class="mb-3">
+                                    <span class="badge bg-primary">Conference</span>
+                                    <span class="badge bg-info">12 People</span>
+                                    <span class="badge bg-success">Available</span>
+                                </div>
+                                <p class="card-text">State-of-the-art meeting room with video conferencing and presentation tools.</p>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <div class="price">$400/day</div>
+                                    <button class="btn btn-action" onclick="bookSpace('Madison Conference Room', 400)">
+                                        Reserve Now
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Space 3 -->
+                    <div class="col-lg-4 col-md-6 mb-4 space-item" data-location="Chicago" data-type="Open Space" data-capacity="50" data-price="1200">
+                        <div class="card space-card">
+                            <img src="https://images.unsplash.com/photo-1497366754035-f200968a6e72?w=400&h=220&fit=crop" class="space-image" alt="Innovation Hub">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Innovation Hub</h5>
+                                <p class="text-muted mb-2">
+                                    <i class="fas fa-map-marker-alt me-1"></i>Chicago - The Loop
+                                </p>
+                                <div class="mb-3">
+                                    <span class="badge bg-primary">Open Space</span>
+                                    <span class="badge bg-info">50 People</span>
+                                    <span class="badge bg-warning">Limited</span>
+                                </div>
+                                <p class="card-text">Collaborative workspace with flexible seating and creative zones.</p>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <div class="price">$1,200/day</div>
+                                    <button class="btn btn-action" onclick="bookSpace('Innovation Hub', 1200)">
+                                        Reserve Now
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Space 4 -->
+                    <div class="col-lg-4 col-md-6 mb-4 space-item" data-location="Seattle" data-type="Training" data-capacity="30" data-price="600">
+                        <div class="card space-card">
+                            <img src="https://images.unsplash.com/photo-1524634126442-357e0eac3c14?w=400&h=220&fit=crop" class="space-image" alt="Training Center">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Tech Training Center</h5>
+                                <p class="text-muted mb-2">
+                                    <i class="fas fa-map-marker-alt me-1"></i>Seattle - South Lake Union
+                                </p>
+                                <div class="mb-3">
+                                    <span class="badge bg-primary">Training</span>
+                                    <span class="badge bg-info">30 People</span>
+                                    <span class="badge bg-success">Available</span>
+                                </div>
+                                <p class="card-text">Equipped training facility with computers and workshop materials.</p>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <div class="price">$600/day</div>
+                                    <button class="btn btn-action" onclick="bookSpace('Tech Training Center', 600)">
+                                        Reserve Now
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Space 5 -->
+                    <div class="col-lg-4 col-md-6 mb-4 space-item" data-location="Los Angeles" data-type="Event" data-capacity="100" data-price="2500">
+                        <div class="card space-card">
+                            <img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=400&h=220&fit=crop" class="space-image" alt="Event Ballroom">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Sunset Ballroom</h5>
+                                <p class="text-muted mb-2">
+                                    <i class="fas fa-map-marker-alt me-1"></i>Los Angeles - Beverly Hills
+                                </p>
+                                <div class="mb-3">
+                                    <span class="badge bg-primary">Event</span>
+                                    <span class="badge bg-info">100 People</span>
+                                    <span class="badge bg-success">Available</span>
+                                </div>
+                                <p class="card-text">Elegant venue for corporate events and celebrations.</p>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <div class="price">$2,500/day</div>
+                                    <button class="btn btn-action" onclick="bookSpace('Sunset Ballroom', 2500)">
+                                        Reserve Now
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Space 6 -->
+                    <div class="col-lg-4 col-md-6 mb-4 space-item" data-location="Boston" data-type="Office" data-capacity="10" data-price="500">
+                        <div class="card space-card">
+                            <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=220&fit=crop" class="space-image" alt="Harbor View Office">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Harbor View Office</h5>
+                                <p class="text-muted mb-2">
+                                    <i class="fas fa-map-marker-alt me-1"></i>Boston - Seaport District
+                                </p>
+                                <div class="mb-3">
+                                    <span class="badge bg-primary">Office</span>
+                                    <span class="badge bg-info">10 People</span>
+                                    <span class="badge bg-success">Available</span>
+                                </div>
+                                <p class="card-text">Modern office with stunning harbor views, perfect for small teams.</p>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <div class="price">$500/day</div>
+                                    <button class="btn btn-action" onclick="bookSpace('Harbor View Office', 500)">
+                                        Reserve Now
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Space 7 -->
+                    <div class="col-lg-4 col-md-6 mb-4 space-item" data-location="Austin" data-type="Office" data-capacity="15" data-price="650">
+                        <div class="card space-card">
+                            <img src="https://images.unsplash.com/photo-1556761175-4b46a572b786?w=400&h=220&fit=crop" class="space-image" alt="Tech Hub">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Tech Hub Austin</h5>
+                                <p class="text-muted mb-2">
+                                    <i class="fas fa-map-marker-alt me-1"></i>Austin - Downtown
+                                </p>
+                                <div class="mb-3">
+                                    <span class="badge bg-primary">Office</span>
+                                    <span class="badge bg-info">15 People</span>
+                                    <span class="badge bg-success">Available</span>
+                                </div>
+                                <p class="card-text">Modern tech workspace in the heart of Austin's startup scene.</p>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <div class="price">$650/day</div>
+                                    <button class="btn btn-action" onclick="bookSpace('Tech Hub Austin', 650)">
+                                        Reserve Now
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Space 8 -->
+                    <div class="col-lg-4 col-md-6 mb-4 space-item" data-location="Denver" data-type="Conference" data-capacity="8" data-price="350">
+                        <div class="card space-card">
+                            <img src="https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?w=400&h=220&fit=crop" class="space-image" alt="Meeting Room">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Mountain View Meeting</h5>
+                                <p class="text-muted mb-2">
+                                    <i class="fas fa-map-marker-alt me-1"></i>Denver - LoDo
+                                </p>
+                                <div class="mb-3">
+                                    <span class="badge bg-primary">Conference</span>
+                                    <span class="badge bg-info">8 People</span>
+                                    <span class="badge bg-success">Available</span>
+                                </div>
+                                <p class="card-text">Intimate meeting room with mountain views and modern tech.</p>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <div class="price">$350/day</div>
+                                    <button class="btn btn-action" onclick="bookSpace('Mountain View Meeting', 350)">
+                                        Reserve Now
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Space 9 -->
+                    <div class="col-lg-4 col-md-6 mb-4 space-item" data-location="Miami" data-type="Event" data-capacity="75" data-price="2000">
+                        <div class="card space-card">
+                            <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?w=400&h=220&fit=crop" class="space-image" alt="Event Space">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Beach View Pavilion</h5>
+                                <p class="text-muted mb-2">
+                                    <i class="fas fa-map-marker-alt me-1"></i>Miami - South Beach
+                                </p>
+                                <div class="mb-3">
+                                    <span class="badge bg-primary">Event</span>
+                                    <span class="badge bg-info">75 People</span>
+                                    <span class="badge bg-warning">Limited</span>
+                                </div>
+                                <p class="card-text">Stunning beachfront venue perfect for corporate events.</p>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <div class="price">$2,000/day</div>
+                                    <button class="btn btn-action" onclick="bookSpace('Beach View Pavilion', 2000)">
+                                        Reserve Now
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Space 10 -->
+                    <div class="col-lg-4 col-md-6 mb-4 space-item" data-location="Portland" data-type="Open Space" data-capacity="40" data-price="900">
+                        <div class="card space-card">
+                            <img src="https://images.unsplash.com/photo-1527192491265-7e15c55b1ed2?w=400&h=220&fit=crop" class="space-image" alt="Open Space">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Creative Commons</h5>
+                                <p class="text-muted mb-2">
+                                    <i class="fas fa-map-marker-alt me-1"></i>Portland - Pearl District
+                                </p>
+                                <div class="mb-3">
+                                    <span class="badge bg-primary">Open Space</span>
+                                    <span class="badge bg-info">40 People</span>
+                                    <span class="badge bg-success">Available</span>
+                                </div>
+                                <p class="card-text">Collaborative workspace with industrial design and natural light.</p>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <div class="price">$900/day</div>
+                                    <button class="btn btn-action" onclick="bookSpace('Creative Commons', 900)">
+                                        Reserve Now
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Space 11 -->
+                    <div class="col-lg-4 col-md-6 mb-4 space-item" data-location="Atlanta" data-type="Training" data-capacity="25" data-price="550">
+                        <div class="card space-card">
+                            <img src="https://images.unsplash.com/photo-1580894742597-87bc8789db3d?w=400&h=220&fit=crop" class="space-image" alt="Training Room">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Southern Learning Center</h5>
+                                <p class="text-muted mb-2">
+                                    <i class="fas fa-map-marker-alt me-1"></i>Atlanta - Midtown
+                                </p>
+                                <div class="mb-3">
+                                    <span class="badge bg-primary">Training</span>
+                                    <span class="badge bg-info">25 People</span>
+                                    <span class="badge bg-success">Available</span>
+                                </div>
+                                <p class="card-text">Modern training facility with AV equipment and breakout areas.</p>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <div class="price">$550/day</div>
+                                    <button class="btn btn-action" onclick="bookSpace('Southern Learning Center', 550)">
+                                        Reserve Now
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Space 12 -->
+                    <div class="col-lg-4 col-md-6 mb-4 space-item" data-location="Phoenix" data-type="Office" data-capacity="18" data-price="700">
+                        <div class="card space-card">
+                            <img src="https://images.unsplash.com/photo-1604328698692-f76ea9498e76?w=400&h=220&fit=crop" class="space-image" alt="Office Space">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Desert Sky Office</h5>
+                                <p class="text-muted mb-2">
+                                    <i class="fas fa-map-marker-alt me-1"></i>Phoenix - Scottsdale
+                                </p>
+                                <div class="mb-3">
+                                    <span class="badge bg-primary">Office</span>
+                                    <span class="badge bg-info">18 People</span>
+                                    <span class="badge bg-success">Available</span>
+                                </div>
+                                <p class="card-text">Southwest-inspired office with mountain views and outdoor terrace.</p>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <div class="price">$700/day</div>
+                                    <button class="btn btn-action" onclick="bookSpace('Desert Sky Office', 700)">
+                                        Reserve Now
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Space 13 -->
+                    <div class="col-lg-4 col-md-6 mb-4 space-item" data-location="San Francisco" data-type="Conference" data-capacity="16" data-price="750">
+                        <div class="card space-card">
+                            <img src="https://images.unsplash.com/photo-1571624436279-b272aff752b5?w=400&h=220&fit=crop" class="space-image" alt="Conference Room">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Golden Gate Conference</h5>
+                                <p class="text-muted mb-2">
+                                    <i class="fas fa-map-marker-alt me-1"></i>San Francisco - SOMA
+                                </p>
+                                <div class="mb-3">
+                                    <span class="badge bg-primary">Conference</span>
+                                    <span class="badge bg-info">16 People</span>
+                                    <span class="badge bg-success">Available</span>
+                                </div>
+                                <p class="card-text">Premium conference room with bridge views and latest tech.</p>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <div class="price">$750/day</div>
+                                    <button class="btn btn-action" onclick="bookSpace('Golden Gate Conference', 750)">
+                                        Reserve Now
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Space 14 -->
+                    <div class="col-lg-4 col-md-6 mb-4 space-item" data-location="New York" data-type="Office" data-capacity="25" data-price="1100">
+                        <div class="card space-card">
+                            <img src="https://images.unsplash.com/photo-1556909114-f6e7ad7d3136?w=400&h=220&fit=crop" class="space-image" alt="Tower Office">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Manhattan Tower Suite</h5>
+                                <p class="text-muted mb-2">
+                                    <i class="fas fa-map-marker-alt me-1"></i>New York - Financial District
+                                </p>
+                                <div class="mb-3">
+                                    <span class="badge bg-primary">Office</span>
+                                    <span class="badge bg-info">25 People</span>
+                                    <span class="badge bg-warning">Limited</span>
+                                </div>
+                                <p class="card-text">High-floor office suite with panoramic city views.</p>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <div class="price">$1,100/day</div>
+                                    <button class="btn btn-action" onclick="bookSpace('Manhattan Tower Suite', 1100)">
+                                        Reserve Now
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Space 15 -->
+                    <div class="col-lg-4 col-md-6 mb-4 space-item" data-location="Chicago" data-type="Training" data-capacity="35" data-price="750">
+                        <div class="card space-card">
+                            <img src="https://images.unsplash.com/photo-1542744173-8e7e53415bb0?w=400&h=220&fit=crop" class="space-image" alt="Learning Lab">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Lakeside Learning Lab</h5>
+                                <p class="text-muted mb-2">
+                                    <i class="fas fa-map-marker-alt me-1"></i>Chicago - Navy Pier
+                                </p>
+                                <div class="mb-3">
+                                    <span class="badge bg-primary">Training</span>
+                                    <span class="badge bg-info">35 People</span>
+                                    <span class="badge bg-success">Available</span>
+                                </div>
+                                <p class="card-text">Waterfront training facility with modern equipment.</p>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <div class="price">$750/day</div>
+                                    <button class="btn btn-action" onclick="bookSpace('Lakeside Learning Lab', 750)">
+                                        Reserve Now
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Space 16 -->
+                    <div class="col-lg-4 col-md-6 mb-4 space-item" data-location="Seattle" data-type="Open Space" data-capacity="60" data-price="1400">
+                        <div class="card space-card">
+                            <img src="https://images.unsplash.com/photo-1606836576983-8b458e75221d?w=400&h=220&fit=crop" class="space-image" alt="Commons">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Pike Place Commons</h5>
+                                <p class="text-muted mb-2">
+                                    <i class="fas fa-map-marker-alt me-1"></i>Seattle - Capitol Hill
+                                </p>
+                                <div class="mb-3">
+                                    <span class="badge bg-primary">Open Space</span>
+                                    <span class="badge bg-info">60 People</span>
+                                    <span class="badge bg-success">Available</span>
+                                </div>
+                                <p class="card-text">Vibrant community space near Pike Place Market.</p>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <div class="price">$1,400/day</div>
+                                    <button class="btn btn-action" onclick="bookSpace('Pike Place Commons', 1400)">
+                                        Reserve Now
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Space 17 -->
+                    <div class="col-lg-4 col-md-6 mb-4 space-item" data-location="Los Angeles" data-type="Office" data-capacity="22" data-price="950">
+                        <div class="card space-card">
+                            <img src="https://images.unsplash.com/photo-1582653291997-079a1c04e5a1?w=400&h=220&fit=crop" class="space-image" alt="Hills Office">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Hollywood Hills Office</h5>
+                                <p class="text-muted mb-2">
+                                    <i class="fas fa-map-marker-alt me-1"></i>Los Angeles - West Hollywood
+                                </p>
+                                <div class="mb-3">
+                                    <span class="badge bg-primary">Office</span>
+                                    <span class="badge bg-info">22 People</span>
+                                    <span class="badge bg-success">Available</span>
+                                </div>
+                                <p class="card-text">Creative office space with Hollywood sign views.</p>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <div class="price">$950/day</div>
+                                    <button class="btn btn-action" onclick="bookSpace('Hollywood Hills Office', 950)">
+                                        Reserve Now
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Space 18 -->
+                    <div class="col-lg-4 col-md-6 mb-4 space-item" data-location="Boston" data-type="Conference" data-capacity="14" data-price="450">
+                        <div class="card space-card">
+                            <img src="https://images.unsplash.com/photo-1577412647305-991150c7d163?w=400&h=220&fit=crop" class="space-image" alt="Meeting Space">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Freedom Trail Meeting</h5>
+                                <p class="text-muted mb-2">
+                                    <i class="fas fa-map-marker-alt me-1"></i>Boston - Back Bay
+                                </p>
+                                <div class="mb-3">
+                                    <span class="badge bg-primary">Conference</span>
+                                    <span class="badge bg-info">14 People</span>
+                                    <span class="badge bg-success">Available</span>
+                                </div>
+                                <p class="card-text">Historic meeting room in the heart of Boston.</p>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <div class="price">$450/day</div>
+                                    <button class="btn btn-action" onclick="bookSpace('Freedom Trail Meeting', 450)">
+                                        Reserve Now
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Space 19 -->
+                    <div class="col-lg-4 col-md-6 mb-4 space-item" data-location="Austin" data-type="Event" data-capacity="150" data-price="3000">
+                        <div class="card space-card">
+                            <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&h=220&fit=crop" class="space-image" alt="Event Venue">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Music City Venue</h5>
+                                <p class="text-muted mb-2">
+                                    <i class="fas fa-map-marker-alt me-1"></i>Austin - 6th Street
+                                </p>
+                                <div class="mb-3">
+                                    <span class="badge bg-primary">Event</span>
+                                    <span class="badge bg-info">150 People</span>
+                                    <span class="badge bg-warning">Limited</span>
+                                </div>
+                                <p class="card-text">Premier event space in Austin's entertainment district.</p>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <div class="price">$3,000/day</div>
+                                    <button class="btn btn-action" onclick="bookSpace('Music City Venue', 3000)">
+                                        Reserve Now
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Space 20 -->
+                    <div class="col-lg-4 col-md-6 mb-4 space-item" data-location="Denver" data-type="Office" data-capacity="30" data-price="850">
+                        <div class="card space-card">
+                            <img src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=400&h=220&fit=crop" class="space-image" alt="Executive Office">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Mile High Executive</h5>
+                                <p class="text-muted mb-2">
+                                    <i class="fas fa-map-marker-alt me-1"></i>Denver - Downtown
+                                </p>
+                                <div class="mb-3">
+                                    <span class="badge bg-primary">Office</span>
+                                    <span class="badge bg-info">30 People</span>
+                                    <span class="badge bg-success">Available</span>
+                                </div>
+                                <p class="card-text">Executive office with Rocky Mountain views.</p>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <div class="price">$850/day</div>
+                                    <button class="btn btn-action" onclick="bookSpace('Mile High Executive', 850)">
+                                        Reserve Now
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Space 21 -->
+                    <div class="col-lg-4 col-md-6 mb-4 space-item" data-location="Miami" data-type="Office" data-capacity="28" data-price="1050">
+                        <div class="card space-card">
+                            <img src="https://images.unsplash.com/photo-1562113430-9ba2da2f7674?w=400&h=220&fit=crop" class="space-image" alt="Bay Office">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Biscayne Bay Office</h5>
+                                <p class="text-muted mb-2">
+                                    <i class="fas fa-map-marker-alt me-1"></i>Miami - Brickell
+                                </p>
+                                <div class="mb-3">
+                                    <span class="badge bg-primary">Office</span>
+                                    <span class="badge bg-info">28 People</span>
+                                    <span class="badge bg-success">Available</span>
+                                </div>
+                                <p class="card-text">Waterfront office with panoramic bay views.</p>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <div class="price">$1,050/day</div>
+                                    <button class="btn btn-action" onclick="bookSpace('Biscayne Bay Office', 1050)">
+                                        Reserve Now
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Space 22 -->
+                    <div class="col-lg-4 col-md-6 mb-4 space-item" data-location="Portland" data-type="Conference" data-capacity="20" data-price="550">
+                        <div class="card space-card">
+                            <img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=400&h=220&fit=crop" class="space-image" alt="Conference">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Rose City Conference</h5>
+                                <p class="text-muted mb-2">
+                                    <i class="fas fa-map-marker-alt me-1"></i>Portland - Downtown
+                                </p>
+                                <div class="mb-3">
+                                    <span class="badge bg-primary">Conference</span>
+                                    <span class="badge bg-info">20 People</span>
+                                    <span class="badge bg-success">Available</span>
+                                </div>
+                                <p class="card-text">Eco-friendly meeting space with sustainable design.</p>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <div class="price">$550/day</div>
+                                    <button class="btn btn-action" onclick="bookSpace('Rose City Conference', 550)">
+                                        Reserve Now
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Space 23 -->
+                    <div class="col-lg-4 col-md-6 mb-4 space-item" data-location="Atlanta" data-type="Open Space" data-capacity="45" data-price="1000">
+                        <div class="card space-card">
+                            <img src="https://images.unsplash.com/photo-1555212697-194d092e3b8f?w=400&h=220&fit=crop" class="space-image" alt="Commons">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Peachtree Commons</h5>
+                                <p class="text-muted mb-2">
+                                    <i class="fas fa-map-marker-alt me-1"></i>Atlanta - Buckhead
+                                </p>
+                                <div class="mb-3">
+                                    <span class="badge bg-primary">Open Space</span>
+                                    <span class="badge bg-info">45 People</span>
+                                    <span class="badge bg-success">Available</span>
+                                </div>
+                                <p class="card-text">Flexible workspace in Atlanta's business district.</p>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <div class="price">$1,000/day</div>
+                                    <button class="btn btn-action" onclick="bookSpace('Peachtree Commons', 1000)">
+                                        Reserve Now
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Space 24 -->
+                    <div class="col-lg-4 col-md-6 mb-4 space-item" data-location="Phoenix" data-type="Training" data-capacity="40" data-price="800">
+                        <div class="card space-card">
+                            <img src="https://images.unsplash.com/photo-1517502884422-41eaead166d4?w=400&h=220&fit=crop" class="space-image" alt="Training">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Sonoran Training Suite</h5>
+                                <p class="text-muted mb-2">
+                                    <i class="fas fa-map-marker-alt me-1"></i>Phoenix - Tempe
+                                </p>
+                                <div class="mb-3">
+                                    <span class="badge bg-primary">Training</span>
+                                    <span class="badge bg-info">40 People</span>
+                                    <span class="badge bg-success">Available</span>
+                                </div>
+                                <p class="card-text">Climate-controlled training facility with desert views.</p>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <div class="price">$800/day</div>
+                                    <button class="btn btn-action" onclick="bookSpace('Sonoran Training Suite', 800)">
+                                        Reserve Now
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Space 25 -->
+                    <div class="col-lg-4 col-md-6 mb-4 space-item" data-location="San Francisco" data-type="Event" data-capacity="200" data-price="4500">
+                        <div class="card space-card">
+                            <img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=400&h=220&fit=crop" class="space-image" alt="Grand Hall">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Bay Area Grand Hall</h5>
+                                <p class="text-muted mb-2">
+                                    <i class="fas fa-map-marker-alt me-1"></i>San Francisco - Mission Bay
+                                </p>
+                                <div class="mb-3">
+                                    <span class="badge bg-primary">Event</span>
+                                    <span class="badge bg-info">200 People</span>
+                                    <span class="badge bg-danger">Booked</span>
+                                </div>
+                                <p class="card-text">Luxurious event space for large corporate gatherings.</p>
+                                <div class="d-flex justify-content-between align-items-center mt-3">
+                                    <div class="price">$4,500/day</div>
+                                    <button class="btn btn-secondary" disabled>
+                                        Unavailable
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- No Results -->
+                <div id="noResults" class="alert alert-info rounded-4" style="display: none;">
+                    <i class="fas fa-info-circle me-2"></i>
+                    No spaces found matching your criteria. Try adjusting the filters.
+                </div>
+            </div>
+
+            <!-- Reservations Tab -->
+            <div class="tab-pane" id="reservations" style="display: none;">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div>
+                        <h2 class="mb-1">Reservation Manager</h2>
+                        <p class="text-muted mb-0">Manage bookings and track revenue</p>
+                    </div>
+                    <button class="btn btn-success btn-action" onclick="createReservation()">
+                        <i class="fas fa-plus me-2"></i>New Reservation
+                    </button>
+                </div>
+
+                <!-- Statistics -->
+                <div class="row mb-4">
+                    <div class="col-md-3 mb-3">
+                        <div class="stat-card bg-primary" onclick="filterReservations('all')">
+                            <h2 class="mb-0">24</h2>
+                            <p class="mb-0">Total Reservations</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="stat-card" style="background: var(--success-gradient)" onclick="filterReservations('confirmed')">
+                            <h2 class="mb-0">18</h2>
+                            <p class="mb-0">Confirmed</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="stat-card" style="background: var(--warning-gradient)" onclick="filterReservations('pending')">
+                            <h2 class="mb-0">4</h2>
+                            <p class="mb-0">Pending</p>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="stat-card" style="background: var(--info-gradient)" onclick="showRevenue()">
+                            <h2 class="mb-0">$12.4K</h2>
+                            <p class="mb-0">Monthly Revenue</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Reservations Table -->
+                <div class="card border-0 shadow-sm rounded-4">
+                    <div class="card-header bg-white border-0 pt-4">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h4 class="mb-0">Recent Reservations</h4>
+                            <div class="btn-group">
+                                <button class="btn btn-outline-secondary btn-sm" onclick="exportReservations()">
+                                    <i class="fas fa-download me-1"></i>Export
+                                </button>
+                                <button class="btn btn-outline-secondary btn-sm" onclick="printReservations()">
+                                    <i class="fas fa-print me-1"></i>Print
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>Space</th>
+                                        <th>Customer</th>
+                                        <th>Check-in</th>
+                                        <th>Check-out</th>
+                                        <th>Status</th>
+                                        <th>Amount</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="reservationsTable">
+                                    <tr>
+                                        <td><strong>RES-001</strong></td>
+                                        <td>Executive Suite</td>
+                                        <td>
+                                            <div>John Anderson</div>
+                                            <small class="text-muted">john@techcorp.com</small>
+                                        </td>
+                                        <td>Dec 15, 2024</td>
+                                        <td>Dec 17, 2024</td>
+                                        <td><span class="badge bg-success">Confirmed</span></td>
+                                        <td><strong>$2,400</strong></td>
+                                        <td>
+                                            <div class="btn-group btn-group-sm">
+                                                <button class="btn btn-info" onclick="viewReservation('RES-001')">
+                                                    <i class="fas fa-eye"></i>
+                                                </button>
+                                                <button class="btn btn-warning" onclick="editReservation('RES-001')">
+                                                    <i class="fas fa-edit"></i>
+                                                </button>
+                                                <button class="btn btn-primary" onclick="sendInvoice('RES-001')">
+                                                    <i class="fas fa-file-invoice"></i>
+                                                </button>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Contacts Tab -->
+            <div class="tab-pane" id="contacts" style="display: none;">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div>
+                        <h2 class="mb-1">Contact Management</h2>
+                        <p class="text-muted mb-0">Manage customer relationships</p>
+                    </div>
+                    <button class="btn btn-success btn-action" onclick="createContact()">
+                        <i class="fas fa-user-plus me-2"></i>New Contact
+                    </button>
+                </div>
+
+                <!-- Contact Stats -->
+                <div class="row mb-4">
+                    <div class="col-md-3 mb-3">
+                        <div class="card border-0 shadow-sm rounded-4">
+                            <div class="card-body text-center">
+                                <i class="fas fa-users fa-2x text-primary mb-2"></i>
+                                <h3 class="mb-0">342</h3>
+                                <p class="text-muted mb-0">Total Contacts</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="card border-0 shadow-sm rounded-4">
+                            <div class="card-body text-center">
+                                <i class="fas fa-star fa-2x text-warning mb-2"></i>
+                                <h3 class="mb-0">12</h3>
+                                <p class="text-muted mb-0">VIP Clients</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="card border-0 shadow-sm rounded-4">
+                            <div class="card-body text-center">
+                                <i class="fas fa-user-check fa-2x text-success mb-2"></i>
+                                <h3 class="mb-0">89</h3>
+                                <p class="text-muted mb-0">Active</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="card border-0 shadow-sm rounded-4">
+                            <div class="card-body text-center">
+                                <i class="fas fa-user-plus fa-2x text-info mb-2"></i>
+                                <h3 class="mb-0">45</h3>
+                                <p class="text-muted mb-0">New This Month</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Contacts Table -->
+                <div class="card border-0 shadow-sm rounded-4">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Company</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
+                                        <th>Type</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="contactsTable">
+                                    <!-- Contacts will be populated here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Leads Tab -->
+            <div class="tab-pane" id="leads" style="display: none;">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div>
+                        <h2 class="mb-1">Lead Management</h2>
+                        <p class="text-muted mb-0">Track and convert potential customers</p>
+                    </div>
+                    <div>
+                        <button class="btn btn-outline-primary me-2" onclick="importLeads()">
+                            <i class="fas fa-upload me-1"></i>Import
+                        </button>
+                        <button class="btn btn-success btn-action" onclick="createLead()">
+                            <i class="fas fa-plus me-2"></i>New Lead
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Lead Pipeline -->
+                <div class="row mb-4">
+                    <div class="col">
+                        <div class="card border-primary">
+                            <div class="card-body text-center">
+                                <h5>New</h5>
+                                <h3 class="text-primary">28</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card border-info">
+                            <div class="card-body text-center">
+                                <h5>Contacted</h5>
+                                <h3 class="text-info">15</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card border-warning">
+                            <div class="card-body text-center">
+                                <h5>Qualified</h5>
+                                <h3 class="text-warning">12</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card border-success">
+                            <div class="card-body text-center">
+                                <h5>Proposal</h5>
+                                <h3 class="text-success">8</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card border-danger">
+                            <div class="card-body text-center">
+                                <h5>Negotiation</h5>
+                                <h3 class="text-danger">5</h3>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="card border-dark">
+                            <div class="card-body text-center">
+                                <h5>Won</h5>
+                                <h3 class="text-dark">42</h3>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Leads Table -->
+                <div class="card border-0 shadow-sm rounded-4">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Lead Name</th>
+                                        <th>Company</th>
+                                        <th>Email</th>
+                                        <th>Status</th>
+                                        <th>Score</th>
+                                        <th>Actions</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="leadsTable">
+                                    <!-- Leads will be populated here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analytics Tab -->
+            <div class="tab-pane" id="analytics" style="display: none;">
+                <div class="d-flex justify-content-between align-items-center mb-4">
+                    <div>
+                        <h2 class="mb-1">Analytics Dashboard</h2>
+                        <p class="text-muted mb-0">Business insights and performance metrics</p>
+                    </div>
+                    <div>
+                        <button class="btn btn-outline-secondary" onclick="changeDateRange()">
+                            <i class="fas fa-calendar me-1"></i>Date Range
+                        </button>
+                        <button class="btn btn-outline-primary ms-2" onclick="exportAnalytics()">
+                            <i class="fas fa-download me-1"></i>Export Report
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Key Metrics -->
+                <div class="row mb-4">
+                    <div class="col-md-3 mb-3">
+                        <div class="card border-0 shadow-sm rounded-4">
+                            <div class="card-body">
+                                <h6 class="text-muted mb-2">Total Revenue</h6>
+                                <h3 class="mb-0">$458,290</h3>
+                                <small class="text-success">
+                                    <i class="fas fa-arrow-up"></i> 12% from last month
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="card border-0 shadow-sm rounded-4">
+                            <div class="card-body">
+                                <h6 class="text-muted mb-2">Occupancy Rate</h6>
+                                <h3 class="mb-0">89%</h3>
+                                <small class="text-success">
+                                    <i class="fas fa-arrow-up"></i> 5% from last month
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="card border-0 shadow-sm rounded-4">
+                            <div class="card-body">
+                                <h6 class="text-muted mb-2">New Customers</h6>
+                                <h3 class="mb-0">45</h3>
+                                <small class="text-warning">
+                                    <i class="fas fa-minus"></i> Same as last month
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-3 mb-3">
+                        <div class="card border-0 shadow-sm rounded-4">
+                            <div class="card-body">
+                                <h6 class="text-muted mb-2">Customer Satisfaction</h6>
+                                <h3 class="mb-0">4.8/5.0</h3>
+                                <small class="text-success">
+                                    <i class="fas fa-star"></i> Excellent
+                                </small>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Charts -->
+                <div class="row">
+                    <div class="col-md-8 mb-4">
+                        <div class="card border-0 shadow-sm rounded-4">
+                            <div class="card-body">
+                                <h5 class="card-title">Revenue Trend</h5>
+                                <canvas id="revenueChart" height="100"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4 mb-4">
+                        <div class="card border-0 shadow-sm rounded-4">
+                            <div class="card-body">
+                                <h5 class="card-title">Space Utilization</h5>
+                                <canvas id="utilizationChart" height="200"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Top Performers -->
+                <div class="card border-0 shadow-sm rounded-4">
+                    <div class="card-body">
+                        <h5 class="card-title">Top Performing Spaces</h5>
+                        <div class="table-responsive">
+                            <table class="table">
+                                <thead>
+                                    <tr>
+                                        <th>Space</th>
+                                        <th>Bookings</th>
+                                        <th>Revenue</th>
+                                        <th>Rating</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Executive Suite</td>
+                                        <td>45</td>
+                                        <td>$36,000</td>
+                                        <td>
+                                            <span class="text-warning">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Innovation Hub</td>
+                                        <td>38</td>
+                                        <td>$45,600</td>
+                                        <td>
+                                            <span class="text-warning">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star-half-alt"></i>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                    <tr>
+                                        <td>Bay Area Grand Hall</td>
+                                        <td>12</td>
+                                        <td>$54,000</td>
+                                        <td>
+                                            <span class="text-warning">
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                                <i class="fas fa-star"></i>
+                                            </span>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Enhanced Reservation Modal -->
+    <div class="modal fade" id="reservationModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-calendar-plus me-2"></i>Create Reservation
+                    </h5>
+                    <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="reservationForm">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Customer Name</label>
+                                <input type="text" class="form-control" id="customerName" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Email</label>
+                                <input type="email" class="form-control" id="customerEmail" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Phone</label>
+                                <input type="tel" class="form-control" id="customerPhone">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Company</label>
+                                <input type="text" class="form-control" id="customerCompany">
+                            </div>
+                            <div class="col-md-12">
+                                <label class="form-label">Select Space</label>
+                                <select class="form-select" id="spaceSelect">
+                                    <option>Executive Suite - $800/day</option>
+                                    <option>Madison Conference Room - $400/day</option>
+                                    <option>Innovation Hub - $1,200/day</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Check-in Date</label>
+                                <input type="date" class="form-control" id="checkIn" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Check-out Date</label>
+                                <input type="date" class="form-control" id="checkOut" required>
+                            </div>
+                            <div class="col-md-12">
+                                <label class="form-label">Special Requests</label>
+                                <textarea class="form-control" rows="3" id="specialRequests"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-action" onclick="saveReservation()">
+                        <i class="fas fa-check me-1"></i>Create Reservation
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        // Tab Management
+        function showTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-pane').forEach(tab => {
+                tab.style.display = 'none';
+                tab.classList.remove('show', 'active');
+            });
+            
+            // Remove active from all nav links
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('active');
+            });
+            
+            // Show selected tab
+            const selectedTab = document.getElementById(tabName);
+            if (selectedTab) {
+                selectedTab.style.display = 'block';
+                selectedTab.classList.add('show', 'active');
+                
+                // Update nav link
+                const tabLink = document.getElementById(tabName + '-tab');
+                if (tabLink) {
+                    tabLink.classList.add('active');
+                }
+                
+                // Initialize analytics charts if analytics tab
+                if (tabName === 'analytics') {
+                    initializeCharts();
+                }
+            }
+            
+            return false;
+        }
+
+        // Notification Management
+        function showNotification(message, type = 'success') {
+            const notification = document.getElementById('notification');
+            const alert = notification.querySelector('.alert');
+            
+            // Update alert class
+            alert.className = `alert alert-${type} alert-dismissible fade show`;
+            
+            // Update icon based on type
+            let icon = 'fa-check-circle';
+            if (type === 'warning') icon = 'fa-exclamation-triangle';
+            if (type === 'danger') icon = 'fa-times-circle';
+            if (type === 'info') icon = 'fa-info-circle';
+            
+            // Update content
+            document.getElementById('notificationText').innerHTML = 
+                `<i class="fas ${icon} me-2"></i>${message}`;
+            
+            // Show notification
+            notification.style.display = 'block';
+            
+            // Auto-hide after 3 seconds
+            setTimeout(() => {
+                hideNotification();
+            }, 3000);
+        }
+
+        function hideNotification() {
+            const notification = document.getElementById('notification');
+            notification.style.display = 'none';
+        }
+
+        // Quick Booking
+        function quickBooking() {
+            createReservation();
+            showNotification('Quick booking mode activated!', 'info');
+        }
+
+        // Space Management
+        function bookSpace(spaceName, price) {
+            // Open reservation modal with pre-filled space
+            const modal = new bootstrap.Modal(document.getElementById('reservationModal'));
+            
+            // Pre-select the space
+            const spaceSelect = document.getElementById('spaceSelect');
+            const options = Array.from(spaceSelect.options);
+            const targetOption = options.find(opt => opt.text.includes(spaceName));
+            if (targetOption) {
+                spaceSelect.value = targetOption.value;
+            }
+            
+            // Set today's date
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('checkIn').value = today;
+            document.getElementById('checkOut').value = today;
+            
+            modal.show();
+            showNotification(`Booking ${spaceName} - $${price}/day`);
+        }
+
+        function filterSpaces() {
+            const location = document.getElementById('locationFilter').value.toLowerCase();
+            const type = document.getElementById('typeFilter').value.toLowerCase();
+            const capacity = document.getElementById('capacityFilter').value;
+            const price = document.getElementById('priceFilter').value;
+            
+            const spaces = document.querySelectorAll('.space-item');
+            let visibleCount = 0;
+            
+            spaces.forEach(space => {
+                const spaceLocation = space.dataset.location.toLowerCase();
+                const spaceType = space.dataset.type.toLowerCase();
+                const spaceCapacity = parseInt(space.dataset.capacity);
+                const spacePrice = parseInt(space.dataset.price);
+                
+                let show = true;
+                
+                if (location && !spaceLocation.includes(location)) show = false;
+                if (type && !spaceType.includes(type)) show = false;
+                
+                if (capacity) {
+                    if (capacity === '1-10' && spaceCapacity > 10) show = false;
+                    if (capacity === '11-25' && (spaceCapacity < 11 || spaceCapacity > 25)) show = false;
+                    if (capacity === '26-50' && (spaceCapacity < 26 || spaceCapacity > 50)) show = false;
+                    if (capacity === '50+' && spaceCapacity < 50) show = false;
+                }
+                
+                if (price) {
+                    if (price === '0-500' && spacePrice > 500) show = false;
+                    if (price === '500-1000' && (spacePrice < 500 || spacePrice > 1000)) show = false;
+                    if (price === '1000-2000' && (spacePrice < 1000 || spacePrice > 2000)) show = false;
+                    if (price === '2000+' && spacePrice < 2000) show = false;
+                }
+                
+                space.style.display = show ? '' : 'none';
+                if (show) visibleCount++;
+            });
+            
+            // Show/hide no results message
+            document.getElementById('noResults').style.display = visibleCount === 0 ? 'block' : 'none';
+            
+            showNotification(`Found ${visibleCount} spaces matching your criteria`);
+        }
+
+        function clearFilters() {
+            document.getElementById('locationFilter').value = '';
+            document.getElementById('typeFilter').value = '';
+            document.getElementById('capacityFilter').value = '';
+            document.getElementById('priceFilter').value = '';
+            filterSpaces();
+            showNotification('Filters cleared');
+        }
+
+        function saveSearch() {
+            showNotification('Search criteria saved!', 'success');
+        }
+
+        function showSpaceMap() {
+            showNotification('Opening map view...', 'info');
+        }
+
+        // Reservation Management
+        function createReservation() {
+            const modal = new bootstrap.Modal(document.getElementById('reservationModal'));
+            document.getElementById('reservationForm').reset();
+            
+            // Set today's date
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('checkIn').value = today;
+            document.getElementById('checkOut').value = today;
+            
+            modal.show();
+        }
+
+        function saveReservation() {
+            const name = document.getElementById('customerName').value;
+            const email = document.getElementById('customerEmail').value;
+            
+            if (name && email) {
+                // Close modal
+                bootstrap.Modal.getInstance(document.getElementById('reservationModal')).hide();
+                
+                // Show success notification
+                showNotification(`Reservation created successfully for ${name}!`, 'success');
+                
+                // Clear form
+                document.getElementById('reservationForm').reset();
+            } else {
+                showNotification('Please fill in all required fields', 'warning');
+            }
+        }
+
+        function viewReservation(id) {
+            showNotification(`Viewing reservation ${id}`, 'info');
+        }
+
+        function editReservation(id) {
+            createReservation();
+            showNotification(`Editing reservation ${id}`, 'info');
+        }
+
+        function sendInvoice(id) {
+            showNotification(`Invoice sent for reservation ${id}`, 'success');
+        }
+
+        function filterReservations(status) {
+            showNotification(`Filtering reservations: ${status}`, 'info');
+        }
+
+        function showRevenue() {
+            showTab('analytics');
+            showNotification('Opening revenue analytics...', 'info');
+        }
+
+        function exportReservations() {
+            showNotification('Exporting reservations to Excel...', 'success');
+        }
+
+        function printReservations() {
+            window.print();
+            showNotification('Preparing print preview...', 'info');
+        }
+
+        // Contact Management
+        function createContact() {
+            showNotification('Opening new contact form...', 'info');
+        }
+
+        function viewContact(name) {
+            showNotification(`Viewing contact: ${name}`, 'info');
+        }
+
+        function editContact(name) {
+            showNotification(`Editing contact: ${name}`, 'info');
+        }
+
+        function emailContact(email) {
+            window.location.href = `mailto:${email}`;
+        }
+
+        // Lead Management
+        function createLead() {
+            showNotification('Creating new lead...', 'info');
+        }
+
+        function importLeads() {
+            showNotification('Opening lead import wizard...', 'info');
+        }
+
+        function qualifyLead(name) {
+            showNotification(`Lead ${name} has been qualified!`, 'success');
+        }
+
+        function convertLead(name) {
+            if (confirm(`Convert ${name} to a contact?`)) {
+                showNotification(`Lead ${name} converted successfully!`, 'success');
+            }
+        }
+
+        // Analytics
+        function initializeCharts() {
+            // Revenue Chart
+            const revenueCtx = document.getElementById('revenueChart');
+            if (revenueCtx && !revenueCtx.chart) {
+                revenueCtx.chart = new Chart(revenueCtx, {
+                    type: 'line',
+                    data: {
+                        labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun'],
+                        datasets: [{
+                            label: 'Revenue',
+                            data: [65000, 72000, 78000, 85000, 92000, 98000],
+                            borderColor: '#667eea',
+                            backgroundColor: 'rgba(102, 126, 234, 0.1)',
+                            tension: 0.4
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        plugins: {
+                            legend: {
+                                display: false
+                            }
+                        }
+                    }
+                });
+            }
+
+            // Utilization Chart
+            const utilizationCtx = document.getElementById('utilizationChart');
+            if (utilizationCtx && !utilizationCtx.chart) {
+                utilizationCtx.chart = new Chart(utilizationCtx, {
+                    type: 'doughnut',
+                    data: {
+                        labels: ['Occupied', 'Available'],
+                        datasets: [{
+                            data: [89, 11],
+                            backgroundColor: ['#667eea', '#e0e0e0']
+                        }]
+                    },
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false
+                    }
+                });
+            }
+        }
+
+        function changeDateRange() {
+            showNotification('Opening date range selector...', 'info');
+        }
+
+        function exportAnalytics() {
+            showNotification('Exporting analytics report...', 'success');
+        }
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', function() {
+            // Set default dates
+            const today = new Date().toISOString().split('T')[0];
+            const dateInputs = document.querySelectorAll('input[type="date"]');
+            dateInputs.forEach(input => {
+                if (!input.value) {
+                    input.value = today;
+                }
+            });
+            
+            // Show welcome message
+            setTimeout(() => {
+                showNotification('Welcome to Easy Spaces! Your premium space management platform.', 'info');
+            }, 500);
+        });
+    </script>
+</body>
+</html>
