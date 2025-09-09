@@ -14,6 +14,7 @@
 
 # Markdown files (documentation)
 *.md
+!README.md
 
 # Keep only HTML files for the website
 !index.html
