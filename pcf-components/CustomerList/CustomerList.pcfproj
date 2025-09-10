@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <PowerAppsTargetsPath>$(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\PowerApps</PowerAppsTargetsPath>
+  </PropertyGroup>
+
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" />
+  <Import Project="$(PowerAppsTargetsPath)\Microsoft.PowerApps.VisualStudio.Pcf.props" Condition="Exists('$(PowerAppsTargetsPath)\Microsoft.PowerApps.VisualStudio.Pcf.props')"/>
+  
+  <PropertyGroup>
+    <Name>CustomerList</Name>
+    <ProjectGuid>4f9e8d4a-3b5c-4d6e-9f8a-7e3b2c1d0a9b</ProjectGuid>
+    <OutputPath>$(MSBuildThisFileDirectory)out\controls</OutputPath>
+    <PcfBuildMode>production</PcfBuildMode>
+  </PropertyGroup>
+
+  <PropertyGroup>
+    <TargetFrameworkVersion>v4.6.2</TargetFrameworkVersion>
+    <TargetFramework>net462</TargetFramework>
+    <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+    <SolutionPackageType>Managed</SolutionPackageType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.PowerApps.MSBuild.Pcf" Version="1.*">
+      <PrivateAssets>All</PrivateAssets>
+    </PackageReference>
+    <PackageReference Include="Microsoft.NETFramework.ReferenceAssemblies" Version="1.0.2">
+      <PrivateAssets>All</PrivateAssets>
+    </PackageReference>
+  </ItemGroup>
+
+  <ItemGroup>
+    <ExcludeDirectories Include="$(MSBuildThisFileDirectory)\.gitignore"/>
+    <ExcludeDirectories Include="$(MSBuildThisFileDirectory)\bin\**"/>
+    <ExcludeDirectories Include="$(MSBuildThisFileDirectory)\obj\**"/>
+    <ExcludeDirectories Include="$(OutputPath)\**"/>
+    <ExcludeDirectories Include="$(MSBuildThisFileDirectory)\*.pcfproj"/>
+    <ExcludeDirectories Include="$(MSBuildThisFileDirectory)\*.pcfproj.user"/>
+    <ExcludeDirectories Include="$(MSBuildThisFileDirectory)\*.sln"/>
+    <ExcludeDirectories Include="$(MSBuildThisFileDirectory)\node_modules\**"/>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="$(MSBuildThisFileDirectory)\**" Exclude="@(ExcludeDirectories)"/>
+    <Content Include="$(MSBuildThisFileDirectory)\**\*.css" Exclude="@(ExcludeDirectories)"/>
+  </ItemGroup>
+
+  <Import Project="$(MSBuildToolsPath)\Microsoft.Common.targets" />
+  <Import Project="$(PowerAppsTargetsPath)\Microsoft.PowerApps.VisualStudio.Pcf.targets" Condition="Exists('$(PowerAppsTargetsPath)\Microsoft.PowerApps.VisualStudio.Pcf.targets')"/>
+</Project>

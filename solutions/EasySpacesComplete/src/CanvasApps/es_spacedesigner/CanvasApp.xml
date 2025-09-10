@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CanvasApp xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>es_spacedesigner</Name>
+  <FileName>es_spacedesigner</FileName>
+  <DisplayName default="Space Designer">
+    <label description="Space Designer" languagecode="1033" />
+  </DisplayName>
+  <Description default="Interactive space design and management tool">
+    <label description="Interactive space design and management tool" languagecode="1033" />
+  </Description>
+  <CommitMessage>Initial version</CommitMessage>
+  <Publisher>Easy Spaces</Publisher>
+  <Version>1.0.0.0</Version>
+  <MinClientVersion>1.0.0.0</MinClientVersion>
+  <Tags>easyspaces</Tags>
+  <IntroducedVersion>1.0.0.0</IntroducedVersion>
+  <IsCdsUpgraded>1</IsCdsUpgraded>
+  <IsCustomizable>1</IsCustomizable>
+  <BackgroundColor>RGBA(243, 242, 241, 1)</BackgroundColor>
+  <AppComponents>
+    <AppComponent type="CanvasApp" schemaName="es_spacedesigner" />
+  </AppComponents>
+  <AppOpenUri>/providers/Microsoft.PowerApps/apps/es_spacedesigner</AppOpenUri>
+  <AppType>ClassicCanvasApp</AppType>
+  <Documentation />
+  <LocalizedNames>
+    <LocalizedName description="Space Designer" languagecode="1033" />
+  </LocalizedNames>
+  <LocalizedDescriptions>
+    <LocalizedDescription description="Interactive space design and management tool" languagecode="1033" />
+  </LocalizedDescriptions>
+</CanvasApp>

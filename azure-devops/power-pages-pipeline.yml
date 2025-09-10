@@ -1,0 +1,87 @@
+# Azure DevOps Pipeline for Easy Spaces Power Pages
+
+trigger:
+  branches:
+    include:
+      - main
+      - develop
+  paths:
+    include:
+      - easy-spaces-power-pages/*
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  - group: 'PowerPlatform-Credentials'
+
+stages:
+- stage: Build
+  displayName: 'Build and Validate'
+  jobs:
+  - job: BuildPowerPages
+    displayName: 'Build Power Pages Site'
+    steps:
+    - task: PowerPlatformToolInstaller@2
+      displayName: 'Install Power Platform Tools'
+      
+    - script: |
+        echo "Validating Power Pages structure..."
+        dir easy-spaces-power-pages
+      displayName: 'Validate Site Structure'
+      
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Site Artifacts'
+      inputs:
+        PathtoPublish: 'easy-spaces-power-pages'
+        ArtifactName: 'power-pages-site'
+
+- stage: DeployDev
+  displayName: 'Deploy to Development'
+  dependsOn: Build
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
+  jobs:
+  - deployment: DeployToDev
+    displayName: 'Deploy to Development'
+    environment: 'Development'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: PowerPlatformToolInstaller@2
+            displayName: 'Install Power Platform Tools'
+            
+          - task: PowerPlatformSetConnectionVariables@2
+            displayName: 'Set Connection Variables'
+            inputs:
+              authenticationType: 'PowerPlatformSPN'
+              PowerPlatformSPN: 'PowerPlatformServiceConnection'
+              
+          - script: |
+              pac pages upload --path "/power-pages-site" --deploymentProfile dev
+            displayName: 'Deploy to Development'
+
+- stage: DeployProd
+  displayName: 'Deploy to Production'
+  dependsOn: Build
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+  jobs:
+  - deployment: DeployToProd
+    displayName: 'Deploy to Production'
+    environment: 'Production'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: PowerPlatformToolInstaller@2
+            displayName: 'Install Power Platform Tools'
+            
+          - task: PowerPlatformSetConnectionVariables@2
+            displayName: 'Set Connection Variables'
+            inputs:
+              authenticationType: 'PowerPlatformSPN'
+              PowerPlatformSPN: 'PowerPlatformServiceConnection-Prod'
+              
+          - script: |
+              pac pages upload --path "/power-pages-site" --deploymentProfile prod
+            displayName: 'Deploy to Production'

@@ -1,0 +1,25 @@
+MarketSelectionScreen As screen:
+    Fill: =RGBA(255, 255, 255, 1)
+    Height: =Max(App.Height, App.MinScreenHeight)
+    Width: =Max(App.Width, App.MinScreenWidth)
+    OnVisible: |
+        =// Screen initialization
+        UpdateContext({screenLoading: true});
+        UpdateContext({screenLoading: false})
+    HeaderContainer As container:
+        x: "0"
+        y: "0"
+        width: "Parent.Width"
+        height: "80"
+        fill: "RGBA(0, 120, 212, 1)"
+    MarketGallery As gallery:
+        items: "Filter(Markets, es_status = 'es_status (Markets)'.Active)"
+        x: "20"
+        y: "100"
+        width: "Parent.Width - 40"
+        height: "Parent.Height - 120"
+        templateSize: "180"
+        templatePadding: "10"
+        layout: "Vertical"
+        showScrollbar: "True"
+        onSelect: "Set(selectedMarket, ThisItem); Navigate(SpaceListScreen, ScreenTransition.Cover)"

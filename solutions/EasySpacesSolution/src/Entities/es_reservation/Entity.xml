@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Entity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name LocalizedName="Reservation" OriginalName="Reservation">es_reservation</Name>
+  <EntityInfo>
+    <entity Name="es_reservation">
+      <LocalizedNames>
+        <LocalizedName languagecode="1033" description="Reservation" />
+      </LocalizedNames>
+      <LocalizedCollectionNames>
+        <LocalizedCollectionName languagecode="1033" description="Reservations" />
+      </LocalizedCollectionNames>
+      <Descriptions>
+        <Description languagecode="1033" description="Space reservations" />
+      </Descriptions>
+      <attributes>
+        <attribute PhysicalName="es_reservationid">
+          <Type>primarykey</Type>
+          <Name>es_reservationid</Name>
+          <LogicalName>es_reservationid</LogicalName>
+        </attribute>
+        <attribute PhysicalName="es_name">
+          <Type>nvarchar</Type>
+          <Name>es_name</Name>
+          <LogicalName>es_name</LogicalName>
+          <RequiredLevel>applicationrequired</RequiredLevel>
+          <DisplayMask>ValidForAdvancedFind|RequiredForForm|ValidForGrid</DisplayMask>
+          <ImeMode>auto</ImeMode>
+          <MaxLength>100</MaxLength>
+          <IsPrimaryName>1</IsPrimaryName>
+          <LocalizedNames>
+            <LocalizedName languagecode="1033" description="Name" />
+          </LocalizedNames>
+        </attribute>
+        <attribute PhysicalName="es_startdate">
+          <Type>datetime</Type>
+          <Name>es_startdate</Name>
+          <LogicalName>es_startdate</LogicalName>
+          <RequiredLevel>none</RequiredLevel>
+          <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+          <Format>DateOnly</Format>
+          <LocalizedNames>
+            <LocalizedName languagecode="1033" description="Start Date" />
+          </LocalizedNames>
+        </attribute>
+        <attribute PhysicalName="es_enddate">
+          <Type>datetime</Type>
+          <Name>es_enddate</Name>
+          <LogicalName>es_enddate</LogicalName>
+          <RequiredLevel>none</RequiredLevel>
+          <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+          <Format>DateOnly</Format>
+          <LocalizedNames>
+            <LocalizedName languagecode="1033" description="End Date" />
+          </LocalizedNames>
+        </attribute>
+        <attribute PhysicalName="es_numberofguests">
+          <Type>int</Type>
+          <Name>es_numberofguests</Name>
+          <LogicalName>es_numberofguests</LogicalName>
+          <RequiredLevel>none</RequiredLevel>
+          <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+          <MinValue>1</MinValue>
+          <MaxValue>1000</MaxValue>
+          <LocalizedNames>
+            <LocalizedName languagecode="1033" description="Number of Guests" />
+          </LocalizedNames>
+        </attribute>
+        <attribute PhysicalName="es_status">
+          <Type>picklist</Type>
+          <Name>es_status</Name>
+          <LogicalName>es_status</LogicalName>
+          <RequiredLevel>none</RequiredLevel>
+          <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+          <LocalizedNames>
+            <LocalizedName languagecode="1033" description="Status" />
+          </LocalizedNames>
+          <optionset Name="es_reservationstatus">
+            <OptionSetType>picklist</OptionSetType>
+            <IntroducedVersion>1.0.0.0</IntroducedVersion>
+            <IsCustomOptionSet>1</IsCustomOptionSet>
+            <options>
+              <option value="100000000">
+                <labels>
+                  <label languagecode="1033" description="Draft" />
+                </labels>
+              </option>
+              <option value="100000001">
+                <labels>
+                  <label languagecode="1033" description="Confirmed" />
+                </labels>
+              </option>
+              <option value="100000002">
+                <labels>
+                  <label languagecode="1033" description="Cancelled" />
+                </labels>
+              </option>
+            </options>
+          </optionset>
+        </attribute>
+        <attribute PhysicalName="es_spaceid">
+          <Type>lookup</Type>
+          <Name>es_spaceid</Name>
+          <LogicalName>es_spaceid</LogicalName>
+          <RequiredLevel>none</RequiredLevel>
+          <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+          <ReferencedEntityName>es_space</ReferencedEntityName>
+          <LocalizedNames>
+            <LocalizedName languagecode="1033" description="Space" />
+          </LocalizedNames>
+        </attribute>
+        <attribute PhysicalName="es_contactid">
+          <Type>lookup</Type>
+          <Name>es_contactid</Name>
+          <LogicalName>es_contactid</LogicalName>
+          <RequiredLevel>none</RequiredLevel>
+          <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+          <ReferencedEntityName>contact</ReferencedEntityName>
+          <LocalizedNames>
+            <LocalizedName languagecode="1033" description="Contact" />
+          </LocalizedNames>
+        </attribute>
+      </attributes>
+      <EntitySetName>es_reservations</EntitySetName>
+      <IsDuplicateCheckSupported>1</IsDuplicateCheckSupported>
+      <IsBusinessProcessEnabled>1</IsBusinessProcessEnabled>
+      <IsRequiredOffline>0</IsRequiredOffline>
+      <IsInteractionCentricEnabled>0</IsInteractionCentricEnabled>
+      <IsCollaboration>0</IsCollaboration>
+      <AutoRouteToOwnerQueue>0</AutoRouteToOwnerQueue>
+      <IsConnectionsEnabled>1</IsConnectionsEnabled>
+      <HasNotes>1</HasNotes>
+      <HasActivities>1</HasActivities>
+      <IsActivity>0</IsActivity>
+      <IsActivityParty>0</IsActivityParty>
+      <IsAuditEnabled>1</IsAuditEnabled>
+      <IsAvailableOffline>0</IsAvailableOffline>
+      <IsChildEntity>0</IsChildEntity>
+      <OwnershipTypeMask>UserOwned</OwnershipTypeMask>
+      <EnableForTrace>0</EnableForTrace>
+    </entity>
+  </EntityInfo>
+</Entity>

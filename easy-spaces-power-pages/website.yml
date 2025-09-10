@@ -1,0 +1,10 @@
+adx_sitename: Easy Spaces Portal
+adx_websiteid: 23f043c6-aa87-42c1-8d5c-4015e7b59c26
+adx_website_language: 1033
+website_binding:
+  adx_sitemarker_sitemarkerid: Home
+adx_partial_url: /
+adx_website_header_primarynavigation:
+  - Home
+  - Space Designer
+  - Reservations

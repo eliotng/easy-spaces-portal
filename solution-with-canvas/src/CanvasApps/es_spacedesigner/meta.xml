@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CanvasApp xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>es_spacedesigner</Name>
+  <AppVersion>1.0.0.0</AppVersion>
+  <Status>Ready</Status>
+  <CreatedByClientVersion>1.0.0.0</CreatedByClientVersion>
+  <MinClientVersion>1.0.0.0</MinClientVersion>
+  <Tags>easyspaces</Tags>
+  <IsCdsUpgraded>0</IsCdsUpgraded>
+  <GalleryItemId>00000000-0000-0000-0000-000000000000</GalleryItemId>
+  <BackgroundColor>RGBA(243, 242, 241, 1)</BackgroundColor>
+  <DisplayName>Space Designer</DisplayName>
+  <Description>Canvas app for Easy Spaces</Description>
+  <CommitMessage>Initial version</CommitMessage>
+  <Publisher>EasySpaces</Publisher>
+  <AuthorizationReferences>shared_commondataserviceforapps</AuthorizationReferences>
+  <ConnectionReferences>
+    <ConnectionReference>
+      <ConnectionReferenceLogicalName>shared_commondataserviceforapps</ConnectionReferenceLogicalName>
+      <ConnectionId>shared-commondataser-00000000-0000-0000-0000-000000000000</ConnectionId>
+      <ConnectorDisplayName>Microsoft Dataverse</ConnectorDisplayName>
+      <ConnectorId>/providers/Microsoft.PowerApps/apis/shared_commondataserviceforapps</ConnectorId>
+    </ConnectionReference>
+  </ConnectionReferences>
+</CanvasApp>

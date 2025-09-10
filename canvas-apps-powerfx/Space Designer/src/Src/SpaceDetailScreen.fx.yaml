@@ -1,0 +1,187 @@
+SpaceDetailScreen As screen:
+    Fill: =RGBA(255, 255, 255, 1)
+    Height: =Max(App.Height, App.MinScreenHeight)
+    Width: =Max(App.Width, App.MinScreenWidth)
+    LoadingSpinner: =LoadingSpinner.None
+    LoadingSpinnerColor: =App.Theme.Colors.Primary
+    OnVisible: |
+        =false
+    Size: =1 + CountRows(App.SizeBreakpoints) - CountIf(App.SizeBreakpoints, Value >= Self.Width)
+    DetailHeader As groupContainer.verticalAutoLayoutContainer:
+        width: ="Parent.Width"
+        fill: ="White"
+
+        SpaceMainImage As image:
+            image: ="If(IsBlank(selectedSpace.es_pictureurl), "/images/default-space-large.png", selectedSpace.es_pictureurl)"
+            width: ="Parent.Width"
+            imageFit: ="Cover"
+
+
+        BackButtonDetail As button:
+            icon: ="ChevronLeft"
+            fill: ="RGBA(255, 255, 255, 0.9)"
+            color: ="RGBA(50, 49, 48, 1)"
+            onSelect: ="Back()"
+
+
+        SpaceTitle As label:
+            text: ="selectedSpace.es_name"
+            width: ="Parent.Width - 40"
+            weight: ="Bold"
+            color: ="RGBA(50, 49, 48, 1)"
+
+
+    InfoSection As groupContainer.verticalAutoLayoutContainer:
+        width: ="Parent.Width"
+        fill: ="RGBA(243, 242, 241, 1)"
+
+        InfoGrid As flexContainer:
+            width: ="Parent.Width - 40"
+            direction: ="Row"
+            wrap: =true
+
+            LocationInfo As groupContainer.verticalAutoLayoutContainer:
+                width: ="(Parent.Width - 60) / 2"
+                fill: ="White"
+
+                LocationIcon As icon:
+                    icon: ="Location"
+                    color: ="RGBA(0, 120, 212, 1)"
+
+
+                LocationText As label:
+                    text: =""Floor " & selectedSpace.es_floor & ", Room " & selectedSpace.es_roomnumber"
+
+
+
+            CapacityInfoDetail As groupContainer.verticalAutoLayoutContainer:
+                width: ="(Parent.Width - 60) / 2"
+                fill: ="White"
+
+                CapacityIcon As icon:
+                    icon: ="Group"
+                    color: ="RGBA(0, 120, 212, 1)"
+
+
+                CapacityText As label:
+                    text: ="selectedSpace.es_mincapacity & " - " & selectedSpace.es_maxcapacity & " guests""
+
+
+
+            TypeInfo As groupContainer.verticalAutoLayoutContainer:
+                width: ="(Parent.Width - 60) / 2"
+                fill: ="White"
+
+                TypeIcon As icon:
+                    icon: ="Tag"
+                    color: ="RGBA(0, 120, 212, 1)"
+
+
+                TypeText As label:
+                    text: ="selectedSpace.es_spacetype.Label"
+
+
+
+            ThemeInfo As groupContainer.verticalAutoLayoutContainer:
+                width: ="(Parent.Width - 60) / 2"
+                fill: ="White"
+
+                ThemeIcon As icon:
+                    icon: ="Lightbulb"
+                    color: ="RGBA(0, 120, 212, 1)"
+
+
+                ThemeText As label:
+                    text: ="selectedSpace.es_theme.Label"
+
+
+
+
+    PricingSection As groupContainer.verticalAutoLayoutContainer:
+        width: ="Parent.Width"
+        fill: ="White"
+
+        PricingTitle As label:
+            text: =""Pricing""
+            weight: ="Semibold"
+
+
+        PricingGrid As flexContainer:
+            width: ="Parent.Width - 40"
+            direction: ="Row"
+
+            DailyRate As label:
+                text: =""Daily: $" & Text(selectedSpace.es_dailyrate.Value, "#,##0")"
+                color: ="RGBA(0, 120, 212, 1)"
+
+
+            WeeklyRate As label:
+                text: =""Weekly: $" & Text(selectedSpace.es_dailyrate.Value * 5, "#,##0")"
+                color: ="RGBA(96, 94, 92, 1)"
+
+
+            MonthlyRate As label:
+                text: =""Monthly: $" & Text(selectedSpace.es_dailyrate.Value * 20, "#,##0")"
+                color: ="RGBA(96, 94, 92, 1)"
+
+
+
+    DescriptionSection As groupContainer.verticalAutoLayoutContainer:
+        width: ="Parent.Width"
+        fill: ="RGBA(243, 242, 241, 1)"
+
+        DescriptionTitle As label:
+            text: =""Description""
+            weight: ="Semibold"
+
+
+        DescriptionText As label:
+            text: ="If(IsBlank(selectedSpace.es_description), "No description available.", selectedSpace.es_description)"
+            width: ="Parent.Width - 40"
+            color: ="RGBA(96, 94, 92, 1)"
+            overflow: ="Scroll"
+
+
+    AmenitiesSection As groupContainer.verticalAutoLayoutContainer:
+        width: ="Parent.Width"
+        fill: ="White"
+
+        AmenitiesTitle As label:
+            text: =""Amenities""
+            weight: ="Semibold"
+
+
+        AmenitiesList As label:
+            text: ="If(IsBlank(selectedSpace.es_amenities), "• Standard amenities included", selectedSpace.es_amenities)"
+            width: ="Parent.Width - 40"
+            color: ="RGBA(96, 94, 92, 1)"
+
+
+    ActionButtons As groupContainer.verticalAutoLayoutContainer:
+        y: ="Parent.Height - 80"
+        width: ="Parent.Width"
+        fill: ="White"
+        borderColor: ="LightGray"
+        borderThickness: ="1 0 0 0"
+        position: ="Fixed"
+
+        CheckAvailabilityButton As button:
+            text: ="Check Availability"
+            width: ="(Parent.Width - 60) / 2"
+            fill: ="White"
+            color: ="RGBA(0, 120, 212, 1)"
+            borderColor: ="RGBA(0, 120, 212, 1)"
+            onSelect: ="Navigate(AvailabilityScreen)"
+
+
+        ReserveNowButton As button:
+            text: ="Reserve Now"
+            x: ="(Parent.Width / 2) + 10"
+            width: ="(Parent.Width - 60) / 2"
+            fill: ="RGBA(0, 120, 212, 1)"
+            color: ="White"
+            visible: ="selectedSpace.es_status.Value = 1"
+            onSelect: ="Navigate(ReservationScreen)"
+
+
+

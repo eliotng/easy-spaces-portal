@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ImportExportXml version="9.2.24091.202" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <SolutionManifest>
+    <UniqueName>EasySpacesCanvasApps</UniqueName>
+    <LocalizedNames>
+      <LocalizedName description="Easy Spaces Canvas Apps" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="Canvas apps for Easy Spaces application" languagecode="1033" />
+    </Descriptions>
+    <Version>1.0.0.0</Version>
+    <Managed>0</Managed>
+    <Publisher>
+      <UniqueName>EasySpaces</UniqueName>
+      <LocalizedNames>
+        <LocalizedName description="Easy Spaces" languagecode="1033" />
+      </LocalizedNames>
+      <Descriptions>
+        <Description description="Easy Spaces Publisher" languagecode="1033" />
+      </Descriptions>
+      <EMailAddress>admin@easyspaces.com</EMailAddress>
+      <SupportingWebsiteUrl>https://easyspaces.com</SupportingWebsiteUrl>
+      <CustomizationPrefix>es</CustomizationPrefix>
+      <CustomizationOptionValuePrefix>10000</CustomizationOptionValuePrefix>
+      <Addresses>
+        <Address>
+          <AddressNumber>1</AddressNumber>
+          <AddressTypeCode>1</AddressTypeCode>
+          <City>Seattle</City>
+          <StateOrProvince>WA</StateOrProvince>
+          <Country>USA</Country>
+          <PostalCode>98101</PostalCode>
+        </Address>
+      </Addresses>
+    </Publisher>
+    <RootComponents>
+      <RootComponent type="300" schemaName="es_spacedesigner" behavior="0" />
+      <RootComponent type="300" schemaName="es_reservationmanager" behavior="0" />
+    </RootComponents>
+  </SolutionManifest>
+</ImportExportXml>

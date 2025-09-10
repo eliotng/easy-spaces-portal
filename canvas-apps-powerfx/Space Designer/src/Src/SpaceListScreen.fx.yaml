@@ -1,0 +1,83 @@
+SpaceListScreen As screen:
+    Fill: =RGBA(255, 255, 255, 1)
+    Height: =Max(App.Height, App.MinScreenHeight)
+    Width: =Max(App.Width, App.MinScreenWidth)
+    LoadingSpinner: =LoadingSpinner.None
+    LoadingSpinnerColor: =App.Theme.Colors.Primary
+    OnVisible: |
+        =false
+    Size: =1 + CountRows(App.SizeBreakpoints) - CountIf(App.SizeBreakpoints, Value >= Self.Width)
+    HeaderContainer As groupContainer.verticalAutoLayoutContainer:
+        width: ="Parent.Width"
+        fill: ="RGBA(0, 120, 212, 1)"
+
+        BackButton As button:
+            text: ="← Back"
+            fill: ="Transparent"
+            color: ="White"
+            borderColor: ="White"
+            onSelect: ="Back()"
+
+
+        ScreenTitle As label:
+            text: ="selectedMarket.es_name & " - Spaces""
+            color: ="White"
+            weight: ="Semibold"
+
+
+        ViewToggle As toggleButton:
+            items: ="["Gallery", "List", "Calendar"]"
+            default: =""Gallery""
+            x: ="Parent.Width - 320"
+            onSelect: ="Set(viewMode, Self.Selected.Value)"
+
+
+    FilterContainer As groupContainer.verticalAutoLayoutContainer:
+        width: ="Parent.Width"
+        fill: ="White"
+        borderColor: ="LightGray"
+        borderThickness: ="0 0 1 0"
+
+        TypeFilter As dropdown:
+            items: ="["All", "Large Groups", "Scheduled Activity", "Come-and-Go", "Indoor", "Outdoor"]"
+            default: =""All""
+            placeholder: ="Space Type"
+            onChange: ="Set(filterCriteria, Patch(filterCriteria, {spacetype: Self.Selected.Value}))"
+
+
+        ThemeFilter As dropdown:
+            items: ="["All", "Conversation Starter", "Energizing", "Quiet", "Relaxing", "Creative", "Active"]"
+            default: =""All""
+            placeholder: ="Theme"
+            onChange: ="Set(filterCriteria, Patch(filterCriteria, {theme: Self.Selected.Value}))"
+
+
+        CapacitySlider As slider:
+            showValue: =true
+            onChange: ="Set(filterCriteria, Patch(filterCriteria, {capacity: Self.Value}))"
+
+
+        AvailabilityToggle As toggleSwitch:
+            text: ="Available Only"
+            default: =false
+            onChange: ="Set(filterCriteria, Patch(filterCriteria, {availability: If(Self.Value, "Available", "All")}))"
+
+
+        SearchBox As text:
+            placeholder: ="Search spaces..."
+            x: ="Parent.Width - 270"
+            borderColor: ="LightGray"
+            onChange: ="Set(searchText, Self.Text)"
+
+
+    SpaceGallery As gallery:
+        visible: ="viewMode = "Gallery""
+        items: ="Filter(Filter(Filter(Spaces, es_marketid.es_marketid = selectedMarket.es_marketid, If(filterCriteria.spacetype = "All", true, es_spacetype.Value = filterCriteria.spacetype)), If(filterCriteria.theme = "All", true, es_theme.Value = filterCriteria.theme)), es_maxcapacity >= filterCriteria.capacity, If(filterCriteria.availability = "Available", es_status.Value = 1, true), IsBlank(searchText) || searchText in es_name || searchText in es_description)"
+        width: ="Parent.Width - 40"
+        height: ="Parent.Height - 180"
+        layout: ="FlexibleHeight"
+        wrap: =true
+        showScrollbar: =true
+        onSelect: ="Set(selectedSpace, ThisItem); Navigate(SpaceDetailScreen, ScreenTransition.Cover)"
+
+

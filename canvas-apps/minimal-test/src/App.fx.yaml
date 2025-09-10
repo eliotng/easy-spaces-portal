@@ -1,0 +1,12 @@
+App As appinfo:
+    BackgroundColor: =RGBA(0, 0, 0, 0)
+    MinScreenHeight: =640
+    MinScreenWidth: =640
+    OnStart: =false
+
+Host As hostControl.DefaultHostControlVariant:
+    OnCancel: =false
+    OnEdit: =false
+    OnNew: =false
+    OnSave: =false
+    OnView: =false

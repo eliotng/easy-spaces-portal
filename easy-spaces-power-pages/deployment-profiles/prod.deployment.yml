@@ -1,0 +1,6 @@
+environment_url: https://org7cfbe420.crm.dynamics.com
+website_id: easy-spaces-prod
+deployment_mode: production
+enable_cache: true
+minify_assets: true
+cdn_enabled: true

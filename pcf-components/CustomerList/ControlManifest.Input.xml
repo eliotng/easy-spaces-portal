@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest>
+  <control namespace="EasySpaces" constructor="CustomerList" version="1.0.0" display-name-key="CustomerList" description-key="CustomerList_Desc" control-type="standard">
+    <!-- dataset node represents a set of entity records -->
+    <data-set name="customersDataSet" display-name-key="Dataset_Display_Key">
+      <!-- 'property-set' node represents property overrides that can be configured by app makers -->
+      <property-set name="customersDataSetProperties" display-name-key="Property_Display_Key" description-key="Property_Desc_Key" of-type="SingleLine.Text" usage="bound" required="false" />
+    </data-set>
+    
+    <!-- property node identifies a specific configurable piece of data -->
+    <property name="cardLayout" display-name-key="Card_Layout" description-key="Card_Layout_Desc" of-type="Enum" usage="input" required="true" default-value="compact">
+      <value name="compact" display-name-key="Compact" description-key="Compact_Desc">compact</value>
+      <value name="expanded" display-name-key="Expanded" description-key="Expanded_Desc">expanded</value>
+      <value name="detailed" display-name-key="Detailed" description-key="Detailed_Desc">detailed</value>
+    </property>
+    
+    <property name="primaryColor" display-name-key="Primary_Color" description-key="Primary_Color_Desc" of-type="SingleLine.Text" usage="input" required="false" default-value="#0078D4" />
+    
+    <property name="showReservationCount" display-name-key="Show_Reservation_Count" description-key="Show_Reservation_Count_Desc" of-type="TwoOptions" usage="input" required="false" default-value="true" />
+    
+    <property name="showLastContact" display-name-key="Show_Last_Contact" description-key="Show_Last_Contact_Desc" of-type="TwoOptions" usage="input" required="false" default-value="true" />
+    
+    <property name="enableQuickActions" display-name-key="Enable_Quick_Actions" description-key="Enable_Quick_Actions_Desc" of-type="TwoOptions" usage="input" required="false" default-value="true" />
+    
+    <property name="maxCardsPerRow" display-name-key="Max_Cards_Per_Row" description-key="Max_Cards_Per_Row_Desc" of-type="Whole.None" usage="input" required="false" default-value="4" />
+    
+    <resources>
+      <code path="index.ts" order="1" />
+      <css path="css/CustomerList.css" order="1" />
+      <resx path="strings/CustomerList.1033.resx" version="1.0.0" />
+      <img path="img/default-avatar.svg" />
+    </resources>
+    
+    <!-- Specify features that should be enabled for this control -->
+    <feature-usage>
+      <uses-feature name="WebAPI" required="true" />
+      <uses-feature name="Utility" required="false" />
+      <uses-feature name="Device" required="false" />
+    </feature-usage>
+  </control>
+</manifest>

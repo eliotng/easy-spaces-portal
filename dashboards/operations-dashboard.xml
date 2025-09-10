@@ -1,0 +1,331 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Dashboard>
+  <LocalizedNames>
+    <LocalizedName description="Easy Spaces Operations Dashboard" languagecode="1033" />
+  </LocalizedNames>
+  <IsDefault>false</IsDefault>
+  <FormXml>
+    <forms type="dashboard">
+      <systemform>
+        <formid>{2c8b67d4-58bb-ed11-8849-000d3a993550}</formid>
+        <IntroducedVersion>1.0.0.0</IntroducedVersion>
+        <FormPresentation>1</FormPresentation>
+        <FormActivationState>1</FormActivationState>
+        <form>
+          <tabs>
+            <tab name="Dashboard" verticallayout="true" id="{7E9F3C1B-4567-89AB-CDEF-012345678901}" IsUserDefined="0">
+              <labels>
+                <label description="Dashboard" languagecode="1033" />
+              </labels>
+              <columns>
+                <column width="100%">
+                  <sections>
+                    <!-- Key Metrics Row -->
+                    <section name="KeyMetrics" showlabel="false" showbar="false" columns="4" id="{8FA04D2C-5678-9ABC-DEF0-123456789012}">
+                      <labels>
+                        <label description="Key Metrics" languagecode="1033" />
+                      </labels>
+                      <rows>
+                        <row>
+                          <cell colspan="1">
+                            <control id="TotalReservations" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}">
+                              <parameters>
+                                <TargetEntityType>es_reservation</TargetEntityType>
+                                <ViewId>{00000000-0000-0000-00AA-000010001008}</ViewId>
+                                <ViewIds>{00000000-0000-0000-00AA-000010001008}</ViewIds>
+                                <ChartId>{3B4C5D6E-6789-ABCD-EF01-234567890123}</ChartId>
+                                <DisplayMode>Chart</DisplayMode>
+                                <ChartTitle>Total Active Reservations</ChartTitle>
+                                <ChartType>Column</ChartType>
+                                <EnableDrilldown>true</EnableDrilldown>
+                              </parameters>
+                            </control>
+                          </cell>
+                          <cell colspan="1">
+                            <control id="TotalRevenue" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}">
+                              <parameters>
+                                <TargetEntityType>es_reservation</TargetEntityType>
+                                <AggregateQuery>
+                                  <fetch aggregate="true">
+                                    <entity name="es_reservation">
+                                      <attribute name="es_totalamount" alias="totalrevenue" aggregate="sum" />
+                                      <filter>
+                                        <condition attribute="es_status" operator="in">
+                                          <value>3</value>
+                                          <value>4</value>
+                                          <value>5</value>
+                                        </condition>
+                                        <condition attribute="createdon" operator="last-x-months" value="1" />
+                                      </filter>
+                                    </entity>
+                                  </fetch>
+                                </AggregateQuery>
+                                <DisplayMode>Metric</DisplayMode>
+                                <MetricTitle>Monthly Revenue</MetricTitle>
+                                <MetricFormat>Currency</MetricFormat>
+                                <MetricColor>#107C10</MetricColor>
+                              </parameters>
+                            </control>
+                          </cell>
+                          <cell colspan="1">
+                            <control id="OccupancyRate" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}">
+                              <parameters>
+                                <TargetEntityType>es_space</TargetEntityType>
+                                <AggregateQuery>
+                                  <fetch aggregate="true">
+                                    <entity name="es_space">
+                                      <attribute name="es_occupancyrate" alias="avgoccupancy" aggregate="avg" />
+                                      <filter>
+                                        <condition attribute="es_status" operator="eq" value="1" />
+                                      </filter>
+                                    </entity>
+                                  </fetch>
+                                </AggregateQuery>
+                                <DisplayMode>Gauge</DisplayMode>
+                                <GaugeTitle>Average Occupancy</GaugeTitle>
+                                <GaugeMin>0</GaugeMin>
+                                <GaugeMax>100</GaugeMax>
+                                <GaugeTarget>75</GaugeTarget>
+                              </parameters>
+                            </control>
+                          </cell>
+                          <cell colspan="1">
+                            <control id="PendingApprovals" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}">
+                              <parameters>
+                                <TargetEntityType>es_reservation</TargetEntityType>
+                                <ViewId>{00000000-0000-0000-00AA-000010001010}</ViewId>
+                                <DisplayMode>List</DisplayMode>
+                                <ListTitle>Pending Approvals</ListTitle>
+                                <MaxRecords>5</MaxRecords>
+                                <ShowRefresh>true</ShowRefresh>
+                              </parameters>
+                            </control>
+                          </cell>
+                        </row>
+                      </rows>
+                    </section>
+                    
+                    <!-- Charts Row -->
+                    <section name="Charts" showlabel="false" showbar="false" columns="2" id="{9AB15E3D-789A-BCDE-F012-345678901234}">
+                      <labels>
+                        <label description="Charts" languagecode="1033" />
+                      </labels>
+                      <rows>
+                        <row>
+                          <cell colspan="1">
+                            <control id="ReservationTrend" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}">
+                              <parameters>
+                                <TargetEntityType>es_reservation</TargetEntityType>
+                                <ChartXml>
+                                  <visualization>
+                                    <visualizationid>{4C5D6E7F-89AB-CDEF-0123-456789012345}</visualizationid>
+                                    <name>Reservation Trend</name>
+                                    <primaryentitytypecode>es_reservation</primaryentitytypecode>
+                                    <datadescription>
+                                      <datadefinition>
+                                        <fetchcollection>
+                                          <fetch aggregate="true">
+                                            <entity name="es_reservation">
+                                              <attribute name="createdon" groupby="true" dategrouping="week" alias="week" />
+                                              <attribute name="es_reservationid" alias="count" aggregate="count" />
+                                              <filter>
+                                                <condition attribute="createdon" operator="last-x-weeks" value="12" />
+                                              </filter>
+                                            </entity>
+                                          </fetch>
+                                        </fetchcollection>
+                                        <categorycollection>
+                                          <category alias="week" />
+                                        </categorycollection>
+                                        <measurecollection>
+                                          <measure alias="count" />
+                                        </measurecollection>
+                                      </datadefinition>
+                                    </datadescription>
+                                    <presentationdescription>
+                                      <Chart Palette="None" PaletteCustomColors="91,151,213;237,125,49;160,186,65;113,171,72;185,85,167">
+                                        <Series>
+                                          <Series ChartType="Line" Color="91,151,213" />
+                                        </Series>
+                                        <ChartAreas>
+                                          <ChartArea BorderColor="White" BorderDashStyle="Solid">
+                                            <AxisY Title="Reservations" TitleForeColor="59,59,59" LineColor="165,172,181">
+                                              <MajorGrid LineColor="239,242,246" />
+                                              <LabelStyle ForeColor="59,59,59" />
+                                            </AxisY>
+                                            <AxisX Title="Week" TitleForeColor="59,59,59" LineColor="165,172,181">
+                                              <MajorGrid LineColor="Transparent" />
+                                              <LabelStyle ForeColor="59,59,59" />
+                                            </AxisX>
+                                          </ChartArea>
+                                        </ChartAreas>
+                                        <Titles>
+                                          <Title Name="Title" Text="Weekly Reservation Trend" ForeColor="59,59,59" />
+                                        </Titles>
+                                      </Chart>
+                                    </presentationdescription>
+                                  </visualization>
+                                </ChartXml>
+                              </parameters>
+                            </control>
+                          </cell>
+                          <cell colspan="1">
+                            <control id="SpaceUtilization" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}">
+                              <parameters>
+                                <TargetEntityType>es_space</TargetEntityType>
+                                <ChartXml>
+                                  <visualization>
+                                    <visualizationid>{5D6E7F80-9ABC-DEF0-1234-567890123456}</visualizationid>
+                                    <name>Space Utilization by Type</name>
+                                    <primaryentitytypecode>es_space</primaryentitytypecode>
+                                    <datadescription>
+                                      <datadefinition>
+                                        <fetchcollection>
+                                          <fetch aggregate="true">
+                                            <entity name="es_space">
+                                              <attribute name="es_spacetype" groupby="true" alias="type" />
+                                              <attribute name="es_occupancyrate" alias="occupancy" aggregate="avg" />
+                                              <filter>
+                                                <condition attribute="es_status" operator="eq" value="1" />
+                                              </filter>
+                                            </entity>
+                                          </fetch>
+                                        </fetchcollection>
+                                        <categorycollection>
+                                          <category alias="type" />
+                                        </categorycollection>
+                                        <measurecollection>
+                                          <measure alias="occupancy" />
+                                        </measurecollection>
+                                      </datadefinition>
+                                    </datadescription>
+                                    <presentationdescription>
+                                      <Chart Palette="None" PaletteCustomColors="91,151,213;237,125,49;160,186,65;113,171,72;185,85,167">
+                                        <Series>
+                                          <Series ChartType="Doughnut" />
+                                        </Series>
+                                        <ChartAreas>
+                                          <ChartArea BorderColor="White" BorderDashStyle="Solid" />
+                                        </ChartAreas>
+                                        <Titles>
+                                          <Title Name="Title" Text="Space Utilization by Type" ForeColor="59,59,59" />
+                                        </Titles>
+                                        <Legends>
+                                          <Legend LegendStyle="Table" Alignment="Center" Docking="Right" />
+                                        </Legends>
+                                      </Chart>
+                                    </presentationdescription>
+                                  </visualization>
+                                </ChartXml>
+                              </parameters>
+                            </control>
+                          </cell>
+                        </row>
+                      </rows>
+                    </section>
+                    
+                    <!-- Lists Row -->
+                    <section name="Lists" showlabel="false" showbar="false" columns="3" id="{ABC26F4E-ABCD-EF01-2345-678901234567}">
+                      <labels>
+                        <label description="Lists" languagecode="1033" />
+                      </labels>
+                      <rows>
+                        <row>
+                          <cell colspan="1">
+                            <control id="TodayCheckins" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}">
+                              <parameters>
+                                <TargetEntityType>es_reservation</TargetEntityType>
+                                <ViewId>{00000000-0000-0000-00AA-000010001009}</ViewId>
+                                <DisplayMode>Grid</DisplayMode>
+                                <GridTitle>Today's Check-ins</GridTitle>
+                                <EnableQuickFind>true</EnableQuickFind>
+                                <EnableViewPicker>false</EnableViewPicker>
+                                <RecordsPerPage>10</RecordsPerPage>
+                              </parameters>
+                            </control>
+                          </cell>
+                          <cell colspan="1">
+                            <control id="TopSpaces" classid="{E7A81278-8635-4D9E-8D4D-59480B391C5B}">
+                              <parameters>
+                                <TargetEntityType>es_space</TargetEntityType>
+                                <ViewId>{00000000-0000-0000-00AA-000010001007}</ViewId>
+                                <DisplayMode>Grid</DisplayMode>
+                                <GridTitle>Top Revenue Spaces</GridTitle>
+                                <RecordsPerPage>5</RecordsPerPage>
+                              </parameters>
+                            </control>
+                          </cell>
+                          <cell colspan="1">
+                            <control id="RecentActivities" classid="{06375649-C143-495E-A496-C962E5B4488E}">
+                              <parameters>
+                                <TargetEntityType>activitypointer</TargetEntityType>
+                                <Filter>
+                                  <fetch>
+                                    <entity name="activitypointer">
+                                      <attribute name="subject" />
+                                      <attribute name="regardingobjectid" />
+                                      <attribute name="activitytypecode" />
+                                      <attribute name="createdon" />
+                                      <order attribute="createdon" descending="true" />
+                                      <filter>
+                                        <condition attribute="regardingobjecttypecode" operator="in">
+                                          <value>10001</value>
+                                          <value>10002</value>
+                                        </condition>
+                                      </filter>
+                                    </entity>
+                                  </fetch>
+                                </Filter>
+                                <ShowWallControl>false</ShowWallControl>
+                                <ShowActivitiesControl>true</ShowActivitiesControl>
+                                <ShowNotesControl>false</ShowNotesControl>
+                              </parameters>
+                            </control>
+                          </cell>
+                        </row>
+                      </rows>
+                    </section>
+                    
+                    <!-- Map Section -->
+                    <section name="Map" showlabel="false" showbar="false" columns="1" id="{BCD37F5F-BCDE-F012-3456-789012345678}">
+                      <labels>
+                        <label description="Map" languagecode="1033" />
+                      </labels>
+                      <rows>
+                        <row>
+                          <cell colspan="1">
+                            <control id="MarketMap" classid="{62B0DF79-0464-470F-8AF7-4A8A30C8F81F}">
+                              <parameters>
+                                <TargetEntityType>es_market</TargetEntityType>
+                                <LatitudeField>es_latitude</LatitudeField>
+                                <LongitudeField>es_longitude</LongitudeField>
+                                <LabelField>es_name</LabelField>
+                                <InfoboxTitle>Market: {es_name}</InfoboxTitle>
+                                <InfoboxDescription>Total Spaces: {es_totalspaces} | Revenue: {es_totalrevenue}</InfoboxDescription>
+                                <DefaultZoom>4</DefaultZoom>
+                                <EnableClustering>true</EnableClustering>
+                                <ShowLegend>true</ShowLegend>
+                              </parameters>
+                            </control>
+                          </cell>
+                        </row>
+                      </rows>
+                    </section>
+                  </sections>
+                </column>
+              </columns>
+            </tab>
+          </tabs>
+        </form>
+        <IsCustomizable>1</IsCustomizable>
+        <CanBeDeleted>1</CanBeDeleted>
+        <LocalizedNames>
+          <LocalizedName description="Easy Spaces Operations Dashboard" languagecode="1033" />
+        </LocalizedNames>
+        <Descriptions>
+          <Description description="Main operations dashboard for Easy Spaces" languagecode="1033" />
+        </Descriptions>
+      </systemform>
+    </forms>
+  </FormXml>
+</Dashboard>

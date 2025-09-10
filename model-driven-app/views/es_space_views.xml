@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="utf-8"?>
+<savedqueries>
+  <!-- Available Spaces View -->
+  <savedquery>
+    <savedqueryid>{00000000-0000-0000-00AA-000010001005}</savedqueryid>
+    <name>Available Spaces</name>
+    <querytype>0</querytype>
+    <isdefault>1</isdefault>
+    <returnedtypecode>10002</returnedtypecode>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <fetchxml>
+      <fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="false">
+        <entity name="es_space">
+          <attribute name="es_name" />
+          <attribute name="es_marketid" />
+          <attribute name="es_spacetype" />
+          <attribute name="es_floor" />
+          <attribute name="es_roomnumber" />
+          <attribute name="es_maxcapacity" />
+          <attribute name="es_dailyrate" />
+          <attribute name="es_status" />
+          <attribute name="es_wifi" />
+          <attribute name="es_videoconferencing" />
+          <attribute name="es_spaceid" />
+          <order attribute="es_name" descending="false" />
+          <filter type="and">
+            <condition attribute="es_status" operator="eq" value="1" />
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+          <link-entity name="es_market" from="es_marketid" to="es_marketid" link-type="inner" alias="market">
+            <attribute name="es_name" />
+            <attribute name="es_city" />
+            <attribute name="es_state" />
+          </link-entity>
+        </entity>
+      </fetch>
+    </fetchxml>
+    <layoutxml>
+      <grid name="resultset" jump="es_name" select="1" icon="1" preview="1">
+        <row name="result" id="es_spaceid">
+          <cell name="es_name" width="150" />
+          <cell name="market.es_name" width="150" disableSorting="0" />
+          <cell name="market.es_city" width="100" disableSorting="0" />
+          <cell name="es_spacetype" width="100" />
+          <cell name="es_floor" width="60" />
+          <cell name="es_roomnumber" width="80" />
+          <cell name="es_maxcapacity" width="80" />
+          <cell name="es_dailyrate" width="100" />
+          <cell name="es_wifi" width="60" />
+          <cell name="es_videoconferencing" width="60" />
+          <cell name="es_status" width="100" />
+        </row>
+      </grid>
+    </layoutxml>
+    <LocalizedNames>
+      <LocalizedName description="Available Spaces" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="Shows all available spaces" languagecode="1033" />
+    </Descriptions>
+  </savedquery>
+  
+  <!-- All Spaces View -->
+  <savedquery>
+    <savedqueryid>{00000000-0000-0000-00AA-000010001006}</savedqueryid>
+    <name>All Spaces</name>
+    <querytype>0</querytype>
+    <isdefault>0</isdefault>
+    <returnedtypecode>10002</returnedtypecode>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <fetchxml>
+      <fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="false">
+        <entity name="es_space">
+          <attribute name="es_name" />
+          <attribute name="es_marketid" />
+          <attribute name="es_spacetype" />
+          <attribute name="es_floor" />
+          <attribute name="es_roomnumber" />
+          <attribute name="es_mincapacity" />
+          <attribute name="es_maxcapacity" />
+          <attribute name="es_hourlyrate" />
+          <attribute name="es_dailyrate" />
+          <attribute name="es_status" />
+          <attribute name="es_totalrevenue" />
+          <attribute name="es_occupancyrate" />
+          <attribute name="es_spaceid" />
+          <order attribute="es_name" descending="false" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+          <link-entity name="es_market" from="es_marketid" to="es_marketid" link-type="inner" alias="market">
+            <attribute name="es_name" />
+            <attribute name="es_city" />
+          </link-entity>
+        </entity>
+      </fetch>
+    </fetchxml>
+    <layoutxml>
+      <grid name="resultset" jump="es_name" select="1" icon="1" preview="1">
+        <row name="result" id="es_spaceid">
+          <cell name="es_name" width="150" />
+          <cell name="market.es_name" width="150" disableSorting="0" />
+          <cell name="market.es_city" width="100" disableSorting="0" />
+          <cell name="es_spacetype" width="100" />
+          <cell name="es_floor" width="60" />
+          <cell name="es_roomnumber" width="80" />
+          <cell name="es_mincapacity" width="60" />
+          <cell name="es_maxcapacity" width="60" />
+          <cell name="es_hourlyrate" width="80" />
+          <cell name="es_dailyrate" width="80" />
+          <cell name="es_status" width="100" />
+          <cell name="es_totalrevenue" width="100" />
+          <cell name="es_occupancyrate" width="80" />
+        </row>
+      </grid>
+    </layoutxml>
+    <LocalizedNames>
+      <LocalizedName description="All Spaces" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="Shows all spaces in the system" languagecode="1033" />
+    </Descriptions>
+  </savedquery>
+  
+  <!-- High Revenue Spaces View -->
+  <savedquery>
+    <savedqueryid>{00000000-0000-0000-00AA-000010001007}</savedqueryid>
+    <name>High Revenue Spaces</name>
+    <querytype>0</querytype>
+    <isdefault>0</isdefault>
+    <returnedtypecode>10002</returnedtypecode>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <fetchxml>
+      <fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="false" top="20">
+        <entity name="es_space">
+          <attribute name="es_name" />
+          <attribute name="es_marketid" />
+          <attribute name="es_spacetype" />
+          <attribute name="es_maxcapacity" />
+          <attribute name="es_dailyrate" />
+          <attribute name="es_totalrevenue" />
+          <attribute name="es_occupancyrate" />
+          <attribute name="es_totalreservations" />
+          <attribute name="es_averagerevenueperday" />
+          <attribute name="es_spaceid" />
+          <order attribute="es_totalrevenue" descending="true" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+            <condition attribute="es_totalrevenue" operator="gt" value="0" />
+          </filter>
+          <link-entity name="es_market" from="es_marketid" to="es_marketid" link-type="inner" alias="market">
+            <attribute name="es_name" />
+            <attribute name="es_city" />
+          </link-entity>
+        </entity>
+      </fetch>
+    </fetchxml>
+    <layoutxml>
+      <grid name="resultset" jump="es_name" select="1" icon="1" preview="1">
+        <row name="result" id="es_spaceid">
+          <cell name="es_name" width="150" />
+          <cell name="market.es_name" width="150" disableSorting="0" />
+          <cell name="market.es_city" width="100" disableSorting="0" />
+          <cell name="es_spacetype" width="100" />
+          <cell name="es_totalrevenue" width="120" />
+          <cell name="es_occupancyrate" width="100" />
+          <cell name="es_totalreservations" width="100" />
+          <cell name="es_averagerevenueperday" width="120" />
+          <cell name="es_dailyrate" width="100" />
+          <cell name="es_maxcapacity" width="80" />
+        </row>
+      </grid>
+    </layoutxml>
+    <LocalizedNames>
+      <LocalizedName description="High Revenue Spaces" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="Shows top revenue generating spaces" languagecode="1033" />
+    </Descriptions>
+  </savedquery>
+  
+  <!-- Spaces Requiring Maintenance View -->
+  <savedquery>
+    <savedqueryid>{00000000-0000-0000-00AA-000010001013}</savedqueryid>
+    <name>Spaces Requiring Maintenance</name>
+    <querytype>0</querytype>
+    <isdefault>0</isdefault>
+    <returnedtypecode>10002</returnedtypecode>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <fetchxml>
+      <fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="false">
+        <entity name="es_space">
+          <attribute name="es_name" />
+          <attribute name="es_marketid" />
+          <attribute name="es_spacetype" />
+          <attribute name="es_floor" />
+          <attribute name="es_roomnumber" />
+          <attribute name="es_status" />
+          <attribute name="es_lastmaintenancedate" />
+          <attribute name="es_maintenancenotes" />
+          <attribute name="es_spaceid" />
+          <order attribute="es_lastmaintenancedate" descending="false" />
+          <filter type="and">
+            <condition attribute="es_status" operator="in">
+              <value>3</value>
+              <value>4</value>
+            </condition>
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+          <link-entity name="es_market" from="es_marketid" to="es_marketid" link-type="inner" alias="market">
+            <attribute name="es_name" />
+            <attribute name="es_city" />
+          </link-entity>
+        </entity>
+      </fetch>
+    </fetchxml>
+    <layoutxml>
+      <grid name="resultset" jump="es_name" select="1" icon="1" preview="1">
+        <row name="result" id="es_spaceid">
+          <cell name="es_name" width="150" />
+          <cell name="market.es_name" width="150" disableSorting="0" />
+          <cell name="market.es_city" width="100" disableSorting="0" />
+          <cell name="es_floor" width="60" />
+          <cell name="es_roomnumber" width="80" />
+          <cell name="es_status" width="120" />
+          <cell name="es_lastmaintenancedate" width="125" />
+          <cell name="es_maintenancenotes" width="200" />
+        </row>
+      </grid>
+    </layoutxml>
+    <LocalizedNames>
+      <LocalizedName description="Spaces Requiring Maintenance" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="Shows spaces under maintenance or renovation" languagecode="1033" />
+    </Descriptions>
+  </savedquery>
+  
+  <!-- Quick Find View -->
+  <savedquery>
+    <savedqueryid>{00000000-0000-0000-00AA-000010001014}</savedqueryid>
+    <name>Quick Find Active Spaces</name>
+    <querytype>4</querytype>
+    <isdefault>1</isdefault>
+    <returnedtypecode>10002</returnedtypecode>
+    <isquickfindquery>1</isquickfindquery>
+    <isprivate>0</isprivate>
+    <fetchxml>
+      <fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="false">
+        <entity name="es_space">
+          <attribute name="es_name" />
+          <attribute name="es_marketid" />
+          <attribute name="es_spacetype" />
+          <attribute name="es_floor" />
+          <attribute name="es_roomnumber" />
+          <attribute name="es_status" />
+          <attribute name="es_spaceid" />
+          <order attribute="es_name" descending="false" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+            <filter type="or" isquickfindfields="1">
+              <condition attribute="es_name" operator="like" value="{0}" />
+              <condition attribute="es_roomnumber" operator="like" value="{0}" />
+            </filter>
+          </filter>
+        </entity>
+      </fetch>
+    </fetchxml>
+    <layoutxml>
+      <grid name="resultset" jump="es_name" select="1" icon="1" preview="1">
+        <row name="result" id="es_spaceid">
+          <cell name="es_name" width="150" />
+          <cell name="es_marketid" width="150" />
+          <cell name="es_spacetype" width="100" />
+          <cell name="es_floor" width="60" />
+          <cell name="es_roomnumber" width="80" />
+          <cell name="es_status" width="100" />
+        </row>
+      </grid>
+    </layoutxml>
+    <LocalizedNames>
+      <LocalizedName description="Quick Find Active Spaces" languagecode="1033" />
+    </LocalizedNames>
+    <isquickfindfields>1</isquickfindfields>
+    <quickfindfiltercolumns>es_name,es_roomnumber</quickfindfiltercolumns>
+  </savedquery>
+</savedqueries>

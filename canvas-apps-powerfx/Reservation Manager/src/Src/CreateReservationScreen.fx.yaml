@@ -1,0 +1,44 @@
+CreateReservationScreen As screen:
+    Fill: =RGBA(255, 255, 255, 1)
+    Height: =Max(App.Height, App.MinScreenHeight)
+    Width: =Max(App.Width, App.MinScreenWidth)
+    LoadingSpinner: =LoadingSpinner.None
+    LoadingSpinnerColor: =App.Theme.Colors.Primary
+    OnVisible: |
+        =false
+    Size: =1 + CountRows(App.SizeBreakpoints) - CountIf(App.SizeBreakpoints, Value >= Self.Width)
+    CreateHeader As groupContainer.verticalAutoLayoutContainer:
+        width: ="Parent.Width"
+        fill: ="RGBA(0, 120, 212, 1)"
+
+        BackButton As button:
+            text: ="← Cancel"
+            fill: ="Transparent"
+            color: ="White"
+            borderColor: ="White"
+            onSelect: ="Back()"
+
+
+        CreateTitle As label:
+            text: ="If(reservationMode = "create", "New Reservation", "Edit Reservation")"
+            color: ="White"
+            weight: ="Semibold"
+
+
+        SaveButton As button:
+            text: ="Save Reservation"
+            x: ="Parent.Width - 170"
+            fill: ="White"
+            color: ="RGBA(0, 120, 212, 1)"
+            onSelect: ="SubmitForm(ReservationForm)"
+
+
+    ReservationForm As form:
+        dataSource: ="Reservations"
+        item: ="If(reservationMode = "edit", selectedReservation, Defaults(Reservations))"
+        width: ="Parent.Width - 40"
+        height: ="Parent.Height - 120"
+        onSuccess: ="Notify("Reservation saved successfully", Success); Back()"
+        onFailure: ="Notify("Error saving reservation: " & ReservationForm.Error, Error)"
+
+

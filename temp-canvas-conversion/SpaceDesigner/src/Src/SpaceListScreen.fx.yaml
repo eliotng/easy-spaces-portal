@@ -1,0 +1,35 @@
+SpaceListScreen As screen:
+    Fill: =RGBA(255, 255, 255, 1)
+    Height: =Max(App.Height, App.MinScreenHeight)
+    Width: =Max(App.Width, App.MinScreenWidth)
+    OnVisible: |
+        =// Screen initialization
+        UpdateContext({screenLoading: true});
+        UpdateContext({screenLoading: false})
+    HeaderContainer As container:
+        x: "0"
+        y: "0"
+        width: "Parent.Width"
+        height: "80"
+        fill: "RGBA(0, 120, 212, 1)"
+    FilterContainer As container:
+        x: "0"
+        y: "80"
+        width: "Parent.Width"
+        height: "60"
+        fill: "White"
+        borderColor: "LightGray"
+        borderThickness: "0 0 1 0"
+    SpaceGallery As gallery:
+        visible: "viewMode = "Gallery""
+        items: "Filter(Filter(Filter(Spaces, es_marketid.es_marketid = selectedMarket.es_marketid, If(filterCriteria.spacetype = "All", true, es_spacetype.Value = filterCriteria.spacetype)), If(filterCriteria.theme = "All", true, es_theme.Value = filterCriteria.theme)), es_maxcapacity >= filterCriteria.capacity, If(filterCriteria.availability = "Available", es_status.Value = 1, true), IsBlank(searchText) || searchText in es_name || searchText in es_description)"
+        x: "20"
+        y: "160"
+        width: "Parent.Width - 40"
+        height: "Parent.Height - 180"
+        templateSize: "320"
+        templatePadding: "15"
+        layout: "FlexibleHeight"
+        wrap: "True"
+        showScrollbar: "True"
+        onSelect: "Set(selectedSpace, ThisItem); Navigate(SpaceDetailScreen, ScreenTransition.Cover)"

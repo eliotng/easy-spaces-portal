@@ -1,0 +1,203 @@
+// ========================================
+// POWER FX FORMULAS FOR EASY SPACES APPS
+// ========================================
+
+// === GLOBAL VARIABLES (App.OnStart) ===
+Set(currentUser, User());
+Set(currentDateTime, Now());
+Set(debugMode, false);
+
+// === COLLECTIONS INITIALIZATION ===
+ClearCollect(colMarkets, []);
+ClearCollect(colSpaces, []);
+ClearCollect(colReservations, []);
+ClearCollect(colCustomers, []);
+
+// === NAVIGATION FUNCTIONS ===
+// Navigate to Market Selection
+Navigate(MarketSelectionScreen, ScreenTransition.Fade);
+
+// Navigate to Space List with market context
+Navigate(SpaceListScreen, ScreenTransition.Cover, {selectedMarket: Gallery1.Selected});
+
+// Navigate to Space Details
+Navigate(SpaceDetailScreen, ScreenTransition.Cover, {selectedSpace: Gallery1.Selected});
+
+// Navigate to Reservation List
+Navigate(ReservationListScreen, ScreenTransition.Fade);
+
+// === DATA OPERATIONS ===
+
+// Load Markets
+ClearCollect(
+    colMarkets,
+    SortByColumns(
+        es_market,
+        "es_name",
+        Ascending
+    )
+);
+
+// Load Spaces for Selected Market
+ClearCollect(
+    colSpaces,
+    Filter(
+        es_space,
+        es_marketid = selectedMarket.es_marketid
+    )
+);
+
+// Load Reservations
+ClearCollect(
+    colReservations,
+    SortByColumns(
+        Filter(
+            es_reservation,
+            es_status <> "Cancelled"
+        ),
+        "es_startdate",
+        Descending
+    )
+);
+
+// === FORM OPERATIONS ===
+
+// Submit Reservation Form
+SubmitForm(ReservationForm);
+If(
+    ReservationForm.Valid,
+    Notify("Reservation saved successfully!", NotificationType.Success);
+    Navigate(ReservationListScreen),
+    Notify("Please correct the errors and try again.", NotificationType.Error)
+);
+
+// Cancel Form
+ResetForm(ReservationForm);
+Navigate(ReservationListScreen, ScreenTransition.Cover);
+
+// === CALCULATIONS ===
+
+// Calculate Total Price
+With(
+    {
+        days: DateDiff(StartDatePicker.SelectedDate, EndDatePicker.SelectedDate, Days),
+        rate: selectedSpace.es_dailyrate
+    },
+    days * rate
+);
+
+// Calculate Occupancy Rate
+With(
+    {
+        totalSpaces: CountRows(colSpaces),
+        occupiedSpaces: CountRows(Filter(colReservations, es_status = "Confirmed"))
+    },
+    Round((occupiedSpaces / totalSpaces) * 100, 2)
+);
+
+// === FORMATTING FUNCTIONS ===
+
+// Format Currency
+Text(ThisItem.es_dailyrate, "[$-en-US]$#,##0.00")
+
+// Format Date
+Text(ThisItem.es_startdate, "mmm dd, yyyy")
+
+// Format Status with Color
+Switch(
+    ThisItem.es_status,
+    "Confirmed", "Green",
+    "Pending", "Orange",
+    "Cancelled", "Red",
+    "Gray"
+)
+
+// === VALIDATION RULES ===
+
+// Validate Date Range
+If(
+    EndDatePicker.SelectedDate >= StartDatePicker.SelectedDate,
+    true,
+    Notify("End date must be after start date", NotificationType.Error);
+    false
+)
+
+// Validate Required Fields
+If(
+    !IsBlank(CustomerNameInput.Text) && 
+    !IsBlank(StartDatePicker.SelectedDate) && 
+    !IsBlank(EndDatePicker.SelectedDate),
+    true,
+    false
+)
+
+// === SEARCH AND FILTER ===
+
+// Search Spaces
+Filter(
+    colSpaces,
+    SearchInput.Text in es_name ||
+    SearchInput.Text in es_type ||
+    SearchInput.Text in es_description
+)
+
+// Filter by Status
+Filter(
+    colReservations,
+    StatusDropdown.Selected.Value = "All" ||
+    es_status = StatusDropdown.Selected.Value
+)
+
+// Filter by Date Range
+Filter(
+    colReservations,
+    es_startdate >= DateRangeStart.SelectedDate &&
+    es_enddate <= DateRangeEnd.SelectedDate
+)
+
+// === GALLERY TEMPLATES ===
+
+// Market Gallery Item Template
+ThisItem.es_name & " - " & ThisItem.es_city & ", " & ThisItem.es_state
+
+// Space Gallery Item Template  
+ThisItem.es_name & Char(10) & 
+"Type: " & ThisItem.es_type & Char(10) &
+"Capacity: " & ThisItem.es_capacity & Char(10) &
+"Rate: " & Text(ThisItem.es_dailyrate, "[$-en-US]$#,##0.00") & "/day"
+
+// Reservation Gallery Item Template
+ThisItem.es_customername & Char(10) &
+Text(ThisItem.es_startdate, "mmm dd") & " - " & Text(ThisItem.es_enddate, "mmm dd, yyyy") & Char(10) &
+"Status: " & ThisItem.es_status
+
+// === ERROR HANDLING ===
+
+// Wrap operations in error handling
+IfError(
+    // Try operation
+    Patch(
+        es_reservation,
+        Defaults(es_reservation),
+        {
+            es_spaceid: selectedSpace.es_spaceid,
+            es_customername: CustomerNameInput.Text,
+            es_startdate: StartDatePicker.SelectedDate,
+            es_enddate: EndDatePicker.SelectedDate,
+            es_status: "Pending"
+        }
+    ),
+    // Handle error
+    Notify("Failed to save reservation. Please try again.", NotificationType.Error)
+);
+
+// === REUSABLE COMPONENTS ===
+
+// Loading Spinner Visibility
+If(screenLoading, true, false)
+
+// No Data Message Visibility  
+If(CountRows(Gallery1.AllItems) = 0, true, false)
+
+// Success Icon
+If(ThisItem.es_status = "Confirmed", Icon.Check, Icon.Warning)

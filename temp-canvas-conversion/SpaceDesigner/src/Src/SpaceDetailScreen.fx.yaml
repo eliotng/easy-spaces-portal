@@ -1,0 +1,47 @@
+SpaceDetailScreen As screen:
+    Fill: =RGBA(255, 255, 255, 1)
+    Height: =Max(App.Height, App.MinScreenHeight)
+    Width: =Max(App.Width, App.MinScreenWidth)
+    OnVisible: |
+        =// Screen initialization
+        UpdateContext({screenLoading: true});
+        UpdateContext({screenLoading: false})
+    DetailHeader As container:
+        x: "0"
+        y: "0"
+        width: "Parent.Width"
+        height: "300"
+        fill: "White"
+    InfoSection As container:
+        x: "0"
+        y: "310"
+        width: "Parent.Width"
+        height: "200"
+        fill: "RGBA(243, 242, 241, 1)"
+    PricingSection As container:
+        x: "0"
+        y: "520"
+        width: "Parent.Width"
+        height: "120"
+        fill: "White"
+    DescriptionSection As container:
+        x: "0"
+        y: "650"
+        width: "Parent.Width"
+        height: "200"
+        fill: "RGBA(243, 242, 241, 1)"
+    AmenitiesSection As container:
+        x: "0"
+        y: "860"
+        width: "Parent.Width"
+        height: "150"
+        fill: "White"
+    ActionButtons As container:
+        x: "0"
+        y: "Parent.Height - 80"
+        width: "Parent.Width"
+        height: "80"
+        fill: "White"
+        borderColor: "LightGray"
+        borderThickness: "1 0 0 0"
+        position: "Fixed"

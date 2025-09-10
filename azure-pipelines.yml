@@ -1,0 +1,347 @@
+# Azure DevOps Pipeline for Easy Spaces Dynamics 365
+# Implements ALM best practices for Power Platform
+
+trigger:
+  branches:
+    include:
+      - main
+      - develop
+      - release/*
+  paths:
+    exclude:
+      - '*.md'
+      - 'docs/**'
+
+pr:
+  branches:
+    include:
+      - main
+      - develop
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  - group: 'EasySpaces-Variables'
+  - name: BuildConfiguration
+    value: 'Release'
+  - name: SolutionName
+    value: 'EasySpacesBase'
+  - name: PublisherPrefix
+    value: 'es'
+
+stages:
+  # Validation Stage
+  - stage: Validate
+    displayName: 'Validate'
+    jobs:
+      - job: ValidateDeployment
+        displayName: 'Validate Deployment Readiness'
+        steps:
+          - task: PowerShell@2
+            displayName: 'Check Prerequisites'
+            inputs:
+              targetType: 'filePath'
+              filePath: './validate-deployment.ps1'
+              arguments: '-EnvironmentUrl $(DevEnvironmentUrl)'
+              
+          - task: DotNetCoreCLI@2
+            displayName: 'Restore Plugin Dependencies'
+            inputs:
+              command: 'restore'
+              projects: '**/EasySpaces.Plugins.csproj'
+              
+          - task: DotNetCoreCLI@2
+            displayName: 'Build Plugins'
+            inputs:
+              command: 'build'
+              projects: '**/EasySpaces.Plugins.csproj'
+              arguments: '--configuration $(BuildConfiguration)'
+
+  # Build Stage
+  - stage: Build
+    displayName: 'Build Solutions'
+    dependsOn: Validate
+    jobs:
+      - job: BuildCore
+        displayName: 'Build Core Solution'
+        steps:
+          - task: PowerPlatformToolInstaller@2
+            displayName: 'Install Power Platform Tools'
+            
+          - task: PowerPlatformSetConnectionVariables@2
+            displayName: 'Set Connection Variables'
+            inputs:
+              authenticationType: 'PowerPlatformSPN'
+              PowerPlatformSPN: 'EasySpacesSPN'
+              
+          - task: PowerPlatformExportSolution@2
+            displayName: 'Export Core Solution'
+            inputs:
+              authenticationType: 'PowerPlatformSPN'
+              PowerPlatformSPN: 'EasySpacesSPN'
+              SolutionName: 'EasySpacesCore'
+              SolutionOutputFile: '$(Build.ArtifactStagingDirectory)/EasySpacesCore.zip'
+              
+      - job: BuildPlugins
+        displayName: 'Build Plugins Solution'
+        steps:
+          - task: DotNetCoreCLI@2
+            displayName: 'Build Plugin Assembly'
+            inputs:
+              command: 'build'
+              projects: '**/EasySpaces.Plugins.csproj'
+              arguments: '--configuration $(BuildConfiguration) --output $(Build.ArtifactStagingDirectory)/plugins'
+              
+          - task: PowerPlatformExportSolution@2
+            displayName: 'Export Plugins Solution'
+            inputs:
+              authenticationType: 'PowerPlatformSPN'
+              PowerPlatformSPN: 'EasySpacesSPN'
+              SolutionName: 'EasySpacesPlugins'
+              SolutionOutputFile: '$(Build.ArtifactStagingDirectory)/EasySpacesPlugins.zip'
+              
+      - job: BuildApps
+        displayName: 'Build Apps Solution'
+        steps:
+          - task: PowerPlatformExportSolution@2
+            displayName: 'Export Apps Solution'
+            inputs:
+              authenticationType: 'PowerPlatformSPN'
+              PowerPlatformSPN: 'EasySpacesSPN'
+              SolutionName: 'EasySpacesApps'
+              SolutionOutputFile: '$(Build.ArtifactStagingDirectory)/EasySpacesApps.zip'
+              
+      - job: BuildFlows
+        displayName: 'Build Flows Solution'
+        steps:
+          - task: PowerPlatformExportSolution@2
+            displayName: 'Export Flows Solution'
+            inputs:
+              authenticationType: 'PowerPlatformSPN'
+              PowerPlatformSPN: 'EasySpacesSPN'
+              SolutionName: 'EasySpacesFlows'
+              SolutionOutputFile: '$(Build.ArtifactStagingDirectory)/EasySpacesFlows.zip'
+              
+      - job: BuildPCF
+        displayName: 'Build PCF Components'
+        steps:
+          - task: NodeTool@0
+            displayName: 'Use Node 14.x'
+            inputs:
+              versionSpec: '14.x'
+              
+          - task: Npm@1
+            displayName: 'Install PCF Dependencies'
+            inputs:
+              command: 'install'
+              workingDir: 'pcf-components/CustomerList'
+              
+          - task: Npm@1
+            displayName: 'Build PCF Component'
+            inputs:
+              command: 'custom'
+              workingDir: 'pcf-components/CustomerList'
+              customCommand: 'run build'
+              
+          - task: PowerShell@2
+            displayName: 'Package PCF Component'
+            inputs:
+              targetType: 'inline'
+              script: |
+                cd pcf-components/CustomerList
+                msbuild /t:build /restore /p:Configuration=Release
+                
+      - job: PublishArtifacts
+        displayName: 'Publish Build Artifacts'
+        dependsOn: 
+          - BuildCore
+          - BuildPlugins
+          - BuildApps
+          - BuildFlows
+          - BuildPCF
+        steps:
+          - task: PublishBuildArtifacts@1
+            displayName: 'Publish Artifacts'
+            inputs:
+              PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+              ArtifactName: 'drop'
+              publishLocation: 'Container'
+
+  # Test Stage
+  - stage: Test
+    displayName: 'Test'
+    dependsOn: Build
+    condition: succeeded()
+    jobs:
+      - job: UnitTests
+        displayName: 'Run Unit Tests'
+        steps:
+          - task: DotNetCoreCLI@2
+            displayName: 'Run Plugin Tests'
+            inputs:
+              command: 'test'
+              projects: '**/EasySpaces.Plugins.Tests.csproj'
+              arguments: '--configuration $(BuildConfiguration) --collect:"XPlat Code Coverage"'
+              
+          - task: PublishTestResults@2
+            displayName: 'Publish Test Results'
+            inputs:
+              testResultsFormat: 'VSTest'
+              testResultsFiles: '**/*.trx'
+              
+          - task: PublishCodeCoverageResults@1
+            displayName: 'Publish Code Coverage'
+            inputs:
+              codeCoverageTool: 'Cobertura'
+              summaryFileLocation: '$(Agent.TempDirectory)/**/coverage.cobertura.xml'
+
+  # Deploy to Dev
+  - stage: DeployDev
+    displayName: 'Deploy to Development'
+    dependsOn: Test
+    condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
+    jobs:
+      - deployment: DeployToDev
+        displayName: 'Deploy to Dev Environment'
+        environment: 'Development'
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - task: PowerPlatformImportSolution@2
+                  displayName: 'Import Core Solution'
+                  inputs:
+                    authenticationType: 'PowerPlatformSPN'
+                    PowerPlatformSPN: 'EasySpacesDevSPN'
+                    SolutionInputFile: '$(Pipeline.Workspace)/drop/EasySpacesCore.zip'
+                    AsyncOperation: true
+                    MaxAsyncWaitTime: 60
+                    
+                - task: PowerPlatformImportSolution@2
+                  displayName: 'Import Plugins Solution'
+                  inputs:
+                    authenticationType: 'PowerPlatformSPN'
+                    PowerPlatformSPN: 'EasySpacesDevSPN'
+                    SolutionInputFile: '$(Pipeline.Workspace)/drop/EasySpacesPlugins.zip'
+                    AsyncOperation: true
+                    MaxAsyncWaitTime: 60
+                    
+                - task: PowerPlatformImportSolution@2
+                  displayName: 'Import Apps Solution'
+                  inputs:
+                    authenticationType: 'PowerPlatformSPN'
+                    PowerPlatformSPN: 'EasySpacesDevSPN'
+                    SolutionInputFile: '$(Pipeline.Workspace)/drop/EasySpacesApps.zip'
+                    AsyncOperation: true
+                    MaxAsyncWaitTime: 60
+                    
+                - task: PowerPlatformImportSolution@2
+                  displayName: 'Import Flows Solution'
+                  inputs:
+                    authenticationType: 'PowerPlatformSPN'
+                    PowerPlatformSPN: 'EasySpacesDevSPN'
+                    SolutionInputFile: '$(Pipeline.Workspace)/drop/EasySpacesFlows.zip'
+                    AsyncOperation: true
+                    MaxAsyncWaitTime: 60
+                    
+                - task: PowerPlatformPublishCustomizations@2
+                  displayName: 'Publish All Customizations'
+                  inputs:
+                    authenticationType: 'PowerPlatformSPN'
+                    PowerPlatformSPN: 'EasySpacesDevSPN'
+
+  # Deploy to Test
+  - stage: DeployTest
+    displayName: 'Deploy to Test'
+    dependsOn: DeployDev
+    condition: succeeded()
+    jobs:
+      - deployment: DeployToTest
+        displayName: 'Deploy to Test Environment'
+        environment: 'Test'
+        strategy:
+          runOnce:
+            deploy:
+              steps:
+                - task: PowerPlatformImportSolution@2
+                  displayName: 'Import Solutions to Test'
+                  inputs:
+                    authenticationType: 'PowerPlatformSPN'
+                    PowerPlatformSPN: 'EasySpacesTestSPN'
+                    SolutionInputFile: '$(Pipeline.Workspace)/drop/*.zip'
+                    AsyncOperation: true
+                    MaxAsyncWaitTime: 60
+                    
+                - task: PowerPlatformChecker@2
+                  displayName: 'Run Solution Checker'
+                  inputs:
+                    authenticationType: 'PowerPlatformSPN'
+                    PowerPlatformSPN: 'EasySpacesTestSPN'
+                    RuleSet: 'Solution Checker'
+                    
+                - task: PowerShell@2
+                  displayName: 'Run Integration Tests'
+                  inputs:
+                    targetType: 'inline'
+                    script: |
+                      # Run automated UI tests
+                      # Run API tests
+                      # Validate business rules
+
+  # Deploy to Production
+  - stage: DeployProd
+    displayName: 'Deploy to Production'
+    dependsOn: DeployTest
+    condition: and(succeeded(), startsWith(variables['Build.SourceBranch'], 'refs/heads/release/'))
+    jobs:
+      - deployment: DeployToProd
+        displayName: 'Deploy to Production Environment'
+        environment: 'Production'
+        strategy:
+          runOnce:
+            preDeploy:
+              steps:
+                - task: PowerPlatformBackupEnvironment@2
+                  displayName: 'Backup Production Environment'
+                  inputs:
+                    authenticationType: 'PowerPlatformSPN'
+                    PowerPlatformSPN: 'EasySpacesProdSPN'
+                    BackupLabel: 'Pre-deployment backup $(Build.BuildNumber)'
+                    
+            deploy:
+              steps:
+                - task: PowerPlatformImportSolution@2
+                  displayName: 'Import Managed Solutions'
+                  inputs:
+                    authenticationType: 'PowerPlatformSPN'
+                    PowerPlatformSPN: 'EasySpacesProdSPN'
+                    SolutionInputFile: '$(Pipeline.Workspace)/drop/*.zip'
+                    AsyncOperation: true
+                    MaxAsyncWaitTime: 60
+                    ConvertToManaged: true
+                    
+                - task: PowerPlatformPublishCustomizations@2
+                  displayName: 'Publish Customizations'
+                  inputs:
+                    authenticationType: 'PowerPlatformSPN'
+                    PowerPlatformSPN: 'EasySpacesProdSPN'
+                    
+            routeTraffic:
+              steps:
+                - task: PowerShell@2
+                  displayName: 'Smoke Tests'
+                  inputs:
+                    targetType: 'inline'
+                    script: |
+                      # Run smoke tests
+                      # Verify critical functionality
+                      
+            postRouteTraffic:
+              steps:
+                - task: PowerShell@2
+                  displayName: 'Send Deployment Notification'
+                  inputs:
+                    targetType: 'inline'
+                    script: |
+                      # Send email/Teams notification about deployment

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ImportExportXml version="9.2.24.0" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <SolutionManifest>
+    <UniqueName>EasySpacesBase</UniqueName>
+    <LocalizedNames>
+      <LocalizedName description="Easy Spaces Base" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="Base solution for Easy Spaces application containing core entities, security roles, and relationships" languagecode="1033" />
+    </Descriptions>
+    <Version>1.0.0.0</Version>
+    <Managed>0</Managed>
+    <Publisher>
+      <UniqueName>easyspaces</UniqueName>
+      <LocalizedNames>
+        <LocalizedName description="Easy Spaces" languagecode="1033" />
+      </LocalizedNames>
+      <Descriptions>
+        <Description description="Easy Spaces Publisher" languagecode="1033" />
+      </Descriptions>
+      <EMailAddress>support@easyspaces.com</EMailAddress>
+      <SupportingWebsiteUrl>https://www.easyspaces.com</SupportingWebsiteUrl>
+      <CustomizationPrefix>es</CustomizationPrefix>
+      <CustomizationOptionValuePrefix>10000</CustomizationOptionValuePrefix>
+      <Addresses>
+        <Address>
+          <AddressNumber>1</AddressNumber>
+          <AddressTypeCode>1</AddressTypeCode>
+          <City>San Francisco</City>
+          <StateOrProvince>CA</StateOrProvince>
+          <Country>United States</Country>
+          <PostalCode>94105</PostalCode>
+        </Address>
+      </Addresses>
+    </Publisher>
+    <RootComponents>
+      <!-- Market Entity -->
+      <RootComponent type="1" schemaName="es_market" behavior="0" />
+      
+      <!-- Space Entity -->
+      <RootComponent type="1" schemaName="es_space" behavior="0" />
+      
+      <!-- Reservation Entity -->
+      <RootComponent type="1" schemaName="es_reservation" behavior="0" />
+      
+      <!-- Security Roles -->
+      <RootComponent type="20" id="{00000000-0000-0000-0000-000000000001}" behavior="0" />
+      <RootComponent type="20" id="{00000000-0000-0000-0000-000000000002}" behavior="0" />
+      <RootComponent type="20" id="{00000000-0000-0000-0000-000000000003}" behavior="0" />
+      <RootComponent type="20" id="{00000000-0000-0000-0000-000000000004}" behavior="0" />
+      
+      <!-- Field Security Profiles -->
+      <RootComponent type="70" id="{00000000-0000-0000-0000-000000000011}" behavior="0" />
+      <RootComponent type="70" id="{00000000-0000-0000-0000-000000000012}" behavior="0" />
+      
+      <!-- Option Sets (Global) -->
+      <RootComponent type="9" schemaName="es_region" behavior="0" />
+      <RootComponent type="9" schemaName="es_spacetype" behavior="0" />
+      <RootComponent type="9" schemaName="es_theme" behavior="0" />
+      <RootComponent type="9" schemaName="es_reservationstatus" behavior="0" />
+      
+      <!-- Site Map -->
+      <RootComponent type="62" schemaName="es_easyspaces_sitemap" behavior="0" />
+      
+      <!-- Web Resources (Icons) -->
+      <RootComponent type="61" schemaName="es_/icons/market_16.png" behavior="0" />
+      <RootComponent type="61" schemaName="es_/icons/market_32.png" behavior="0" />
+      <RootComponent type="61" schemaName="es_/icons/space_16.png" behavior="0" />
+      <RootComponent type="61" schemaName="es_/icons/space_32.png" behavior="0" />
+      <RootComponent type="61" schemaName="es_/icons/reservation_16.png" behavior="0" />
+      <RootComponent type="61" schemaName="es_/icons/reservation_32.png" behavior="0" />
+    </RootComponents>
+    <MissingDependencies />
+  </SolutionManifest>
+</ImportExportXml>

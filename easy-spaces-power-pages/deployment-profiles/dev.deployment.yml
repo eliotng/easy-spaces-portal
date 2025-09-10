@@ -1,0 +1,5 @@
+environment_url: https://org160bb28a.crm.dynamics.com
+website_id: easy-spaces-dev
+deployment_mode: development
+enable_cache: false
+minify_assets: false

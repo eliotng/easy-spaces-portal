@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ImportExportXml version="9.2.24013.180" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <SolutionManifest>
+    <UniqueName>EasySpacesApps</UniqueName>
+    <LocalizedNames>
+      <LocalizedName description="Easy Spaces Applications" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="Canvas apps, model-driven apps, and UI components for Easy Spaces" languagecode="1033" />
+    </Descriptions>
+    <Version>1.0.0.0</Version>
+    <Managed>2</Managed>
+    <Publisher>
+      <UniqueName>EasySpacesPublisher</UniqueName>
+    </Publisher>
+    <RootComponents>
+      <!-- Canvas Apps -->
+      <RootComponent type="300" schemaName="es_spacedesigner" behavior="0" />
+      <RootComponent type="300" schemaName="es_reservationmanager" behavior="0" />
+      
+      <!-- Model-driven App -->
+      <RootComponent type="80" schemaName="es_easyspacesadmin" behavior="0" />
+      
+      <!-- App Modules -->
+      <RootComponent type="80" schemaName="es_easyspacesmain" behavior="0" />
+      
+      <!-- Site Map -->
+      <RootComponent type="62" schemaName="es_easyspacessitemap" behavior="0" />
+      
+      <!-- Forms -->
+      <RootComponent type="60" id="{A3B5C7D9-1234-5678-9ABC-DEF012345678}" behavior="0" />
+      <RootComponent type="60" id="{B4C6D8E0-2345-6789-ABCD-EF0123456789}" behavior="0" />
+      
+      <!-- Views -->
+      <RootComponent type="26" id="{00000000-0000-0000-00AA-000010001008}" behavior="0" />
+      <RootComponent type="26" id="{00000000-0000-0000-00AA-000010001009}" behavior="0" />
+      <RootComponent type="26" id="{00000000-0000-0000-00AA-000010001005}" behavior="0" />
+      
+      <!-- Dashboards -->
+      <RootComponent type="60" id="{2c8b67d4-58bb-ed11-8849-000d3a993550}" behavior="0" />
+      
+      <!-- PCF Controls -->
+      <RootComponent type="66" schemaName="EasySpaces.CustomerList" behavior="0" />
+    </RootComponents>
+    <MissingDependencies>
+      <MissingDependency>
+        <Required type="1" schemaName="es_reservation" displayName="Reservation" />
+        <Dependent type="60" displayName="Reservation Main Form" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="1" schemaName="es_space" displayName="Space" />
+        <Dependent type="60" displayName="Space Main Form" />
+      </MissingDependency>
+    </MissingDependencies>
+  </SolutionManifest>
+</ImportExportXml>

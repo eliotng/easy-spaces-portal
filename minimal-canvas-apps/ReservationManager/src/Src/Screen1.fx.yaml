@@ -1,0 +1,13 @@
+Screen1 As screen:
+    Fill: =RGBA(255, 255, 255, 1)
+    Height: =Max(App.Height, App.MinScreenHeight)
+    Width: =Max(App.Width, App.MinScreenWidth)
+
+    Label1 As label:
+        Text: ="Welcome to ReservationManager"
+        X: =100
+        Y: =100
+        Width: =400
+        Height: =50
+        Size: =24
+        Color: =RGBA(0, 0, 0, 1)

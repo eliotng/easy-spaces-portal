@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Entity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name LocalizedName="Space" OriginalName="Space">es_space</Name>
+  <EntityInfo>
+    <entity Name="es_space">
+      <LocalizedNames>
+        <LocalizedName languagecode="1033" description="Space" />
+      </LocalizedNames>
+      <LocalizedCollectionNames>
+        <LocalizedCollectionName languagecode="1033" description="Spaces" />
+      </LocalizedCollectionNames>
+      <Descriptions>
+        <Description languagecode="1033" description="Available spaces for reservation" />
+      </Descriptions>
+      <attributes>
+        <attribute PhysicalName="es_spaceid">
+          <Type>primarykey</Type>
+          <Name>es_spaceid</Name>
+          <LogicalName>es_spaceid</LogicalName>
+        </attribute>
+        <attribute PhysicalName="es_name">
+          <Type>nvarchar</Type>
+          <Name>es_name</Name>
+          <LogicalName>es_name</LogicalName>
+          <RequiredLevel>applicationrequired</RequiredLevel>
+          <DisplayMask>ValidForAdvancedFind|RequiredForForm|ValidForGrid</DisplayMask>
+          <ImeMode>auto</ImeMode>
+          <MaxLength>100</MaxLength>
+          <IsPrimaryName>1</IsPrimaryName>
+          <LocalizedNames>
+            <LocalizedName languagecode="1033" description="Name" />
+          </LocalizedNames>
+        </attribute>
+        <attribute PhysicalName="es_type">
+          <Type>nvarchar</Type>
+          <Name>es_type</Name>
+          <LogicalName>es_type</LogicalName>
+          <RequiredLevel>none</RequiredLevel>
+          <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+          <ImeMode>auto</ImeMode>
+          <MaxLength>50</MaxLength>
+          <LocalizedNames>
+            <LocalizedName languagecode="1033" description="Type" />
+          </LocalizedNames>
+        </attribute>
+        <attribute PhysicalName="es_capacity">
+          <Type>int</Type>
+          <Name>es_capacity</Name>
+          <LogicalName>es_capacity</LogicalName>
+          <RequiredLevel>none</RequiredLevel>
+          <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+          <MinValue>1</MinValue>
+          <MaxValue>1000</MaxValue>
+          <LocalizedNames>
+            <LocalizedName languagecode="1033" description="Capacity" />
+          </LocalizedNames>
+        </attribute>
+        <attribute PhysicalName="es_dailyrate">
+          <Type>money</Type>
+          <Name>es_dailyrate</Name>
+          <LogicalName>es_dailyrate</LogicalName>
+          <RequiredLevel>none</RequiredLevel>
+          <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+          <MinValue>0</MinValue>
+          <MaxValue>100000</MaxValue>
+          <LocalizedNames>
+            <LocalizedName languagecode="1033" description="Daily Rate" />
+          </LocalizedNames>
+        </attribute>
+        <attribute PhysicalName="es_marketid">
+          <Type>lookup</Type>
+          <Name>es_marketid</Name>
+          <LogicalName>es_marketid</LogicalName>
+          <RequiredLevel>none</RequiredLevel>
+          <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+          <ReferencedEntityName>es_market</ReferencedEntityName>
+          <LocalizedNames>
+            <LocalizedName languagecode="1033" description="Market" />
+          </LocalizedNames>
+        </attribute>
+      </attributes>
+      <EntitySetName>es_spaces</EntitySetName>
+      <IsDuplicateCheckSupported>1</IsDuplicateCheckSupported>
+      <IsBusinessProcessEnabled>1</IsBusinessProcessEnabled>
+      <IsRequiredOffline>0</IsRequiredOffline>
+      <IsInteractionCentricEnabled>0</IsInteractionCentricEnabled>
+      <IsCollaboration>0</IsCollaboration>
+      <AutoRouteToOwnerQueue>0</AutoRouteToOwnerQueue>
+      <IsConnectionsEnabled>1</IsConnectionsEnabled>
+      <HasNotes>1</HasNotes>
+      <HasActivities>1</HasActivities>
+      <IsActivity>0</IsActivity>
+      <IsActivityParty>0</IsActivityParty>
+      <IsAuditEnabled>1</IsAuditEnabled>
+      <IsAvailableOffline>0</IsAvailableOffline>
+      <IsChildEntity>0</IsChildEntity>
+      <OwnershipTypeMask>UserOwned</OwnershipTypeMask>
+      <EnableForTrace>0</EnableForTrace>
+    </entity>
+  </EntityInfo>
+</Entity>

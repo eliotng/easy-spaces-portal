@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ImportExportXml version="9.2.24013.180" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <SolutionManifest>
+    <UniqueName>EasySpacesPlugins</UniqueName>
+    <LocalizedNames>
+      <LocalizedName description="Easy Spaces Plugins" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="Business logic plugins and web resources for Easy Spaces" languagecode="1033" />
+    </Descriptions>
+    <Version>1.0.0.0</Version>
+    <Managed>2</Managed>
+    <Publisher>
+      <UniqueName>EasySpacesPublisher</UniqueName>
+    </Publisher>
+    <RootComponents>
+      <!-- Plugin Assembly -->
+      <RootComponent type="91" schemaName="EasySpaces.Plugins" behavior="0" />
+      
+      <!-- Plugin Steps -->
+      <RootComponent type="92" id="{A1B2C3D4-1234-5678-90AB-CDEF01234567}" behavior="0" />
+      <RootComponent type="92" id="{B2C3D4E5-2345-6789-01BC-DEF012345678}" behavior="0" />
+      <RootComponent type="92" id="{C3D4E5F6-3456-7890-12CD-EF0123456789}" behavior="0" />
+      <RootComponent type="92" id="{D4E5F6A7-4567-8901-23DE-F01234567890}" behavior="0" />
+      <RootComponent type="92" id="{E5F6A7B8-5678-9012-34EF-012345678901}" behavior="0" />
+      
+      <!-- Web Resources -->
+      <RootComponent type="61" schemaName="es_/scripts/reservation.js" behavior="0" />
+      <RootComponent type="61" schemaName="es_/scripts/space.js" behavior="0" />
+      
+      <!-- Business Rules -->
+      <RootComponent type="65" schemaName="es_calculateratesonspace" behavior="0" />
+      <RootComponent type="65" schemaName="es_validatereservationdates" behavior="0" />
+      <RootComponent type="65" schemaName="es_requireapproverwhenapprovalneeded" behavior="0" />
+    </RootComponents>
+    <MissingDependencies>
+      <MissingDependency>
+        <Required type="1" schemaName="es_reservation" displayName="Reservation" />
+        <Dependent type="92" displayName="ReservationValidationPlugin Create" />
+      </MissingDependency>
+      <MissingDependency>
+        <Required type="1" schemaName="es_space" displayName="Space" />
+        <Dependent type="92" displayName="SpaceCapacityPlugin Create" />
+      </MissingDependency>
+    </MissingDependencies>
+  </SolutionManifest>
+</ImportExportXml>

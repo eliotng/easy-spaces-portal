@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="utf-8"?>
+<forms>
+  <systemform>
+    <formid>{A3B5C7D9-1234-5678-9ABC-DEF012345678}</formid>
+    <IntroducedVersion>1.0.0.0</IntroducedVersion>
+    <FormPresentation>1</FormPresentation>
+    <FormActivationState>1</FormActivationState>
+    <form>
+      <tabs>
+        <!-- General Tab -->
+        <tab name="GENERAL_TAB" id="{8E6F3B5A-2345-6789-ABCD-EF0123456789}" IsUserDefined="0" locklevel="0" showlabel="true" expanded="true">
+          <labels>
+            <label description="General" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <!-- Reservation Information Section -->
+                <section name="RESERVATION_INFO" showlabel="true" showbar="true" locklevel="0" id="{9F7E4C6B-3456-789A-BCDE-F01234567890}" IsUserDefined="0" layout="twoColumnLeft">
+                  <labels>
+                    <label description="Reservation Information" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{A1B2C3D4-4567-89AB-CDEF-012345678901}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Reservation Number" languagecode="1033" />
+                        </labels>
+                        <control id="es_name" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="es_name" disabled="true" />
+                      </cell>
+                      <cell id="{B2C3D4E5-5678-9ABC-DEF0-123456789012}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Status" languagecode="1033" />
+                        </labels>
+                        <control id="es_status" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="es_status" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{C3D4E5F6-6789-ABCD-EF01-234567890123}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Confirmation Code" languagecode="1033" />
+                        </labels>
+                        <control id="es_confirmationcode" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="es_confirmationcode" disabled="true" />
+                      </cell>
+                      <cell id="{D4E5F6A7-789A-BCDE-F012-345678901234}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Payment Status" languagecode="1033" />
+                        </labels>
+                        <control id="es_paymentstatus" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="es_paymentstatus" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                
+                <!-- Customer Information Section -->
+                <section name="CUSTOMER_INFO" showlabel="true" showbar="true" locklevel="0" id="{E5F6A7B8-89AB-CDEF-0123-456789012345}" IsUserDefined="0" layout="twoColumnLeft">
+                  <labels>
+                    <label description="Customer Information" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{F6A7B8C9-9ABC-DEF0-1234-567890123456}" showlabel="true" locklevel="0" colspan="2">
+                        <labels>
+                          <label description="Customer Contact" languagecode="1033" />
+                        </labels>
+                        <control id="es_customercontactid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="es_customercontactid">
+                          <parameters>
+                            <DefaultViewId>{00000000-0000-0000-00AA-000010001004}</DefaultViewId>
+                            <DisableMru>false</DisableMru>
+                            <DisableQuickFind>false</DisableQuickFind>
+                            <DisableViewPicker>false</DisableViewPicker>
+                            <AllowFilterOff>false</AllowFilterOff>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{A7B8C9DA-ABCD-EF01-2345-678901234567}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Lead" languagecode="1033" />
+                        </labels>
+                        <control id="es_leadid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="es_leadid" />
+                      </cell>
+                      <cell id="{B8C9DAEB-BCDE-F012-3456-789012345678}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Number of Guests" languagecode="1033" />
+                        </labels>
+                        <control id="es_numberofguests" classid="{C3B6BA61-DF69-468A-8BFC-3E2B74F38F2B}" datafieldname="es_numberofguests" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                
+                <!-- Space and Schedule Section -->
+                <section name="SPACE_SCHEDULE" showlabel="true" showbar="true" locklevel="0" id="{C9DAEBFC-CDEF-0123-4567-890123456789}" IsUserDefined="0" layout="twoColumnLeft">
+                  <labels>
+                    <label description="Space and Schedule" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{DAEBFC0D-DEF0-1234-5678-901234567890}" showlabel="true" locklevel="0" colspan="2">
+                        <labels>
+                          <label description="Space" languagecode="1033" />
+                        </labels>
+                        <control id="es_spaceid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="es_spaceid">
+                          <parameters>
+                            <DefaultViewId>{00000000-0000-0000-00AA-000010001005}</DefaultViewId>
+                            <DisableMru>false</DisableMru>
+                            <DisableQuickFind>false</DisableQuickFind>
+                            <DisableViewPicker>false</DisableViewPicker>
+                            <AllowFilterOff>false</AllowFilterOff>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{EBFC0D1E-EF01-2345-6789-012345678901}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Start Date" languagecode="1033" />
+                        </labels>
+                        <control id="es_startdate" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="es_startdate">
+                          <parameters>
+                            <DateOnly>false</DateOnly>
+                          </parameters>
+                        </control>
+                      </cell>
+                      <cell id="{FC0D1E2F-F012-3456-789A-123456789012}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="End Date" languagecode="1033" />
+                        </labels>
+                        <control id="es_enddate" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="es_enddate">
+                          <parameters>
+                            <DateOnly>false</DateOnly>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{0D1E2F30-0123-4567-89AB-234567890123}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Duration (Days)" languagecode="1033" />
+                        </labels>
+                        <control id="es_duration" classid="{C3B6BA61-DF69-468A-8BFC-3E2B74F38F2B}" datafieldname="es_duration" disabled="true" />
+                      </cell>
+                      <cell id="{1E2F3041-1234-5678-9ABC-345678901234}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Check-in Time" languagecode="1033" />
+                        </labels>
+                        <control id="es_checkintime" classid="{4273EDBD-AC1D-40D3-9FB2-095C621B552D}" datafieldname="es_checkintime" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        
+        <!-- Payment Tab -->
+        <tab name="PAYMENT_TAB" id="{2F304152-2345-6789-ABCD-456789012345}" IsUserDefined="0" locklevel="0" showlabel="true" expanded="false">
+          <labels>
+            <label description="Payment" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <!-- Payment Details Section -->
+                <section name="PAYMENT_DETAILS" showlabel="true" showbar="true" locklevel="0" id="{30415263-3456-789A-BCDE-567890123456}" IsUserDefined="0" layout="twoColumnLeft">
+                  <labels>
+                    <label description="Payment Details" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{04152637-4567-89AB-CDEF-678901234567}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Total Amount" languagecode="1033" />
+                        </labels>
+                        <control id="es_totalamount" classid="{533B9E00-756B-4312-95A4-FA543593B6E4}" datafieldname="es_totalamount" />
+                      </cell>
+                      <cell id="{15263748-5678-9ABC-DEF0-789012345678}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Deposit Amount" languagecode="1033" />
+                        </labels>
+                        <control id="es_depositamount" classid="{533B9E00-756B-4312-95A4-FA543593B6E4}" datafieldname="es_depositamount" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{26374859-6789-ABCD-EF01-890123456789}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Balance Due" languagecode="1033" />
+                        </labels>
+                        <control id="es_balancedue" classid="{533B9E00-756B-4312-95A4-FA543593B6E4}" datafieldname="es_balancedue" disabled="true" />
+                      </cell>
+                      <cell id="{3748596A-789A-BCDE-F012-901234567890}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Payment Method" languagecode="1033" />
+                        </labels>
+                        <control id="es_paymentmethod" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="es_paymentmethod" />
+                      </cell>
+                    </row>
+                    <row>
+                      <cell id="{48596A7B-89AB-CDEF-0123-012345678901}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Payment Date" languagecode="1033" />
+                        </labels>
+                        <control id="es_paymentdate" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="es_paymentdate" />
+                      </cell>
+                      <cell id="{596A7B8C-9ABC-DEF0-1234-123456789012}" showlabel="true" locklevel="0">
+                        <labels>
+                          <label description="Refund Amount" languagecode="1033" />
+                        </labels>
+                        <control id="es_refundamount" classid="{533B9E00-756B-4312-95A4-FA543593B6E4}" datafieldname="es_refundamount" />
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+        
+        <!-- Notes Tab -->
+        <tab name="NOTES_TAB" id="{6A7B8C9D-ABCD-EF01-2345-234567890123}" IsUserDefined="0" locklevel="0" showlabel="true" expanded="false">
+          <labels>
+            <label description="Notes" languagecode="1033" />
+          </labels>
+          <columns>
+            <column width="100%">
+              <sections>
+                <!-- Special Requests Section -->
+                <section name="SPECIAL_REQUESTS" showlabel="true" showbar="true" locklevel="0" id="{7B8C9DAE-BCDE-F012-3456-345678901234}" IsUserDefined="0" layout="varwidth">
+                  <labels>
+                    <label description="Special Requests" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{8C9DAEBF-CDEF-0123-4567-456789012345}" showlabel="true" locklevel="0" rowspan="3">
+                        <labels>
+                          <label description="Special Requests" languagecode="1033" />
+                        </labels>
+                        <control id="es_specialrequests" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="es_specialrequests">
+                          <parameters>
+                            <MaxLength>2000</MaxLength>
+                            <Rows>6</Rows>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                
+                <!-- Internal Notes Section -->
+                <section name="INTERNAL_NOTES" showlabel="true" showbar="true" locklevel="0" id="{9DAEBFC0-DEF0-1234-5678-567890123456}" IsUserDefined="0" layout="varwidth">
+                  <labels>
+                    <label description="Internal Notes" languagecode="1033" />
+                  </labels>
+                  <rows>
+                    <row>
+                      <cell id="{DAEBFC0D-EF01-2345-6789-678901234567}" showlabel="true" locklevel="0" rowspan="3">
+                        <labels>
+                          <label description="Internal Notes" languagecode="1033" />
+                        </labels>
+                        <control id="es_internalnotes" classid="{E0DECE4B-6FC8-4A8F-A065-082708572369}" datafieldname="es_internalnotes">
+                          <parameters>
+                            <MaxLength>2000</MaxLength>
+                            <Rows>6</Rows>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+                
+                <!-- Timeline Section -->
+                <section name="TIMELINE" showlabel="false" showbar="false" locklevel="0" id="{AEBFC0D1-F012-3456-789A-789012345678}" IsUserDefined="0" layout="varwidth">
+                  <rows>
+                    <row>
+                      <cell id="{EBFC0D1E-0123-4567-89AB-890123456789}" showlabel="false" locklevel="0">
+                        <control id="notescontrol" classid="{06375649-C143-495E-A496-C962E5B4488E}">
+                          <parameters>
+                            <ShowWallControl>true</ShowWallControl>
+                            <ShowActivitiesControl>true</ShowActivitiesControl>
+                            <ShowNotesControl>true</ShowNotesControl>
+                          </parameters>
+                        </control>
+                      </cell>
+                    </row>
+                  </rows>
+                </section>
+              </sections>
+            </column>
+          </columns>
+        </tab>
+      </tabs>
+      
+      <!-- Header -->
+      <header id="{BC0D1E2F-1234-5678-9ABC-901234567890}">
+        <rows>
+          <row>
+            <cell id="{C0D1E2F3-2345-6789-ABCD-012345678901}" showlabel="true">
+              <labels>
+                <label description="Owner" languagecode="1033" />
+              </labels>
+              <control id="header_ownerid" classid="{270BD3DB-D9AF-4782-9025-509E298DEC0A}" datafieldname="ownerid" />
+            </cell>
+            <cell id="{D1E2F304-3456-789A-BCDE-123456789012}" showlabel="true">
+              <labels>
+                <label description="Status" languagecode="1033" />
+              </labels>
+              <control id="header_es_status" classid="{3EF39988-22BB-4F0B-BBBE-64B5A3748AEE}" datafieldname="es_status" />
+            </cell>
+            <cell id="{E2F30415-4567-89AB-CDEF-234567890123}" showlabel="true">
+              <labels>
+                <label description="Total Amount" languagecode="1033" />
+              </labels>
+              <control id="header_es_totalamount" classid="{533B9E00-756B-4312-95A4-FA543593B6E4}" datafieldname="es_totalamount" />
+            </cell>
+          </row>
+        </rows>
+      </header>
+      
+      <!-- Footer -->
+      <footer id="{F3041526-5678-9ABC-DEF0-345678901234}">
+        <rows>
+          <row>
+            <cell id="{30415263-6789-ABCD-EF01-456789012345}" showlabel="true">
+              <labels>
+                <label description="Created On" languagecode="1033" />
+              </labels>
+              <control id="footer_createdon" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="createdon" disabled="true" />
+            </cell>
+            <cell id="{04152637-789A-BCDE-F012-567890123456}" showlabel="true">
+              <labels>
+                <label description="Modified On" languagecode="1033" />
+              </labels>
+              <control id="footer_modifiedon" classid="{5B773807-9FB2-42DB-97C3-7A91EFF8ADFF}" datafieldname="modifiedon" disabled="true" />
+            </cell>
+          </row>
+        </rows>
+      </footer>
+    </form>
+    <IsCustomizable>1</IsCustomizable>
+    <CanBeDeleted>1</CanBeDeleted>
+    <LocalizedNames>
+      <LocalizedName description="Reservation" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="Main form for managing reservations" languagecode="1033" />
+    </Descriptions>
+  </systemform>
+</forms>

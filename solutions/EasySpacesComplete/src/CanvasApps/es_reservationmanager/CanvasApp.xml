@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CanvasApp xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name>es_reservationmanager</Name>
+  <FileName>es_reservationmanager</FileName>
+  <DisplayName default="Reservation Manager">
+    <label description="Reservation Manager" languagecode="1033" />
+  </DisplayName>
+  <Description default="Comprehensive reservation management system">
+    <label description="Comprehensive reservation management system" languagecode="1033" />
+  </Description>
+  <CommitMessage>Initial version</CommitMessage>
+  <Publisher>Easy Spaces</Publisher>
+  <Version>1.0.0.0</Version>
+  <MinClientVersion>1.0.0.0</MinClientVersion>
+  <Tags>easyspaces</Tags>
+  <IntroducedVersion>1.0.0.0</IntroducedVersion>
+  <IsCdsUpgraded>1</IsCdsUpgraded>
+  <IsCustomizable>1</IsCustomizable>
+  <BackgroundColor>RGBA(243, 242, 241, 1)</BackgroundColor>
+  <AppComponents>
+    <AppComponent type="CanvasApp" schemaName="es_reservationmanager" />
+  </AppComponents>
+  <AppOpenUri>/providers/Microsoft.PowerApps/apps/es_reservationmanager</AppOpenUri>
+  <AppType>ClassicCanvasApp</AppType>
+  <Documentation />
+  <LocalizedNames>
+    <LocalizedName description="Reservation Manager" languagecode="1033" />
+  </LocalizedNames>
+  <LocalizedDescriptions>
+    <LocalizedDescription description="Comprehensive reservation management system" languagecode="1033" />
+  </LocalizedDescriptions>
+</CanvasApp>

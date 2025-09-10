@@ -1,0 +1,302 @@
+<?xml version="1.0" encoding="utf-8"?>
+<savedqueries>
+  <!-- Active Reservations View -->
+  <savedquery>
+    <savedqueryid>{00000000-0000-0000-00AA-000010001008}</savedqueryid>
+    <name>Active Reservations</name>
+    <querytype>0</querytype>
+    <isdefault>1</isdefault>
+    <returnedtypecode>10001</returnedtypecode>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <fetchxml>
+      <fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="false">
+        <entity name="es_reservation">
+          <attribute name="es_name" />
+          <attribute name="es_customercontactid" />
+          <attribute name="es_spaceid" />
+          <attribute name="es_startdate" />
+          <attribute name="es_enddate" />
+          <attribute name="es_status" />
+          <attribute name="es_totalamount" />
+          <attribute name="es_paymentstatus" />
+          <attribute name="es_confirmationcode" />
+          <attribute name="es_reservationid" />
+          <order attribute="es_startdate" descending="false" />
+          <filter type="and">
+            <condition attribute="es_status" operator="in">
+              <value>1</value>
+              <value>2</value>
+              <value>3</value>
+              <value>4</value>
+            </condition>
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+          <link-entity name="es_space" from="es_spaceid" to="es_spaceid" link-type="inner" alias="space">
+            <attribute name="es_name" />
+            <attribute name="es_floor" />
+            <attribute name="es_roomnumber" />
+          </link-entity>
+          <link-entity name="contact" from="contactid" to="es_customercontactid" link-type="outer" alias="contact">
+            <attribute name="fullname" />
+            <attribute name="emailaddress1" />
+          </link-entity>
+        </entity>
+      </fetch>
+    </fetchxml>
+    <layoutxml>
+      <grid name="resultset" jump="es_name" select="1" icon="1" preview="1">
+        <row name="result" id="es_reservationid">
+          <cell name="es_name" width="150" />
+          <cell name="contact.fullname" width="150" disableSorting="0" />
+          <cell name="space.es_name" width="150" disableSorting="0" />
+          <cell name="es_startdate" width="125" />
+          <cell name="es_enddate" width="125" />
+          <cell name="es_status" width="100" />
+          <cell name="es_totalamount" width="100" />
+          <cell name="es_paymentstatus" width="100" />
+          <cell name="es_confirmationcode" width="120" />
+        </row>
+      </grid>
+    </layoutxml>
+    <LocalizedNames>
+      <LocalizedName description="Active Reservations" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="Shows all active reservations" languagecode="1033" />
+    </Descriptions>
+  </savedquery>
+  
+  <!-- Today's Check-ins View -->
+  <savedquery>
+    <savedqueryid>{00000000-0000-0000-00AA-000010001009}</savedqueryid>
+    <name>Today's Check-ins</name>
+    <querytype>0</querytype>
+    <isdefault>0</isdefault>
+    <returnedtypecode>10001</returnedtypecode>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <fetchxml>
+      <fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="false">
+        <entity name="es_reservation">
+          <attribute name="es_name" />
+          <attribute name="es_customercontactid" />
+          <attribute name="es_spaceid" />
+          <attribute name="es_startdate" />
+          <attribute name="es_checkintime" />
+          <attribute name="es_status" />
+          <attribute name="es_numberofguests" />
+          <attribute name="es_confirmationcode" />
+          <attribute name="es_reservationid" />
+          <order attribute="es_startdate" descending="false" />
+          <filter type="and">
+            <condition attribute="es_startdate" operator="today" />
+            <condition attribute="es_status" operator="in">
+              <value>3</value>
+              <value>4</value>
+            </condition>
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+          <link-entity name="es_space" from="es_spaceid" to="es_spaceid" link-type="inner" alias="space">
+            <attribute name="es_name" />
+            <attribute name="es_floor" />
+            <attribute name="es_roomnumber" />
+          </link-entity>
+          <link-entity name="contact" from="contactid" to="es_customercontactid" link-type="outer" alias="contact">
+            <attribute name="fullname" />
+            <attribute name="mobilephone" />
+          </link-entity>
+        </entity>
+      </fetch>
+    </fetchxml>
+    <layoutxml>
+      <grid name="resultset" jump="es_name" select="1" icon="1" preview="1">
+        <row name="result" id="es_reservationid">
+          <cell name="es_confirmationcode" width="120" />
+          <cell name="contact.fullname" width="150" disableSorting="0" />
+          <cell name="space.es_name" width="150" disableSorting="0" />
+          <cell name="space.es_floor" width="80" disableSorting="0" />
+          <cell name="space.es_roomnumber" width="100" disableSorting="0" />
+          <cell name="es_startdate" width="150" />
+          <cell name="es_checkintime" width="100" />
+          <cell name="es_numberofguests" width="100" />
+          <cell name="es_status" width="100" />
+        </row>
+      </grid>
+    </layoutxml>
+    <LocalizedNames>
+      <LocalizedName description="Today's Check-ins" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="Shows reservations checking in today" languagecode="1033" />
+    </Descriptions>
+  </savedquery>
+  
+  <!-- Pending Approval View -->
+  <savedquery>
+    <savedqueryid>{00000000-0000-0000-00AA-000010001010}</savedqueryid>
+    <name>Pending Approval</name>
+    <querytype>0</querytype>
+    <isdefault>0</isdefault>
+    <returnedtypecode>10001</returnedtypecode>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <fetchxml>
+      <fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="false">
+        <entity name="es_reservation">
+          <attribute name="es_name" />
+          <attribute name="es_customercontactid" />
+          <attribute name="es_spaceid" />
+          <attribute name="es_startdate" />
+          <attribute name="es_enddate" />
+          <attribute name="es_totalamount" />
+          <attribute name="es_numberofguests" />
+          <attribute name="createdon" />
+          <attribute name="es_reservationid" />
+          <order attribute="createdon" descending="false" />
+          <filter type="and">
+            <condition attribute="es_status" operator="eq" value="2" />
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+          <link-entity name="es_space" from="es_spaceid" to="es_spaceid" link-type="inner" alias="space">
+            <attribute name="es_name" />
+            <attribute name="es_requiresapproval" />
+            <link-entity name="systemuser" from="systemuserid" to="es_approver" link-type="outer" alias="approver">
+              <attribute name="fullname" />
+            </link-entity>
+          </link-entity>
+          <link-entity name="contact" from="contactid" to="es_customercontactid" link-type="outer" alias="contact">
+            <attribute name="fullname" />
+          </link-entity>
+        </entity>
+      </fetch>
+    </fetchxml>
+    <layoutxml>
+      <grid name="resultset" jump="es_name" select="1" icon="1" preview="1">
+        <row name="result" id="es_reservationid">
+          <cell name="es_name" width="150" />
+          <cell name="contact.fullname" width="150" disableSorting="0" />
+          <cell name="space.es_name" width="150" disableSorting="0" />
+          <cell name="es_startdate" width="125" />
+          <cell name="es_enddate" width="125" />
+          <cell name="es_numberofguests" width="100" />
+          <cell name="es_totalamount" width="100" />
+          <cell name="approver.fullname" width="150" disableSorting="0" />
+          <cell name="createdon" width="125" />
+        </row>
+      </grid>
+    </layoutxml>
+    <LocalizedNames>
+      <LocalizedName description="Pending Approval" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="Shows reservations waiting for approval" languagecode="1033" />
+    </Descriptions>
+  </savedquery>
+  
+  <!-- Completed Reservations View -->
+  <savedquery>
+    <savedqueryid>{00000000-0000-0000-00AA-000010001011}</savedqueryid>
+    <name>Completed Reservations</name>
+    <querytype>0</querytype>
+    <isdefault>0</isdefault>
+    <returnedtypecode>10001</returnedtypecode>
+    <isquickfindquery>0</isquickfindquery>
+    <isprivate>0</isprivate>
+    <fetchxml>
+      <fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="false">
+        <entity name="es_reservation">
+          <attribute name="es_name" />
+          <attribute name="es_customercontactid" />
+          <attribute name="es_spaceid" />
+          <attribute name="es_startdate" />
+          <attribute name="es_enddate" />
+          <attribute name="es_totalamount" />
+          <attribute name="es_paymentstatus" />
+          <attribute name="es_rating" />
+          <attribute name="es_reservationid" />
+          <order attribute="es_enddate" descending="true" />
+          <filter type="and">
+            <condition attribute="es_status" operator="eq" value="5" />
+            <condition attribute="statecode" operator="eq" value="0" />
+          </filter>
+          <link-entity name="es_space" from="es_spaceid" to="es_spaceid" link-type="inner" alias="space">
+            <attribute name="es_name" />
+          </link-entity>
+          <link-entity name="contact" from="contactid" to="es_customercontactid" link-type="outer" alias="contact">
+            <attribute name="fullname" />
+          </link-entity>
+        </entity>
+      </fetch>
+    </fetchxml>
+    <layoutxml>
+      <grid name="resultset" jump="es_name" select="1" icon="1" preview="1">
+        <row name="result" id="es_reservationid">
+          <cell name="es_name" width="150" />
+          <cell name="contact.fullname" width="150" disableSorting="0" />
+          <cell name="space.es_name" width="150" disableSorting="0" />
+          <cell name="es_startdate" width="125" />
+          <cell name="es_enddate" width="125" />
+          <cell name="es_totalamount" width="100" />
+          <cell name="es_paymentstatus" width="100" />
+          <cell name="es_rating" width="80" />
+        </row>
+      </grid>
+    </layoutxml>
+    <LocalizedNames>
+      <LocalizedName description="Completed Reservations" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="Shows completed reservations" languagecode="1033" />
+    </Descriptions>
+  </savedquery>
+  
+  <!-- Quick Find View -->
+  <savedquery>
+    <savedqueryid>{00000000-0000-0000-00AA-000010001012}</savedqueryid>
+    <name>Quick Find Active Reservations</name>
+    <querytype>4</querytype>
+    <isdefault>1</isdefault>
+    <returnedtypecode>10001</returnedtypecode>
+    <isquickfindquery>1</isquickfindquery>
+    <isprivate>0</isprivate>
+    <fetchxml>
+      <fetch version="1.0" output-format="xml-platform" mapping="logical" distinct="false">
+        <entity name="es_reservation">
+          <attribute name="es_name" />
+          <attribute name="es_confirmationcode" />
+          <attribute name="es_customercontactid" />
+          <attribute name="es_spaceid" />
+          <attribute name="es_startdate" />
+          <attribute name="es_status" />
+          <attribute name="es_reservationid" />
+          <order attribute="es_name" descending="false" />
+          <filter type="and">
+            <condition attribute="statecode" operator="eq" value="0" />
+            <filter type="or" isquickfindfields="1">
+              <condition attribute="es_name" operator="like" value="{0}" />
+              <condition attribute="es_confirmationcode" operator="like" value="{0}" />
+            </filter>
+          </filter>
+        </entity>
+      </fetch>
+    </fetchxml>
+    <layoutxml>
+      <grid name="resultset" jump="es_name" select="1" icon="1" preview="1">
+        <row name="result" id="es_reservationid">
+          <cell name="es_name" width="150" />
+          <cell name="es_confirmationcode" width="120" />
+          <cell name="es_customercontactid" width="150" />
+          <cell name="es_spaceid" width="150" />
+          <cell name="es_startdate" width="125" />
+          <cell name="es_status" width="100" />
+        </row>
+      </grid>
+    </layoutxml>
+    <LocalizedNames>
+      <LocalizedName description="Quick Find Active Reservations" languagecode="1033" />
+    </LocalizedNames>
+    <isquickfindfields>1</isquickfindfields>
+    <quickfindfiltercolumns>es_name,es_confirmationcode</quickfindfiltercolumns>
+  </savedquery>
+</savedqueries>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Entity xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Name LocalizedName="Market" OriginalName="Market">es_market</Name>
+  <EntityInfo>
+    <entity Name="es_market">
+      <LocalizedNames>
+        <LocalizedName languagecode="1033" description="Market" />
+      </LocalizedNames>
+      <LocalizedCollectionNames>
+        <LocalizedCollectionName languagecode="1033" description="Markets" />
+      </LocalizedCollectionNames>
+      <Descriptions>
+        <Description languagecode="1033" description="Geographic markets for Easy Spaces" />
+      </Descriptions>
+      <attributes>
+        <attribute PhysicalName="es_marketid">
+          <Type>primarykey</Type>
+          <Name>es_marketid</Name>
+          <LogicalName>es_marketid</LogicalName>
+        </attribute>
+        <attribute PhysicalName="es_name">
+          <Type>nvarchar</Type>
+          <Name>es_name</Name>
+          <LogicalName>es_name</LogicalName>
+          <RequiredLevel>applicationrequired</RequiredLevel>
+          <DisplayMask>ValidForAdvancedFind|RequiredForForm|ValidForGrid</DisplayMask>
+          <ImeMode>auto</ImeMode>
+          <MaxLength>100</MaxLength>
+          <IsPrimaryName>1</IsPrimaryName>
+          <IsLogical>0</IsLogical>
+          <IsSecured>0</IsSecured>
+          <IsCustomField>0</IsCustomField>
+          <LocalizedNames>
+            <LocalizedName languagecode="1033" description="Name" />
+          </LocalizedNames>
+        </attribute>
+        <attribute PhysicalName="es_city">
+          <Type>nvarchar</Type>
+          <Name>es_city</Name>
+          <LogicalName>es_city</LogicalName>
+          <RequiredLevel>none</RequiredLevel>
+          <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+          <ImeMode>auto</ImeMode>
+          <MaxLength>100</MaxLength>
+          <LocalizedNames>
+            <LocalizedName languagecode="1033" description="City" />
+          </LocalizedNames>
+        </attribute>
+        <attribute PhysicalName="es_state">
+          <Type>nvarchar</Type>
+          <Name>es_state</Name>
+          <LogicalName>es_state</LogicalName>
+          <RequiredLevel>none</RequiredLevel>
+          <DisplayMask>ValidForAdvancedFind|ValidForForm|ValidForGrid</DisplayMask>
+          <ImeMode>auto</ImeMode>
+          <MaxLength>50</MaxLength>
+          <LocalizedNames>
+            <LocalizedName languagecode="1033" description="State" />
+          </LocalizedNames>
+        </attribute>
+      </attributes>
+      <EntitySetName>es_markets</EntitySetName>
+      <IsDuplicateCheckSupported>1</IsDuplicateCheckSupported>
+      <IsBusinessProcessEnabled>1</IsBusinessProcessEnabled>
+      <IsRequiredOffline>0</IsRequiredOffline>
+      <IsInteractionCentricEnabled>0</IsInteractionCentricEnabled>
+      <IsCollaboration>0</IsCollaboration>
+      <AutoRouteToOwnerQueue>0</AutoRouteToOwnerQueue>
+      <IsConnectionsEnabled>1</IsConnectionsEnabled>
+      <HasNotes>1</HasNotes>
+      <HasActivities>1</HasActivities>
+      <IsActivity>0</IsActivity>
+      <IsActivityParty>0</IsActivityParty>
+      <IsAuditEnabled>1</IsAuditEnabled>
+      <IsAvailableOffline>0</IsAvailableOffline>
+      <IsChildEntity>0</IsChildEntity>
+      <OwnershipTypeMask>UserOwned</OwnershipTypeMask>
+      <EnableForTrace>0</EnableForTrace>
+    </entity>
+  </EntityInfo>
+</Entity>

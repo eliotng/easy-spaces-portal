@@ -1,0 +1,14 @@
+App As appinfo:
+    BackgroundColor: =RGBA(243, 242, 241, 1)
+    IconColor: =RGBA(255, 255, 255, 1)
+    IconName: =Edit
+    MinScreenHeight: =640
+    MinScreenWidth: =640
+    OnStart: =Set(currentUser, User())
+
+Host As hostControl.DefaultHostControlVariant:
+    OnCancel: =false
+    OnEdit: =false
+    OnNew: =false
+    OnSave: =false
+    OnView: =false

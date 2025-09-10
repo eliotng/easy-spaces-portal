@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="utf-8"?>
+<SiteMap IntroducedVersion="9.0.0.0">
+  <Area Id="EasySpacesArea" ResourceId="SiteMap_EasySpaces_Area" 
+        Title="Easy Spaces" 
+        ShowGroups="true" 
+        Icon="/_imgs/svg_1.svg"
+        Description="Easy Spaces Workspace Management">
+    
+    <!-- Operations Group -->
+    <Group Id="OperationsGroup" 
+           ResourceId="SiteMap_Operations_Group" 
+           Title="Operations" 
+           IsProfile="false"
+           ToolTipResourcing="SiteMap_Operations_Tooltip">
+      
+      <!-- Dashboard -->
+      <SubArea Id="Dashboard" 
+               ResourceId="SiteMap_Dashboard" 
+               Title="Dashboard" 
+               Icon="/_imgs/area/18_home.svg"
+               Url="/main.aspx?pagetype=dashboard&amp;id=2c8b67d4-58bb-ed11-8849-000d3a993550"
+               DefaultDashboard="EasySpacesDashboard"
+               AvailableOffline="false">
+        <Titles>
+          <Title LCID="1033" Title="Operations Dashboard"/>
+        </Titles>
+      </SubArea>
+      
+      <!-- Reservations -->
+      <SubArea Id="Reservations" 
+               ResourceId="SiteMap_Reservations" 
+               Title="Reservations" 
+               Entity="es_reservation"
+               Icon="/_imgs/svg_9.svg"
+               AvailableOffline="true">
+        <Titles>
+          <Title LCID="1033" Title="Manage Reservations"/>
+        </Titles>
+        <Descriptions>
+          <Description LCID="1033" Description="View and manage all space reservations"/>
+        </Descriptions>
+      </SubArea>
+      
+      <!-- Spaces -->
+      <SubArea Id="Spaces" 
+               ResourceId="SiteMap_Spaces" 
+               Title="Spaces" 
+               Entity="es_space"
+               Icon="/_imgs/svg_10.svg"
+               AvailableOffline="true">
+        <Titles>
+          <Title LCID="1033" Title="Space Inventory"/>
+        </Titles>
+        <Descriptions>
+          <Description LCID="1033" Description="Manage available spaces and their configurations"/>
+        </Descriptions>
+      </SubArea>
+      
+      <!-- Markets -->
+      <SubArea Id="Markets" 
+               ResourceId="SiteMap_Markets" 
+               Title="Markets" 
+               Entity="es_market"
+               Icon="/_imgs/svg_11.svg"
+               AvailableOffline="true">
+        <Titles>
+          <Title LCID="1033" Title="Market Locations"/>
+        </Titles>
+        <Descriptions>
+          <Description LCID="1033" Description="Configure market locations and settings"/>
+        </Descriptions>
+      </SubArea>
+      
+      <!-- Calendar View -->
+      <SubArea Id="Calendar" 
+               ResourceId="SiteMap_Calendar" 
+               Title="Calendar" 
+               Icon="/_imgs/svg_12.svg"
+               Url="/main.aspx?pagetype=control&amp;controlName=MscrmControls.Calendar.CalendarControl&amp;data=entity%3Des_reservation">
+        <Titles>
+          <Title LCID="1033" Title="Reservation Calendar"/>
+        </Titles>
+        <Descriptions>
+          <Description LCID="1033" Description="Visual calendar view of all reservations"/>
+        </Descriptions>
+      </SubArea>
+    </Group>
+    
+    <!-- Customers Group -->
+    <Group Id="CustomersGroup" 
+           ResourceId="SiteMap_Customers_Group" 
+           Title="Customers" 
+           IsProfile="false"
+           ToolTipResourcing="SiteMap_Customers_Tooltip">
+      
+      <!-- Contacts -->
+      <SubArea Id="Contacts" 
+               ResourceId="SiteMap_Contacts" 
+               Title="Contacts" 
+               Entity="contact"
+               Icon="/_imgs/svg_13.svg"
+               AvailableOffline="true">
+        <Titles>
+          <Title LCID="1033" Title="Customer Contacts"/>
+        </Titles>
+        <Descriptions>
+          <Description LCID="1033" Description="Manage customer contact information"/>
+        </Descriptions>
+      </SubArea>
+      
+      <!-- Leads -->
+      <SubArea Id="Leads" 
+               ResourceId="SiteMap_Leads" 
+               Title="Leads" 
+               Entity="lead"
+               Icon="/_imgs/svg_14.svg"
+               AvailableOffline="true">
+        <Titles>
+          <Title LCID="1033" Title="Potential Customers"/>
+        </Titles>
+        <Descriptions>
+          <Description LCID="1033" Description="Track and convert potential customers"/>
+        </Descriptions>
+      </SubArea>
+      
+      <!-- Accounts -->
+      <SubArea Id="Accounts" 
+               ResourceId="SiteMap_Accounts" 
+               Title="Accounts" 
+               Entity="account"
+               Icon="/_imgs/svg_15.svg"
+               AvailableOffline="true">
+        <Titles>
+          <Title LCID="1033" Title="Business Accounts"/>
+        </Titles>
+        <Descriptions>
+          <Description LCID="1033" Description="Manage business customer accounts"/>
+        </Descriptions>
+      </SubArea>
+    </Group>
+    
+    <!-- Analytics Group -->
+    <Group Id="AnalyticsGroup" 
+           ResourceId="SiteMap_Analytics_Group" 
+           Title="Analytics" 
+           IsProfile="false"
+           ToolTipResourcing="SiteMap_Analytics_Tooltip">
+      
+      <!-- Reports -->
+      <SubArea Id="Reports" 
+               ResourceId="SiteMap_Reports" 
+               Title="Reports" 
+               Icon="/_imgs/svg_16.svg"
+               Url="/main.aspx?pagetype=reportlist">
+        <Titles>
+          <Title LCID="1033" Title="Operational Reports"/>
+        </Titles>
+        <Descriptions>
+          <Description LCID="1033" Description="View operational and financial reports"/>
+        </Descriptions>
+      </SubArea>
+      
+      <!-- Power BI Dashboard -->
+      <SubArea Id="PowerBI" 
+               ResourceId="SiteMap_PowerBI" 
+               Title="Analytics Dashboard" 
+               Icon="/_imgs/svg_17.svg"
+               Url="/main.aspx?pagetype=control&amp;controlName=MscrmControls.PowerBIDashboard.PowerBIDashboard">
+        <Titles>
+          <Title LCID="1033" Title="Power BI Analytics"/>
+        </Titles>
+        <Descriptions>
+          <Description LCID="1033" Description="Advanced analytics and visualizations"/>
+        </Descriptions>
+      </SubArea>
+      
+      <!-- Charts -->
+      <SubArea Id="Charts" 
+               ResourceId="SiteMap_Charts" 
+               Title="Charts" 
+               Icon="/_imgs/svg_18.svg"
+               Url="/main.aspx?pagetype=dashboard&amp;type=system&amp;id=00000000-0000-0000-00AA-000010003001">
+        <Titles>
+          <Title LCID="1033" Title="Performance Charts"/>
+        </Titles>
+        <Descriptions>
+          <Description LCID="1033" Description="View key performance indicators"/>
+        </Descriptions>
+      </SubArea>
+    </Group>
+    
+    <!-- Administration Group -->
+    <Group Id="AdministrationGroup" 
+           ResourceId="SiteMap_Administration_Group" 
+           Title="Administration" 
+           IsProfile="false"
+           ToolTipResourcing="SiteMap_Administration_Tooltip">
+      
+      <!-- Settings -->
+      <SubArea Id="Settings" 
+               ResourceId="SiteMap_Settings" 
+               Title="Settings" 
+               Icon="/_imgs/svg_19.svg"
+               Url="/main.aspx?pagetype=entitylist&amp;etn=es_setting">
+        <Titles>
+          <Title LCID="1033" Title="System Settings"/>
+        </Titles>
+        <Descriptions>
+          <Description LCID="1033" Description="Configure system-wide settings"/>
+        </Descriptions>
+      </SubArea>
+      
+      <!-- Security Roles -->
+      <SubArea Id="SecurityRoles" 
+               ResourceId="SiteMap_SecurityRoles" 
+               Title="Security" 
+               Icon="/_imgs/svg_20.svg"
+               Url="/tools/AdminSecurity/AdminSecurity.aspx">
+        <Titles>
+          <Title LCID="1033" Title="Security Management"/>
+        </Titles>
+        <Descriptions>
+          <Description LCID="1033" Description="Manage user roles and permissions"/>
+        </Descriptions>
+        <Privilege Entity="" Privilege="prvReadRole" />
+      </SubArea>
+      
+      <!-- Business Rules -->
+      <SubArea Id="BusinessRules" 
+               ResourceId="SiteMap_BusinessRules" 
+               Title="Business Rules" 
+               Icon="/_imgs/svg_21.svg"
+               Url="/main.aspx?pagetype=entitylist&amp;etn=workflow&amp;viewid=34d09f29-5b24-4b1f-9582-1648b7e06678">
+        <Titles>
+          <Title LCID="1033" Title="Business Rule Configuration"/>
+        </Titles>
+        <Descriptions>
+          <Description LCID="1033" Description="Configure business rules and automation"/>
+        </Descriptions>
+      </SubArea>
+      
+      <!-- Audit History -->
+      <SubArea Id="AuditHistory" 
+               ResourceId="SiteMap_AuditHistory" 
+               Title="Audit" 
+               Icon="/_imgs/svg_22.svg"
+               Url="/tools/audit/audit.aspx">
+        <Titles>
+          <Title LCID="1033" Title="Audit History"/>
+        </Titles>
+        <Descriptions>
+          <Description LCID="1033" Description="View system audit logs and history"/>
+        </Descriptions>
+        <Privilege Entity="" Privilege="prvReadAuditSummary" />
+      </SubArea>
+    </Group>
+  </Area>
+  
+  <!-- Mobile Specific Area -->
+  <Area Id="EasySpacesMobile" 
+        ResourceId="SiteMap_EasySpacesMobile_Area" 
+        Title="Easy Spaces Mobile" 
+        ShowGroups="false" 
+        Icon="/_imgs/svg_23.svg"
+        Client="Mobile,MocaOffline">
+    
+    <Group Id="MobileGroup" 
+           ResourceId="SiteMap_Mobile_Group" 
+           Title="Mobile" 
+           IsProfile="false">
+      
+      <!-- Mobile Dashboard -->
+      <SubArea Id="MobileDashboard" 
+               ResourceId="SiteMap_MobileDashboard" 
+               Title="Dashboard" 
+               Icon="/_imgs/area/18_home.svg"
+               Url="/m/dashboard">
+        <Titles>
+          <Title LCID="1033" Title="Mobile Dashboard"/>
+        </Titles>
+      </SubArea>
+      
+      <!-- Mobile Reservations -->
+      <SubArea Id="MobileReservations" 
+               ResourceId="SiteMap_MobileReservations" 
+               Title="Reservations" 
+               Entity="es_reservation"
+               Icon="/_imgs/svg_9.svg"
+               AvailableOffline="true">
+        <Titles>
+          <Title LCID="1033" Title="My Reservations"/>
+        </Titles>
+      </SubArea>
+      
+      <!-- Mobile Spaces -->
+      <SubArea Id="MobileSpaces" 
+               ResourceId="SiteMap_MobileSpaces" 
+               Title="Browse Spaces" 
+               Entity="es_space"
+               Icon="/_imgs/svg_10.svg"
+               AvailableOffline="true">
+        <Titles>
+          <Title LCID="1033" Title="Available Spaces"/>
+        </Titles>
+      </SubArea>
+      
+      <!-- Mobile Contacts -->
+      <SubArea Id="MobileContacts" 
+               ResourceId="SiteMap_MobileContacts" 
+               Title="Contacts" 
+               Entity="contact"
+               Icon="/_imgs/svg_13.svg"
+               AvailableOffline="true">
+        <Titles>
+          <Title LCID="1033" Title="My Contacts"/>
+        </Titles>
+      </SubArea>
+    </Group>
+  </Area>
+</SiteMap>

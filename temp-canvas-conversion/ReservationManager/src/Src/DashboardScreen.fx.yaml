@@ -1,0 +1,61 @@
+DashboardScreen As screen:
+    Fill: =RGBA(255, 255, 255, 1)
+    Height: =Max(App.Height, App.MinScreenHeight)
+    Width: =Max(App.Width, App.MinScreenWidth)
+    OnVisible: |
+        =// Screen initialization
+        UpdateContext({screenLoading: true});
+        UpdateContext({screenLoading: false})
+    HeaderContainer As container:
+        x: "0"
+        y: "0"
+        width: "Parent.Width"
+        height: "80"
+        fill: "RGBA(0, 120, 212, 1)"
+    ViewModeSelector As segmentedControl:
+        items: "["Calendar", "List", "Board", "Timeline"]"
+        default: ""Calendar""
+        x: "20"
+        y: "100"
+        width: "400"
+        height: "40"
+        onSelect: "Set(viewMode, Self.Selected.Value)"
+    StatusFilter As dropdown:
+        items: "["All", "Draft", "Pending Approval", "Confirmed", "In Progress", "Completed", "Cancelled"]"
+        default: ""All""
+        x: "Parent.Width - 220"
+        y: "100"
+        width: "200"
+        height: "40"
+        placeholder: "Filter by Status"
+        onChange: "Set(filterStatus, Self.Selected.Value)"
+    CalendarView As container:
+        visible: "viewMode = "Calendar""
+        x: "20"
+        y: "160"
+        width: "Parent.Width - 40"
+        height: "Parent.Height - 180"
+        fill: "White"
+        borderColor: "LightGray"
+        borderThickness: "1"
+        borderRadius: "8"
+    ListView As gallery:
+        visible: "viewMode = "List""
+        items: "Sort(Filter(Reservations, filterStatus = "All" || es_status.Label = filterStatus), es_startdate, Descending)"
+        x: "20"
+        y: "160"
+        width: "Parent.Width - 40"
+        height: "Parent.Height - 180"
+        templateSize: "80"
+        templatePadding: "5"
+        layout: "Vertical"
+        showScrollbar: "True"
+    BoardView As flexContainer:
+        visible: "viewMode = "Board""
+        x: "20"
+        y: "160"
+        width: "Parent.Width - 40"
+        height: "Parent.Height - 180"
+        direction: "Row"
+        gap: "20"
+        overflow: "ScrollX"

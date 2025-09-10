@@ -1,0 +1,125 @@
+<div class="container mt-4">
+    <h1>Space Designer</h1>
+    <p class="lead">Browse and select available spaces across all markets</p>
+    
+    <!-- Market Filter -->
+    <div class="row mb-4">
+        <div class="col-md-4">
+            <label for="marketFilter">Filter by Market:</label>
+            <select id="marketFilter" class="form-control">
+                <option value="">All Markets</option>
+                <option value="San Francisco">San Francisco</option>
+                <option value="New York">New York</option>
+                <option value="Chicago">Chicago</option>
+                <option value="Los Angeles">Los Angeles</option>
+            </select>
+        </div>
+        <div class="col-md-4">
+            <label for="typeFilter">Space Type:</label>
+            <select id="typeFilter" class="form-control">
+                <option value="">All Types</option>
+                <option value="Office">Office</option>
+                <option value="Conference">Conference Room</option>
+                <option value="Warehouse">Warehouse</option>
+                <option value="Retail">Retail</option>
+            </select>
+        </div>
+        <div class="col-md-4">
+            <label for="capacityFilter">Minimum Capacity:</label>
+            <input type="number" id="capacityFilter" class="form-control" placeholder="e.g., 10">
+        </div>
+    </div>
+    
+    <!-- Spaces Grid -->
+    <div class="row" id="spacesGrid">
+        {% fetchxml spaces_query %}
+        <fetch version="1.0" output-format="xml-platform" mapping="logical">
+            <entity name="es_space">
+                <attribute name="es_spaceid" />
+                <attribute name="es_name" />
+                <attribute name="es_type" />
+                <attribute name="es_capacity" />
+                <attribute name="es_dailyrate" />
+                <attribute name="es_marketid" />
+                <filter>
+                    <condition attribute="statecode" operator="eq" value="0" />
+                </filter>
+            </entity>
+        </fetch>
+        {% endfetchxml %}
+        
+        {% for space in spaces_query.results %}
+        <div class="col-md-6 col-lg-4 mb-4 space-card" data-market="{{ space.es_marketid.es_name }}" data-type="{{ space.es_type }}" data-capacity="{{ space.es_capacity }}">
+            <div class="card h-100">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="mb-0">{{ space.es_name }}</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">
+                        <strong>Type:</strong> {{ space.es_type }}<br>
+                        <strong>Capacity:</strong> {{ space.es_capacity }} people<br>
+                        <strong>Daily Rate:</strong> ${{ space.es_dailyrate }}<br>
+                        <strong>Market:</strong> {{ space.es_marketid.es_name }}
+                    </p>
+                    <button class="btn btn-primary btn-sm" onclick="selectSpace('{{ space.es_spaceid }}')">
+                        Select Space
+                    </button>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    
+    <!-- No Results Message -->
+    <div id="noResults" class="alert alert-info" style="display: none;">
+        No spaces found matching your criteria. Try adjusting your filters.
+    </div>
+</div>
+
+<script>
+// Filter functionality
+document.addEventListener('DOMContentLoaded', function() {
+    const marketFilter = document.getElementById('marketFilter');
+    const typeFilter = document.getElementById('typeFilter');
+    const capacityFilter = document.getElementById('capacityFilter');
+    
+    function filterSpaces() {
+        const market = marketFilter.value.toLowerCase();
+        const type = typeFilter.value.toLowerCase();
+        const minCapacity = parseInt(capacityFilter.value) || 0;
+        
+        const spaceCards = document.querySelectorAll('.space-card');
+        let visibleCount = 0;
+        
+        spaceCards.forEach(card => {
+            const cardMarket = (card.dataset.market || '').toLowerCase();
+            const cardType = (card.dataset.type || '').toLowerCase();
+            const cardCapacity = parseInt(card.dataset.capacity) || 0;
+            
+            const marketMatch = !market || cardMarket.includes(market);
+            const typeMatch = !type || cardType.includes(type);
+            const capacityMatch = cardCapacity >= minCapacity;
+            
+            if (marketMatch && typeMatch && capacityMatch) {
+                card.style.display = '';
+                visibleCount++;
+            } else {
+                card.style.display = 'none';
+            }
+        });
+        
+        // Show/hide no results message
+        document.getElementById('noResults').style.display = visibleCount === 0 ? 'block' : 'none';
+    }
+    
+    // Add event listeners
+    marketFilter.addEventListener('change', filterSpaces);
+    typeFilter.addEventListener('change', filterSpaces);
+    capacityFilter.addEventListener('input', filterSpaces);
+});
+
+function selectSpace(spaceId) {
+    // Navigate to reservation creation with selected space
+    window.location.href = '/reservations/create?spaceid=' + spaceId;
+}
+</script>

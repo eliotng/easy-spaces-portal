@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ImportExportXml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <Entities />
+  <Roles />
+  <Workflows />
+  <FieldSecurityProfiles />
+  <Templates />
+  <EntityMaps />
+  <EntityRelationships />
+  <OrganizationSettings />
+  <optionsets />
+  <CustomControls />
+  <EntityDataProviders />
+  <CanvasApps>
+    <CanvasApp>
+      <name>es_spacedesigner</name>
+      <displayname>Space Designer</displayname>
+      <uniquename>es_spacedesigner</uniquename>
+      <description>Interactive space design and management tool</description>
+      <commitmessage>Initial version</commitmessage>
+      <publisher>EasySpaces</publisher>
+      <authorizationreferences>
+        <authorizationreference>
+          <authorizationreferencelogicalname>shared_commondataserviceforapps</authorizationreferencelogicalname>
+        </authorizationreference>
+      </authorizationreferences>
+      <databasereferences>
+        <databasereference>
+          <databasereferencelogicalname>es_market</databasereferencelogicalname>
+        </databasereference>
+        <databasereference>
+          <databasereferencelogicalname>es_space</databasereferencelogicalname>
+        </databasereference>
+        <databasereference>
+          <databasereferencelogicalname>es_reservation</databasereferencelogicalname>
+        </databasereference>
+      </databasereferences>
+      <apptype>1</apptype>
+      <appcreatedversion>1.0.0</appcreatedversion>
+      <appversion>1.0.0</appversion>
+      <minplatformversion>1.0.0</minplatformversion>
+      <canbedeleted>1</canbedeleted>
+      <iscustomizable>1</iscustomizable>
+      <ismanaged>0</ismanaged>
+      <createdbydevicename>Server</createdbydevicename>
+      <modifiedbydevicename>Server</modifiedbydevicename>
+      <backgroundcolor>#F3F2F1</backgroundcolor>
+      <displayname>Space Designer</displayname>
+    </CanvasApp>
+    <CanvasApp>
+      <name>es_reservationmanager</name>
+      <displayname>Reservation Manager</displayname>
+      <uniquename>es_reservationmanager</uniquename>
+      <description>Comprehensive reservation management system</description>
+      <commitmessage>Initial version</commitmessage>
+      <publisher>EasySpaces</publisher>
+      <authorizationreferences>
+        <authorizationreference>
+          <authorizationreferencelogicalname>shared_commondataserviceforapps</authorizationreferencelogicalname>
+        </authorizationreference>
+      </authorizationreferences>
+      <databasereferences>
+        <databasereference>
+          <databasereferencelogicalname>es_reservation</databasereferencelogicalname>
+        </databasereference>
+        <databasereference>
+          <databasereferencelogicalname>es_space</databasereferencelogicalname>
+        </databasereference>
+        <databasereference>
+          <databasereferencelogicalname>contact</databasereferencelogicalname>
+        </databasereference>
+        <databasereference>
+          <databasereferencelogicalname>lead</databasereferencelogicalname>
+        </databasereference>
+      </databasereferences>
+      <apptype>1</apptype>
+      <appcreatedversion>1.0.0</appcreatedversion>
+      <appversion>1.0.0</appversion>
+      <minplatformversion>1.0.0</minplatformversion>
+      <canbedeleted>1</canbedeleted>
+      <iscustomizable>1</iscustomizable>
+      <ismanaged>0</ismanaged>
+      <createdbydevicename>Server</createdbydevicename>
+      <modifiedbydevicename>Server</modifiedbydevicename>
+      <backgroundcolor>#F3F2F1</backgroundcolor>
+      <displayname>Reservation Manager</displayname>
+    </CanvasApp>
+  </CanvasApps>
+  <Languages>
+    <Language>1033</Language>
+  </Languages>
+</ImportExportXml>

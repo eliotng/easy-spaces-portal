@@ -1,0 +1,158 @@
+DashboardScreen As screen:
+    Fill: =RGBA(255, 255, 255, 1)
+    Height: =Max(App.Height, App.MinScreenHeight)
+    Width: =Max(App.Width, App.MinScreenWidth)
+    LoadingSpinner: =LoadingSpinner.None
+    LoadingSpinnerColor: =App.Theme.Colors.Primary
+    OnVisible: |
+        =false
+    Size: =1 + CountRows(App.SizeBreakpoints) - CountIf(App.SizeBreakpoints, Value >= Self.Width)
+    HeaderContainer As groupContainer.verticalAutoLayoutContainer:
+        width: ="Parent.Width"
+        fill: ="RGBA(0, 120, 212, 1)"
+
+        AppTitle As label:
+            text: =""Reservation Manager""
+            color: ="White"
+            font: ="Segoe UI"
+            weight: ="Semibold"
+
+
+        QuickStats As flexContainer:
+            x: ="Parent.Width - 520"
+            direction: ="Row"
+            align: ="Center"
+
+            TodayCount As label:
+                text: =""Today: " & CountRows(Filter(Reservations, es_startdate = Today()))"
+                color: ="White"
+
+
+            PendingCount As label:
+                text: =""Pending: " & CountRows(Filter(Reservations, es_status.Value = 2))"
+                color: ="RGBA(255, 185, 0, 1)"
+                weight: ="Semibold"
+
+
+            NewReservationButton As button:
+                text: ="+ New Reservation"
+                fill: ="White"
+                color: ="RGBA(0, 120, 212, 1)"
+                onSelect: ="Set(reservationMode, "create"); Navigate(CreateReservationScreen)"
+
+
+
+    ViewModeSelector As segmentedControl:
+        items: ="["Calendar", "List", "Board", "Timeline"]"
+        default: =""Calendar""
+        onSelect: ="Set(viewMode, Self.Selected.Value)"
+
+    StatusFilter As dropdown:
+        items: ="["All", "Draft", "Pending Approval", "Confirmed", "In Progress", "Completed", "Cancelled"]"
+        default: =""All""
+        x: ="Parent.Width - 220"
+        placeholder: ="Filter by Status"
+        onChange: ="Set(filterStatus, Self.Selected.Value)"
+
+    CalendarView As groupContainer.verticalAutoLayoutContainer:
+        visible: ="viewMode = "Calendar""
+        width: ="Parent.Width - 40"
+        height: ="Parent.Height - 180"
+        fill: ="White"
+        borderColor: ="LightGray"
+
+        CalendarHeader As flexContainer:
+            width: ="Parent.Width"
+            direction: ="Row"
+            align: ="Center"
+            justify: ="SpaceBetween"
+            fill: ="RGBA(243, 242, 241, 1)"
+
+            PrevMonthButton As button:
+                icon: ="ChevronLeft"
+                onSelect: ="Set(currentMonth, DateAdd(currentMonth, -1, Months))"
+
+
+            CurrentMonth As label:
+                text: ="Text(currentMonth, "mmmm yyyy")"
+                weight: ="Semibold"
+
+
+            NextMonthButton As button:
+                icon: ="ChevronRight"
+                onSelect: ="Set(currentMonth, DateAdd(currentMonth, 1, Months))"
+
+
+
+        CalendarGrid As gallery:
+            items: ="Sequence(42)"
+            width: ="Parent.Width - 20"
+            height: ="Parent.Height - 80"
+            templateSize: ="(Parent.Height - 80) / 6"
+            layout: ="Grid"
+
+
+    ListView As gallery:
+        visible: ="viewMode = "List""
+        items: ="Sort(Filter(Reservations, filterStatus = "All" || es_status.Label = filterStatus), es_startdate, Descending)"
+        width: ="Parent.Width - 40"
+        height: ="Parent.Height - 180"
+        layout: ="Vertical"
+        showScrollbar: =true
+
+    BoardView As flexContainer:
+        visible: ="viewMode = "Board""
+        width: ="Parent.Width - 40"
+        height: ="Parent.Height - 180"
+        direction: ="Row"
+        overflow: ="ScrollX"
+
+        DraftColumn As groupContainer.verticalAutoLayoutContainer:
+            height: ="Parent.Height"
+            fill: ="RGBA(243, 242, 241, 1)"
+
+            DraftHeader As label:
+                text: =""Draft (" & CountRows(Filter(Reservations, es_status.Value = 1)) & ")""
+                weight: ="Semibold"
+
+
+            DraftCards As gallery:
+                items: ="Filter(Reservations, es_status.Value = 1)"
+                height: ="Parent.Height - 50"
+
+
+
+        PendingColumn As groupContainer.verticalAutoLayoutContainer:
+            height: ="Parent.Height"
+            fill: ="RGBA(255, 244, 206, 1)"
+
+            PendingHeader As label:
+                text: =""Pending Approval (" & CountRows(Filter(Reservations, es_status.Value = 2)) & ")""
+                weight: ="Semibold"
+                color: ="RGBA(138, 109, 0, 1)"
+
+
+
+        ConfirmedColumn As groupContainer.verticalAutoLayoutContainer:
+            height: ="Parent.Height"
+            fill: ="RGBA(223, 246, 221, 1)"
+
+            ConfirmedHeader As label:
+                text: =""Confirmed (" & CountRows(Filter(Reservations, es_status.Value = 3)) & ")""
+                weight: ="Semibold"
+                color: ="RGBA(16, 124, 16, 1)"
+
+
+
+        InProgressColumn As groupContainer.verticalAutoLayoutContainer:
+            height: ="Parent.Height"
+            fill: ="RGBA(210, 234, 255, 1)"
+
+            InProgressHeader As label:
+                text: =""In Progress (" & CountRows(Filter(Reservations, es_status.Value = 4)) & ")""
+                weight: ="Semibold"
+                color: ="RGBA(0, 120, 212, 1)"
+
+
+
+

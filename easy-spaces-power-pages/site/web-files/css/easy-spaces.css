@@ -1,0 +1,109 @@
+/* Easy Spaces Custom CSS */
+
+:root {
+    --primary-color: #0078D4;
+    --secondary-color: #00BCF2;
+    --success-color: #107C10;
+    --warning-color: #FFB900;
+    --error-color: #D13438;
+}
+
+/* Hero Section */
+.hero-section {
+    background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+    min-height: 500px;
+}
+
+/* Market Cards */
+.market-card {
+    transition: transform 0.3s, box-shadow 0.3s;
+    cursor: pointer;
+}
+
+.market-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+/* Space Cards */
+.space-card {
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+.space-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+}
+
+.space-card .card-img-top {
+    height: 200px;
+    object-fit: cover;
+}
+
+/* Reservation Form */
+.reservation-form {
+    background: #f8f9fa;
+    padding: 30px;
+    border-radius: 10px;
+}
+
+/* Calendar View */
+.calendar-view {
+    min-height: 500px;
+}
+
+.calendar-day {
+    border: 1px solid #dee2e6;
+    min-height: 100px;
+    padding: 5px;
+}
+
+.calendar-day.available {
+    background: #d4edda;
+}
+
+.calendar-day.booked {
+    background: #f8d7da;
+}
+
+/* Status Badges */
+.badge-available { background-color: var(--success-color); }
+.badge-booked { background-color: var(--error-color); }
+.badge-pending { background-color: var(--warning-color); }
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-section h1 {
+        font-size: 2rem;
+    }
+    
+    .space-card .card-img-top {
+        height: 150px;
+    }
+}
+
+/* Loading Spinner */
+.spinner-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 200px;
+}
+
+/* Filters */
+.filters {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 30px;
+}
+
+/* Animation */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+}

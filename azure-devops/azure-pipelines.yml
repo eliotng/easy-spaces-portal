@@ -1,0 +1,369 @@
+# Azure DevOps Pipeline for Easy Spaces Canvas Apps Deployment
+# This pipeline handles the complete deployment of canvas apps from JSON definitions
+
+trigger:
+  branches:
+    include:
+      - main
+      - develop
+  paths:
+    include:
+      - canvas-apps/*
+      - solutions/*
+
+pr:
+  branches:
+    include:
+      - main
+
+pool:
+  vmImage: 'windows-latest'
+
+variables:
+  - group: 'PowerPlatform-Credentials'  # Create this variable group in Azure DevOps
+  - name: SolutionName
+    value: 'EasySpacesCanvasApps'
+  - name: PublisherName
+    value: 'EasySpaces'
+  - name: PublisherPrefix
+    value: 'es'
+  - name: BuildConfiguration
+    value: 'Release'
+  - name: PowerPlatformSPN
+    value: 'PowerPlatformServiceConnection'  # Service connection name
+
+stages:
+- stage: Build
+  displayName: 'Build Canvas Apps'
+  jobs:
+  - job: BuildCanvasApps
+    displayName: 'Build and Package Canvas Apps'
+    steps:
+    
+    # Install Power Platform Build Tools
+    - task: PowerPlatformToolInstaller@2
+      displayName: 'Install Power Platform Build Tools'
+      inputs:
+        DefaultVersion: true
+        AddToolsToPath: true
+
+    # Checkout code
+    - checkout: self
+      displayName: 'Checkout repository'
+      clean: true
+
+    # Install Node.js for any JSON processing
+    - task: NodeTool@0
+      displayName: 'Install Node.js'
+      inputs:
+        versionSpec: '18.x'
+
+    # Install PowerShell modules
+    - task: PowerShell@2
+      displayName: 'Install Required PowerShell Modules'
+      inputs:
+        targetType: 'inline'
+        script: |
+          Install-Module -Name Microsoft.PowerApps.Administration.PowerShell -Force -Scope CurrentUser
+          Install-Module -Name Microsoft.PowerApps.PowerShell -Force -Scope CurrentUser
+          Install-Module -Name Microsoft.Xrm.Data.PowerShell -Force -Scope CurrentUser
+
+    # Convert JSON to Canvas App format
+    - task: PowerShell@2
+      displayName: 'Convert JSON to Canvas App Structure'
+      inputs:
+        targetType: 'inline'
+        script: |
+          Write-Host "Converting JSON definitions to canvas app structure..."
+          
+          # Create working directory
+          $workDir = "$(Build.ArtifactStagingDirectory)/canvas-apps-converted"
+          New-Item -ItemType Directory -Path $workDir -Force
+          
+          # Function to process JSON and create app structure
+          function Convert-JsonToCanvasApp {
+              param(
+                  [string]$JsonPath,
+                  [string]$AppName,
+                  [string]$OutputPath
+              )
+              
+              Write-Host "Processing $AppName..."
+              $json = Get-Content $JsonPath -Raw | ConvertFrom-Json
+              
+              # Create app directory structure
+              $appDir = "$OutputPath/$AppName"
+              New-Item -ItemType Directory -Path "$appDir/src" -Force
+              New-Item -ItemType Directory -Path "$appDir/src/Assets" -Force
+              New-Item -ItemType Directory -Path "$appDir/src/Components" -Force
+              New-Item -ItemType Directory -Path "$appDir/src/DataSources" -Force
+              New-Item -ItemType Directory -Path "$appDir/src/Entropy" -Force
+              New-Item -ItemType Directory -Path "$appDir/src/Src" -Force
+              New-Item -ItemType Directory -Path "$appDir/src/Src/EditorState" -Force
+              
+              # Generate App.fx.yaml
+              $appFx = @"
+          App As appinfo:
+              BackgroundColor: =$($json.appInfo.backgroundColor)
+              MinScreenHeight: =640
+              MinScreenWidth: =640
+              OnStart: |
+                  =Set(currentUser, User());
+                  ClearCollect(colTemp, []);
+          
+          Host As hostControl.DefaultHostControlVariant:
+              OnCancel: =false
+              OnEdit: =false
+              OnNew: =false
+              OnSave: =false
+              OnView: =false
+          "@
+              
+              $appFx | Out-File "$appDir/src/Src/App.fx.yaml" -Encoding UTF8
+              
+              # Generate screen files
+              foreach ($screen in $json.screens) {
+                  $screenFx = @"
+          $($screen.name) As screen:
+              Fill: =RGBA(255, 255, 255, 1)
+          "@
+                  $screenFx | Out-File "$appDir/src/Src/$($screen.name).fx.yaml" -Encoding UTF8
+              }
+              
+              # Generate CanvasManifest.json
+              $manifest = @{
+                  "FormatVersion" = "0.24"
+                  "Header" = @{
+                      "DocVersion" = "1.346"
+                      "MinVersionToLoad" = "1.331"
+                      "MSAppStructureVersion" = "2.0"
+                  }
+                  "Properties" = @{
+                      "Name" = $AppName
+                      "Id" = [guid]::NewGuid().ToString()
+                      "Version" = "$(Build.BuildNumber)"
+                  }
+                  "PublishInfo" = @{
+                      "AppName" = $AppName
+                      "BackgroundColor" = $json.appInfo.backgroundColor
+                  }
+                  "ScreenOrder" = @($json.screens | ForEach-Object { $_.name })
+              } | ConvertTo-Json -Depth 10
+              
+              $manifest | Out-File "$appDir/src/CanvasManifest.json" -Encoding UTF8
+              
+              # Generate Header.json
+              $header = @{
+                  "FormatVersion" = "0.24"
+                  "MinEngineVersion" = "1.346"
+                  "PackageId" = [guid]::NewGuid().ToString()
+              } | ConvertTo-Json -Depth 10
+              
+              $header | Out-File "$appDir/src/Entropy/Header.json" -Encoding UTF8
+              
+              Write-Host "✓ Converted $AppName"
+          }
+          
+          # Convert both apps
+          Convert-JsonToCanvasApp `
+              -JsonPath "$(Build.SourcesDirectory)/canvas-apps/SpaceDesigner/app.json" `
+              -AppName "SpaceDesigner" `
+              -OutputPath $workDir
+          
+          Convert-JsonToCanvasApp `
+              -JsonPath "$(Build.SourcesDirectory)/canvas-apps/ReservationManager/app.json" `
+              -AppName "ReservationManager" `
+              -OutputPath $workDir
+          
+          Write-Host "Conversion complete!"
+
+    # Pack Canvas Apps
+    - task: PowerShell@2
+      displayName: 'Pack Canvas Apps to .msapp'
+      inputs:
+        targetType: 'inline'
+        script: |
+          $workDir = "$(Build.ArtifactStagingDirectory)/canvas-apps-converted"
+          $outputDir = "$(Build.ArtifactStagingDirectory)/msapp-files"
+          New-Item -ItemType Directory -Path $outputDir -Force
+          
+          # Pack Space Designer
+          Write-Host "Packing Space Designer..."
+          pac canvas pack `
+              --sources "$workDir/SpaceDesigner/src" `
+              --msapp "$outputDir/SpaceDesigner.msapp"
+          
+          # Pack Reservation Manager
+          Write-Host "Packing Reservation Manager..."
+          pac canvas pack `
+              --sources "$workDir/ReservationManager/src" `
+              --msapp "$outputDir/ReservationManager.msapp"
+          
+          Write-Host "Apps packed successfully!"
+        continueOnError: true  # Continue even if packing fails
+
+    # Create Solution
+    - task: PowerPlatformCreateSolution@2
+      displayName: 'Create Solution Structure'
+      inputs:
+        SolutionName: '$(SolutionName)'
+        PublisherName: '$(PublisherName)'
+        PublisherPrefix: '$(PublisherPrefix)'
+        VersionNumber: '1.0.$(Build.BuildId).0'
+        OutputPath: '$(Build.ArtifactStagingDirectory)/solution'
+
+    # Add Canvas Apps to Solution
+    - task: PowerShell@2
+      displayName: 'Add Canvas Apps to Solution'
+      inputs:
+        targetType: 'inline'
+        script: |
+          $solutionPath = "$(Build.ArtifactStagingDirectory)/solution"
+          $msappPath = "$(Build.ArtifactStagingDirectory)/msapp-files"
+          
+          # Create CanvasApps directory in solution
+          $canvasDir = "$solutionPath/src/CanvasApps"
+          New-Item -ItemType Directory -Path $canvasDir -Force
+          
+          # Copy .msapp files to solution
+          if (Test-Path "$msappPath/SpaceDesigner.msapp") {
+              Copy-Item "$msappPath/SpaceDesigner.msapp" "$canvasDir/es_spacedesigner.msapp"
+              Write-Host "Added Space Designer to solution"
+          }
+          
+          if (Test-Path "$msappPath/ReservationManager.msapp") {
+              Copy-Item "$msappPath/ReservationManager.msapp" "$canvasDir/es_reservationmanager.msapp"
+              Write-Host "Added Reservation Manager to solution"
+          }
+          
+          # Update solution manifest
+          $customizationsPath = "$solutionPath/src/Other/Customizations.xml"
+          $customizations = @"
+          <?xml version="1.0" encoding="utf-8"?>
+          <ImportExportXml xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+            <Entities />
+            <Roles />
+            <Workflows />
+            <FieldSecurityProfiles />
+            <Templates />
+            <EntityMaps />
+            <EntityRelationships />
+            <OrganizationSettings />
+            <optionsets />
+            <CustomControls />
+            <EntityDataProviders />
+            <CanvasApps />
+            <Languages>
+              <Language>1033</Language>
+            </Languages>
+          </ImportExportXml>
+          "@
+          
+          $customizations | Out-File $customizationsPath -Encoding UTF8
+
+    # Pack Solution
+    - task: PowerPlatformPackSolution@2
+      displayName: 'Pack Solution'
+      inputs:
+        SolutionSourceFolder: '$(Build.ArtifactStagingDirectory)/solution/src'
+        SolutionOutputFile: '$(Build.ArtifactStagingDirectory)/$(SolutionName).zip'
+        SolutionType: 'Both'
+
+    # Publish Build Artifacts
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Solution Artifact'
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'drop'
+        publishLocation: 'Container'
+
+- stage: DeployToDev
+  displayName: 'Deploy to Development'
+  dependsOn: Build
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
+  jobs:
+  - deployment: DeployDev
+    displayName: 'Deploy to Dev Environment'
+    environment: 'Development'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: PowerPlatformToolInstaller@2
+            displayName: 'Install Power Platform Build Tools'
+            inputs:
+              DefaultVersion: true
+
+          - task: PowerPlatformImportSolution@2
+            displayName: 'Import Solution to Dev'
+            inputs:
+              authenticationType: 'PowerPlatformSPN'
+              PowerPlatformSPN: '$(PowerPlatformSPN)'
+              SolutionInputFile: '$(Pipeline.Workspace)/drop/$(SolutionName).zip'
+              PublishCustomizationChanges: true
+              MaxAsyncWaitTime: '60'
+
+          - task: PowerPlatformPublishCustomizations@2
+            displayName: 'Publish All Customizations'
+            inputs:
+              authenticationType: 'PowerPlatformSPN'
+              PowerPlatformSPN: '$(PowerPlatformSPN)'
+
+- stage: DeployToTest
+  displayName: 'Deploy to Test'
+  dependsOn: DeployToDev
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/develop'))
+  jobs:
+  - deployment: DeployTest
+    displayName: 'Deploy to Test Environment'
+    environment: 'Test'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: PowerPlatformToolInstaller@2
+            displayName: 'Install Power Platform Build Tools'
+            inputs:
+              DefaultVersion: true
+
+          - task: PowerPlatformImportSolution@2
+            displayName: 'Import Solution to Test'
+            inputs:
+              authenticationType: 'PowerPlatformSPN'
+              PowerPlatformSPN: '$(PowerPlatformSPN)-Test'
+              SolutionInputFile: '$(Pipeline.Workspace)/drop/$(SolutionName)_managed.zip'
+              PublishCustomizationChanges: true
+              MaxAsyncWaitTime: '60'
+
+- stage: DeployToProd
+  displayName: 'Deploy to Production'
+  dependsOn: DeployToTest
+  condition: and(succeeded(), eq(variables['Build.SourceBranch'], 'refs/heads/main'))
+  jobs:
+  - deployment: DeployProd
+    displayName: 'Deploy to Production Environment'
+    environment: 'Production'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - task: PowerPlatformToolInstaller@2
+            displayName: 'Install Power Platform Build Tools'
+            inputs:
+              DefaultVersion: true
+
+          - task: PowerPlatformImportSolution@2
+            displayName: 'Import Solution to Production'
+            inputs:
+              authenticationType: 'PowerPlatformSPN'
+              PowerPlatformSPN: '$(PowerPlatformSPN)-Prod'
+              SolutionInputFile: '$(Pipeline.Workspace)/drop/$(SolutionName)_managed.zip'
+              PublishCustomizationChanges: true
+              MaxAsyncWaitTime: '60'
+              ConvertToManaged: true
+
+          - task: PowerPlatformPublishCustomizations@2
+            displayName: 'Publish All Customizations'
+            inputs:
+              authenticationType: 'PowerPlatformSPN'
+              PowerPlatformSPN: '$(PowerPlatformSPN)-Prod'

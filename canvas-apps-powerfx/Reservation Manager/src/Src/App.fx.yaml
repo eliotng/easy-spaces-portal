@@ -1,0 +1,22 @@
+App As appinfo:
+    BackgroundColor: =#f3f2f1
+    MinScreenHeight: =640
+    MinScreenWidth: =640
+    OnStart: |
+        =// Initialize app
+        Set(currentUser, User());
+        ClearCollect(colData, []);
+                Set(currentUser, User());
+        Set(selectedReservation, {});
+        Set(selectedCustomer, {});
+        Set(reservationMode, create);
+        Set(dateRange, @{startDate=Today(); endDate=DateAdd(Today(), 7, Days)});
+        Set(filterStatus, All);
+        Set(viewMode, calendar);
+
+Host As hostControl.DefaultHostControlVariant:
+    OnCancel: =false
+    OnEdit: =false
+    OnNew: =false
+    OnSave: =false
+    OnView: =false

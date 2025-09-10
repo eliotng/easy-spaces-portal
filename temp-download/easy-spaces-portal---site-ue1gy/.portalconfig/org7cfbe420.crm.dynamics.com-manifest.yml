@@ -1,0 +1,507 @@
+adx_contentsnippet:
+- RecordId: 198710e5-5af6-4615-9341-bbbcb109cccd
+  DisplayName: Header/Search/ToolTip
+  CheckSum: c0420dc67fd684943d382375fca81623f093b0026074c17458de77c951ef950f
+  IsDeleted: false
+- RecordId: 53480547-9a02-46f0-8f74-267d368ba099
+  DisplayName: Search/ResultsTitle
+  CheckSum: a4e6e041629e1804a9c9bae0b00f9b26558105827fc8b7eb3bd1b971c9643612
+  IsDeleted: false
+- RecordId: 5effb6a9-b4bc-4651-ab62-d47cc4d29d2f
+  DisplayName: Search/ResultsCount
+  CheckSum: d8dae275356120329f4923fc33d983e3c8f5d02ff36641732635c183ea294e88
+  IsDeleted: false
+- RecordId: 83c44d91-485b-476e-83a9-fbfc3ad10acf
+  DisplayName: Footer
+  CheckSum: 5e316f07584d97195d271ad8ed9b69144233d5f206bd647879c97722c8745ec2
+  IsDeleted: false
+- RecordId: 899180db-288c-be4d-4e94-c229dc8c2310
+  DisplayName: Logo alt text
+  CheckSum: 0c3d520350f8bb47eb0aac9fd5687cab8c397b42b87239bb6e3b7e2d1351b730
+  IsDeleted: false
+- RecordId: 8bee5e7c-655a-4122-89f2-9b132d02ac8d
+  DisplayName: Search/Title
+  CheckSum: a6af46001650d0a4c9b37fb5e81d12112efdb9c738b01c652733131758f70f20
+  IsDeleted: false
+- RecordId: 8d863884-693d-4b37-8bfd-7bbedea2d5d4
+  DisplayName: Mobile Header
+  CheckSum: 9da17a8f11b92caed595182d8bbfbe452b5c4dc1b9a1e737c847a6f4c6d21e57
+  IsDeleted: false
+- RecordId: b64afd7e-6d1d-3528-e2b3-f047ce021c2f
+  DisplayName: Site name
+  CheckSum: 39dd307f142190222df99fb4a280968bb83f6ddfcccb97f9225e5cdeaa991400
+  IsDeleted: false
+- RecordId: e65766fb-713c-9559-5f32-bf0e724a2fa6
+  DisplayName: Logo URL
+  CheckSum: 615a0d4f4050a0c4d0d0d3bcd9b5253b60a977e8abef3dbd504b130883c505d4
+  IsDeleted: false
+- RecordId: f393e1fd-ad2c-40cf-94ad-ad3e777eefa2
+  DisplayName: Search/NoResults
+  CheckSum: dd23e4b260fd20d9771181ea13eab44f219f10af259cf3d84326b39e12ebd1b6
+  IsDeleted: false
+- RecordId: f87fe0c5-aa26-4c68-a762-3268c0b124a5
+  DisplayName: Header/Toggle Navigation
+  CheckSum: c2eece0a4ecc55a4416430f15e83f109bf7554bb403bf3b300a59a27ad854972
+  IsDeleted: false
+adx_pagetemplate:
+- RecordId: 18fd94c3-14b4-4883-a901-5b54fc1910b5
+  DisplayName: Default studio template
+  CheckSum: d842d2cd92a644ffd1d2af26b2c82cbb066c37edc6d68996fc838573baf16f78
+  IsDeleted: false
+- RecordId: 33535a73-8c14-4ac1-a055-815013de43b9
+  DisplayName: Access Denied
+  CheckSum: 8272c3ef6b843fce5b90f68893edc5fb257aa9933c5cd7235648a95ae584bc83
+  IsDeleted: false
+- RecordId: 4f58089c-f9cd-4d55-9243-8182ac29dc12
+  DisplayName: Profile
+  CheckSum: 2d0a0c02dc3b84a505d364daf6ef7fa477e22a617bb180e8fcc0fcd40862ad48
+  IsDeleted: false
+- RecordId: 578311b9-30db-47b0-97b4-454a60cf753c
+  DisplayName: Search
+  CheckSum: b750551673502edbf8795b983fa71762f2b25abe22b4f54bf6fcf02397cb2b52
+  IsDeleted: false
+- RecordId: 87e1dc89-5433-4405-bad6-f8196d096413
+  DisplayName: AI Search PageTemplate
+  CheckSum: 97f6d2ca7441cbffdf1d6e4e5e31eb6499dd02c33d41ca8bb186fa37fc474a87
+  IsDeleted: false
+adx_portallanguage:
+- RecordId: 128eb7f4-edc5-4717-a07c-c0fe02419845
+  DisplayName: English
+  CheckSum: 5a37c5cb38dbaa8a6ab5807fa460e900c452e91e0071afe45890f54f61f6a1a8
+  IsDeleted: false
+adx_publishingstate:
+- RecordId: 445e7af8-7e53-436b-b918-45c510cc4ede
+  DisplayName: Published
+  CheckSum: 69a338fe98bc0a68f7550453b31d2ddbeda1c6483bf359c33340060944b1297d
+  IsDeleted: false
+- RecordId: a868e280-d6ac-4ee9-9a0f-5656e3304c20
+  DisplayName: Draft
+  CheckSum: bfd0039f8508cb659684c21f92acbe5dbf0586675e236e61fc403b95493ae132
+  IsDeleted: false
+adx_sitemarker:
+- RecordId: b7576118-6e83-4b9f-9acc-b53d5156c823
+  DisplayName: Search
+  CheckSum: ae1542defa8a0f157a2fcb139e235917a7f37f9a5132eccf7b36e8bc9945fe1a
+  IsDeleted: false
+- RecordId: bf6c7a22-65bc-43b5-b23c-0f135c400ecd
+  DisplayName: Profile
+  CheckSum: 3d27e05d724b21f766a7caf7aab915ef5b2ceb1dad1079cbe308ceb043856a3c
+  IsDeleted: false
+- RecordId: c89f336e-ccf9-40f6-ac7d-51b274ebfb68
+  DisplayName: Access Denied
+  CheckSum: 60820e17677c77584262b9a27efdce84d41529d3784fb2950daf832d8debea0e
+  IsDeleted: false
+- RecordId: de529464-de2b-4527-ace4-2f4d695dbc94
+  DisplayName: Home
+  CheckSum: 834001e8d6eaeb2f1eae030d5d64e474f6ba19e62ce7a563be593745ac6eeb2d
+  IsDeleted: false
+- RecordId: ebbcd59e-1c00-4586-82e8-8554e16514b7
+  DisplayName: Page Not Found
+  CheckSum: 3ed18d4f9fe97611c7fa8f4f5d960a31afbc1c81774a5f44d7d4a82039938b52
+  IsDeleted: false
+adx_sitesetting:
+- RecordId: 0191953d-2d0d-4743-bfd8-e0ffda1ce2d9
+  DisplayName: Site/BootstrapV5Enabled
+  CheckSum: e50071d68c842920d4bf0f8c3a0a0f10321675bc75e13fda315543856b82675f
+  IsDeleted: false
+- RecordId: 0292a24f-675f-48f0-8c78-9640b2421496
+  DisplayName: MultiLanguage/MaximumDepthToClone
+  CheckSum: 95efb22cbad9cdaa5ad94bfd93c7d1746dc9451df9ee17ad1e4655069fadf750
+  IsDeleted: false
+- RecordId: 054bd7d1-5378-4c5f-a80f-4404f7027406
+  DisplayName: Authentication/LoginThrottling/MaxAttemptsTimeLimitTimeSpan
+  CheckSum: 7007903eb0fde2f6799dc30e611d87b1ff3f05479fee0a1b9a6aa5aa2867b495
+  IsDeleted: false
+- RecordId: 1aa03053-8ab4-47ea-8268-885f1a23386d
+  DisplayName: Authentication/LoginThrottling/MaxInvaildAttemptsFromIPAddress
+  CheckSum: 9cc5bf1631d686efb1e4160c4ebc08454adc12bf12489dc7f6e531a105cd2cea
+  IsDeleted: false
+- RecordId: 1bee4447-3af2-411a-81e8-1ebc02b58c6b
+  DisplayName: HTTP/X-Frame-Options
+  CheckSum: 17d7a67291e9e4c44764769077b6d229fa654b68fcc49d37d46b71a09efc34cd
+  IsDeleted: false
+- RecordId: 1de8467c-dc43-4dca-b202-0bfb6b830c0d
+  DisplayName: Authentication/OpenAuth/LinkedIn/ConsumerKey
+  CheckSum: 4c5346da112d6745ae6bb599c69210841156c42643a3c1cc68e4044c98a74ca7
+  IsDeleted: false
+- RecordId: 2851e05c-6e41-4b41-ba64-373e19476fbc
+  DisplayName: Profile/ShowMarketingOptionsPanel
+  CheckSum: e2fa799a1fb965d8fd6962e03d3cbc6756de23d2408dd3319f717696a4df6712
+  IsDeleted: false
+- RecordId: 2af08942-e184-490c-b226-7cdb9a5565ac
+  DisplayName: Authentication/OpenAuth/Microsoft/ClientSecret
+  CheckSum: ce230cf01b13ecf91eafea5de6a79c8fee09beb415e0eefc13ef2a2e08f58079
+  IsDeleted: false
+- RecordId: 2b5a6050-c52d-4d60-a156-e35d6c5c0784
+  DisplayName: search/filters
+  CheckSum: f4441e009ca07c0285cd3c7c9e05f456d9a0c06a0c9a2810d510c5cd149857fc
+  IsDeleted: false
+- RecordId: 3027c5a7-c76a-40a7-b6b4-0063095c668a
+  DisplayName: Authentication/LoginTrackingEnabled
+  CheckSum: a21ed7df0440b14f5d2b03b92437e717b8c0052ffc55a3fb8fafdc2756f0ac2d
+  IsDeleted: false
+- RecordId: 333a6364-9be8-4577-ac54-28de38bf49df
+  DisplayName: Authentication/Registration/DenyMinors
+  CheckSum: 0ec2530e1d2e84de325d9d1366bdf687c560566158f0d414a54f7a8a4c0e32fc
+  IsDeleted: false
+- RecordId: 3dd813da-7cbb-446b-a24e-f13826e3aaa0
+  DisplayName: Authentication/Registration/ProfileRedirectEnabled
+  CheckSum: 37b00816f4f1f5173c90303779b8b0542a8680cd59aba120ab26804c2bf3d929
+  IsDeleted: false
+- RecordId: 3f385c6b-4354-4257-be3a-4bf4b737a93b
+  DisplayName: KnowledgeManagement/DisplayNotes
+  CheckSum: d2f100d939600f9186c068eb6b693e7aac83a05171d7eb0edb1564e67e91d356
+  IsDeleted: false
+- RecordId: 41bcf06c-47ec-4f93-83e9-811c113b1966
+  DisplayName: Footer/OutputCache/Enabled
+  CheckSum: 3530f77ff75aa89f4d09559fc6fc8b8172bb5f6717f48c763f66131be18e51af
+  IsDeleted: false
+- RecordId: 5574aba6-994b-4956-8ef7-e1ac166c206c
+  DisplayName: Authentication/LoginThrottling/IpAddressTimeoutTimeSpan
+  CheckSum: 7d218aa65578a648ff4fb69a096221570a35afae2b7c0f06fda277054f03ab88
+  IsDeleted: false
+- RecordId: 5c7ec92b-2b82-4e9f-9a38-686d16d421ca
+  DisplayName: Search/FacetedView
+  CheckSum: 31981300f0d8a09ad26f424602a7fd5c3558e16901ca0c6f2d2119d5631a2b64
+  IsDeleted: false
+- RecordId: 60e3da7c-5964-45a8-ad92-883770a74d9d
+  DisplayName: Authentication/OpenAuth/Twitter/ConsumerSecret
+  CheckSum: 058311070f82695933760a7cdbc167f96c21f6e96ae5761b0b5066dd93b80925
+  IsDeleted: false
+- RecordId: 740094aa-2bd4-4c88-8b79-faab096cdeae
+  DisplayName: MultiLanguage/DisplayLanguageCodeInURL
+  CheckSum: d015db8b7bc940656da137529940695269587cf6050e5de5864c8d809d58ad18
+  IsDeleted: false
+- RecordId: 769b438d-c087-4547-b258-c1a4a1b7a0c6
+  DisplayName: ThemeFeature
+  CheckSum: 5919cf3987cf6940726bc471378a2d1481f6aff228305bbc15889479a6699298
+  IsDeleted: false
+- RecordId: 77b57375-1ad8-44ee-bc18-0ed5608e04a7
+  DisplayName: Authentication/OpenAuth/Microsoft/ClientId
+  CheckSum: eb7d4caba1b51f4425904806d10e705d2ab254df890a010c10ac32644a76477e
+  IsDeleted: false
+- RecordId: 7e45c5d0-6fab-4752-a959-90b3c82d8b62
+  DisplayName: Authentication/Registration/AzureADLoginEnabled
+  CheckSum: 2f6f3768e5cfb32b2d17e8df14c5bc580ce8bd02e4e0050e94e074a781b1ff53
+  IsDeleted: false
+- RecordId: 7ead4f7f-deed-476c-a2fe-0d1541e9c5c9
+  DisplayName: Authentication/Registration/InvitationEnabled
+  CheckSum: 615a2df8963b6e3da3b5eac765f9aac93e623ac7a68212f049ec0227c01c42b3
+  IsDeleted: false
+- RecordId: 82730f72-aba3-4851-a923-d40af9d24ded
+  DisplayName: Authentication/Registration/TermsAgreementEnabled
+  CheckSum: b354abde0494caa1199859d46969a1d8649d701ff62031a59e9c7466fa5d9323
+  IsDeleted: false
+- RecordId: 896d6d5b-d484-4817-9071-ec42c9d976d6
+  DisplayName: Authentication/OpenAuth/Facebook/AppSecret
+  CheckSum: 26c06edf345d365bb920f6cca8e9da93eb4b6f63b0ea8afb5594a6d8356eb4b2
+  IsDeleted: false
+- RecordId: 8a0a64ad-caa5-40ea-903a-3a4397d79f82
+  DisplayName: Authentication/Registration/LocalLoginEnabled
+  CheckSum: 6767b91b2c0efad55700d9ffc2d15e80b4bc097c98d4578da8b9b8d56896b1d4
+  IsDeleted: false
+- RecordId: 93524cda-0b9d-4d05-8eb4-b719860fff67
+  DisplayName: CustomerSupport/DisplayAllUserActivitiesOnTimeline
+  CheckSum: b606b979d2c058ca96ac413582c242306ddb4dfeb866eb601e1017553999a39d
+  IsDeleted: false
+- RecordId: 937988f3-c93d-4c74-bf35-ea43bea35fae
+  DisplayName: Profile/Enabled
+  CheckSum: a237cec5023ed7019536b47739f307f48517358016c47525c027fcdda06bce84
+  IsDeleted: false
+- RecordId: 95ec8179-c13c-4b25-beee-94f0cbd20da5
+  DisplayName: KnowledgeManagement/NotesFilter
+  CheckSum: 63d0dde349c99ed1e66da96eb1b788b860ae22e904423d6c301408e0becd0bb0
+  IsDeleted: false
+- RecordId: 96e046c3-c2be-4041-8ce8-90118ed9cc3e
+  DisplayName: Header/ShowAllProfileNavigationLinks
+  CheckSum: 078f4cd99abc0c3d4a2407cc83dade9804a1862ccc601b2722f700a0c93756f1
+  IsDeleted: false
+- RecordId: 9fc02e96-1d93-4aab-8da2-af75db6f7b49
+  DisplayName: Search/IndexQueryName
+  CheckSum: fcf50a5d38a5e0e4df991f3149031d17da0c2585522751ba58a6f570b9ffbb52
+  IsDeleted: false
+- RecordId: a08da425-a26e-4030-911a-ad9c931bca95
+  DisplayName: Search/RecordTypeFacetsEntities
+  CheckSum: 8970f7424e9fbbc04c00094fc3b6868bb8cacc4d8a1bc01165eb87d3924595ba
+  IsDeleted: false
+- RecordId: a2491f2f-bca9-47f7-a6b2-37d60b549e4c
+  DisplayName: Search/Enabled
+  CheckSum: 94d303848cf7c9c9281f5870ecc58aa531ea0eac35a439f963ce7c759014dbfb
+  IsDeleted: false
+- RecordId: a3ea913d-fd1c-4472-bb41-996cea896fd4
+  DisplayName: Authentication/Registration/LocalLoginDeprecated
+  CheckSum: c11512440d7012c6ce618930055d8bb3e5e0f29a08f1b20019e0b52b1b160c2b
+  IsDeleted: false
+- RecordId: a7f33f51-d900-488a-8af1-018eca963f24
+  DisplayName: Authentication/Registration/DenyMinorsWithoutParentalConsent
+  CheckSum: 0b2bef2ba2ea2ba60cb8b9736961b7d3292e90652d0e844359ce91dd999082de
+  IsDeleted: false
+- RecordId: af28205b-ab8d-f011-b4cc-7c1e5202188c
+  DisplayName: Authentication/OpenIdConnect/AzureAD/Caption
+  CheckSum: 7f01abee83cb948387a33e6bf47a545c50bcbaa1e95836351db3498031a6252a
+  IsDeleted: false
+- RecordId: b128205b-ab8d-f011-b4cc-7c1e5202188c
+  DisplayName: Authentication/OpenIdConnect/AzureAD/RebrandDisclaimerEnabled
+  CheckSum: f9698b3500b33ca1428b08ca16a4ff699b534846a367552ab8170347ecca6303
+  IsDeleted: false
+- RecordId: b2b72b65-2be7-4b74-b9f7-cf45ae191f9a
+  DisplayName: Authentication/OpenAuth/Facebook/AppId
+  CheckSum: f3a4080b43555956059de05fd119a9fe7b532bc8d898b8d0b513954c40f02de3
+  IsDeleted: false
+- RecordId: b8015e09-1f2b-4a6d-b617-d6623bc6c81f
+  DisplayName: Header/OutputCache/Enabled
+  CheckSum: 5cf9e131e03157531a2f709527e691acf93c3695d7f5b24482d9e85dae63af38
+  IsDeleted: false
+- RecordId: c07e7c41-8640-48cc-984f-86fab23ef97a
+  DisplayName: Authentication/Registration/ExternalLoginEnabled
+  CheckSum: d0bc5447d3204cb43b646a30d5c1621790acc1b79a43935bb9baa1f87c322e74
+  IsDeleted: false
+- RecordId: c086f3f4-c5dd-40ec-bd03-3ef6fea14ab0
+  DisplayName: Authentication/Registration/TermsPublicationDate
+  CheckSum: cd5cb9ad85379871e8596d65feb55e613134e3aa787ca94269704a5afc8ccbe6
+  IsDeleted: false
+- RecordId: c30bc5d0-9b96-4884-af69-53d2c6f4c0f4
+  DisplayName: Profile/ForceSignUp
+  CheckSum: f0b379cbfcd05ec09b21ff3223ab919ca8f556fe0855c2bc1757b85219987816
+  IsDeleted: false
+- RecordId: cff0b224-0507-401f-a255-fa98089be4f1
+  DisplayName: OnlineDomains
+  CheckSum: 126f2f4e68384e12f86f9a7898cad77bb1e9e1e6682e6ffeca64dd4278d67617
+  IsDeleted: false
+- RecordId: d3a9f793-fb03-41e5-be18-9a8b3ff747ca
+  DisplayName: Authentication/Registration/LoginButtonAuthenticationType
+  CheckSum: e74e78e0b03018183f091ea5f7862e18c2a257c80ae8d34277e6460f30f6b6b7
+  IsDeleted: false
+- RecordId: dd9d83c7-6a9b-4f07-9a97-97b8faa30dd3
+  DisplayName: search/query
+  CheckSum: d793202b9b9ac8c966b8a9bb610b944eb752a74cb20b974006618db7f3076442
+  IsDeleted: false
+- RecordId: e5917ee9-d8f5-4450-bf30-2a56c8b91796
+  DisplayName: Authentication/Registration/OpenRegistrationEnabled
+  CheckSum: 82c20ef9000fdf071b202339e2e1dc62c05e849651823f1973c4b4a54f7dd386
+  IsDeleted: false
+- RecordId: e767deff-cd95-4489-ac68-c45fb2f21861
+  DisplayName: Search/IndexNotesAttachments
+  CheckSum: 25a34e58309ac21b70d25c09e031ba27db3c4b4d4556cca63001dd00bd302b68
+  IsDeleted: false
+- RecordId: eb288e0c-81fe-4f85-bba8-9afa05c6174a
+  DisplayName: Authentication/Registration/Enabled
+  CheckSum: e86ffeef76ba37433f698d0a0d552e637f3f7d68c4efd3f1cfcf83821c4002b4
+  IsDeleted: false
+- RecordId: ed1b1b65-a1fc-455b-ae22-cb1157d53100
+  DisplayName: Authentication/OpenAuth/Twitter/ConsumerKey
+  CheckSum: bf44955b51e217e74e6aa26a2ebe52de9dae87dc793eba68345bab36de41cef8
+  IsDeleted: false
+- RecordId: eef0349a-39f8-4029-8eff-7db218f59454
+  DisplayName: Authentication/OpenAuth/LinkedIn/ConsumerSecret
+  CheckSum: 52be917f1a9473b86107ca6d9bcab3b73ad320d802fbb256ea437f9285a59327
+  IsDeleted: false
+- RecordId: fda8b685-e857-4bf7-8163-736dd63b7576
+  DisplayName: Authentication/Registration/EmailConfirmationEnabled
+  CheckSum: b1b073c91f359ef6f42c91608a11ed1f0e3b355eaf8e1b0cc3fd90fdea74d091
+  IsDeleted: false
+adx_webfile:
+- RecordId: 40ccb886-86bd-4f42-b801-53059a4ee9a5
+  DisplayName: Cat-PC.png
+  CheckSum: 3cd8cff3f25d280c4b68b0dd42d9a968e19799ea0edd8c2216a575be399979e4
+  IsDeleted: false
+- RecordId: 462a93d3-929e-489e-9cb3-fa968e85f528
+  DisplayName: portalbasictheme.css
+  CheckSum: c12c2faa8e9998b8023fbe73b7a3c387be352640e960073a90125249c6f306f1
+  IsDeleted: false
+- RecordId: 6d605a5d-4ca5-458d-bed4-d06b5aa7443d
+  DisplayName: bootstrap.min.css
+  CheckSum: 090ff530b66629bb0dd08fad49c2356b8a10d37bf132747e8a446e30270a49d0
+  IsDeleted: false
+- RecordId: edbf05d5-572a-456c-abb0-1035cdcc34c7
+  DisplayName: theme.css
+  CheckSum: 5aa76f91b5182d3ca633c0d9c3774f0135c075043e497891aafd2769d7525a11
+  IsDeleted: false
+- RecordId: efc09ba7-7b16-4f56-a3f5-62dd9e1490de
+  DisplayName: Logo-sm-64.png
+  CheckSum: 6363ce1d49b2affd9f0252db2ccdd7fd37a8f204b82efa1b4d791ea459013941
+  IsDeleted: false
+adx_weblink:
+- RecordId: b23fd68b-4e22-44be-8503-b3c33a4fae9c
+  DisplayName: Profile
+  CheckSum: 3e8be57103cbbdd965f6ab061b040d741c76fe4733eaa4b0cfbbbdf34c89d130
+  IsDeleted: false
+- RecordId: e61effa1-fe80-4f2b-93c8-96a52fa2c334
+  DisplayName: Home
+  CheckSum: 069668a2d851f713b4a389b904ebf3efd8d498759d36ef65e8afd8758f592bbd
+  IsDeleted: false
+adx_weblinkset:
+- RecordId: 0b3a7968-6bfd-4662-a3e9-aa2d024065a2
+  DisplayName: Profile Navigation
+  CheckSum: 1b075ea222bcbbfd9126d0791dd022361236aeae2711227dea13b258b782dff4
+  IsDeleted: false
+- RecordId: db02be52-cb76-44f1-aba0-fec99c383464
+  DisplayName: Default
+  CheckSum: 85258194140a007505dddc80578157c747a94201c163cfa94d2b6bce39231615
+  IsDeleted: false
+adx_webpage:
+- RecordId: 060375f3-7724-49c5-b9b2-5f64d6ae99d3
+  DisplayName: Profile
+  CheckSum: ee12e6006c0a035ec2cbd6999992e5b8f49f624f404ae0d2092eb229997bfced
+  IsDeleted: false
+- RecordId: 38041065-dce5-4c1c-9044-7ef0da1d8730
+  DisplayName: Profile
+  CheckSum: 6b30700a6a6e7b96ebf9e423e675186e1ebda501622aa0211e8aed10c690fc46
+  IsDeleted: false
+- RecordId: 4e2c3f6a-1270-4c7c-96d8-b07565a10468
+  DisplayName: Page Not Found
+  CheckSum: 68c1c793c3251e4d575e94837a34abf729aab102792024609384da3616c150fe
+  IsDeleted: false
+- RecordId: 510d07a7-2878-4675-b332-b0faed1c6261
+  DisplayName: Page Not Found
+  CheckSum: 411bc3df68508e99c72169d74d4e6849ebb30d857ade27b7a0328ed9b622b7bb
+  IsDeleted: false
+- RecordId: 5bd0f086-88fe-4d2e-b53f-cbe93d2177db
+  DisplayName: Access Denied
+  CheckSum: d1f14119c898b7d34a45145ed135c5545a84b63e4f42d3861ce4cba4eb8f2fc2
+  IsDeleted: false
+- RecordId: 5c6a6303-acb8-4676-bdc1-04237519d3fe
+  DisplayName: Access Denied
+  CheckSum: a9822bab858bfe6dffc2a5dd034a67d1316069f84a06cc72966ba6d5e937831d
+  IsDeleted: false
+- RecordId: 908938dc-a507-4ce6-a600-b7eba55f40e6
+  DisplayName: Search
+  CheckSum: f64ac0bde63d300770eed59d7e558949fb17942b5f955d7a0c9734f8054fc724
+  IsDeleted: false
+- RecordId: b23b9211-f0c1-43ad-9ff8-c5f9ee00a5a4
+  DisplayName: Home
+  CheckSum: a020887de213247ab6db2712cb161d104ffe3555d637c2eef56dffe336f2e7c6
+  IsDeleted: false
+- RecordId: c6b97c09-d7cd-482c-88a2-67ab70763226
+  DisplayName: Search
+  CheckSum: 4730ac72dd71aab054d922e4a7ca0120fe4c292d766218f3b026689589e93e74
+  IsDeleted: false
+- RecordId: e0f8f0ec-9b5e-48a0-afd6-7787f8acb706
+  DisplayName: Home
+  CheckSum: 266e49694de14f4ce65dd7009bfaf28525108153ffe27a8887a1c05762540c3d
+  IsDeleted: false
+adx_webpageaccesscontrolrule:
+- RecordId: 66e506f9-531c-46f0-b1f0-b109c02d3a6b
+  DisplayName: Grant Change to Administrators
+  CheckSum: 1c57a03be62bd674e9296375c7a8732292a7a4a9ac6b2c4ae7b436dfea147d80
+  IsDeleted: false
+- RecordId: 6f1971e7-ab6b-47a8-8f9c-8cbe914375ba
+  DisplayName: Grant Change to Content
+  CheckSum: ce31684fa6b744467826b87267187a63df29a0261da4a6cc1803121be4eeb173
+  IsDeleted: false
+adx_webpageaccesscontrolrule_webrole:
+- RecordId: 91e6d4e0-95b6-4c69-a46a-16ee03f17242
+  DisplayName: $RELATIONSHIP$adx_webpageaccesscontrolrule:66e506f9-531c-46f0-b1f0-b109c02d3a6b:adx_webrole
+  CheckSum: eaa74a0b79a0467c10198b7774ebd44a4369a86af8bd92575025efd0a87560a5
+  IsDeleted: false
+adx_webrole:
+- RecordId: 200141d7-0903-41b9-86af-2b55c8da3875
+  DisplayName: Anonymous Users
+  CheckSum: f24d3c752e6c6c8359477b4713e8807c4fd70ad1dbdbeaa857d9b3c2413c9170
+  IsDeleted: false
+- RecordId: 91e6d4e0-95b6-4c69-a46a-16ee03f17242
+  DisplayName: Administrators
+  CheckSum: 0396b3b360f2625cfd9691c2a33e0fa62df85689ed4f8682942eda1c29834241
+  IsDeleted: false
+- RecordId: ee0e2d9c-805b-49d1-a4cc-8c8b2e965ab8
+  DisplayName: Authenticated Users
+  CheckSum: 507a75f1af8478056fd03f7efe88da0273953c622a4103c61f71f6b7c3261c97
+  IsDeleted: false
+adx_website:
+- RecordId: 23f043c6-aa87-42c1-8d5c-4015e7b59c26
+  DisplayName: Easy Spaces Portal - site-ue1gy
+  CheckSum: b6e5b9e5ffd65f25c9a626bfac88a5a12f3303e173433a24c8ed706058aff760
+  IsDeleted: false
+adx_websiteaccess:
+- RecordId: 6ee8feda-a6d6-440a-b9c4-294f5e117a01
+  DisplayName: Administrative permissions for Blank Template
+  CheckSum: 5f6c5d25cf6081e76660db3faeb83a20c33603c530d1b1f1db6bed9cade1f297
+  IsDeleted: false
+- RecordId: b0cb5950-04da-4627-b2fe-7d5e1cf74da6
+  DisplayName: Preview permission for Blank Template
+  CheckSum: d34ef927eda9f5f1a91483b8a0560fd45829ed839efea796942c149aebb06c49
+  IsDeleted: false
+adx_websiteaccess_webrole:
+- RecordId: 91e6d4e0-95b6-4c69-a46a-16ee03f17242
+  DisplayName: $RELATIONSHIP$adx_websiteaccess:6ee8feda-a6d6-440a-b9c4-294f5e117a01:adx_webrole
+  CheckSum: 2284cf2d96cd8c59f431b579b5695b942155fb3f612404bdbc094a6cb48da42c
+  IsDeleted: false
+adx_websitelanguage:
+- RecordId: 128eb7f4-edc5-4717-a07c-c0fe02419845
+  DisplayName: English
+  CheckSum: 0bd2640e72be482150942b79cf5f74e1898849577a6a687d395117b9cfc04935
+  IsDeleted: false
+adx_webtemplate:
+- RecordId: 0159bfa1-bf51-4c4d-b29b-2f0acd460ff6
+  DisplayName: Header
+  CheckSum: 83ae93a94141e158b35e794489bb31c5548e84ce418a49e5d0651220e14ec45f
+  IsDeleted: false
+- RecordId: 0d94641f-3a5f-4c70-af49-b7f5c2ef1dc7
+  DisplayName: Page Copy
+  CheckSum: 3bbb8f9162fc01cea0fcd608c4248f65644cd774c78544b3f61261713f3f16ce
+  IsDeleted: false
+- RecordId: 11188803-2ff4-40d8-8f31-b1341609e26f
+  DisplayName: Default studio template
+  CheckSum: ffa457311196564f31df3f52a2a19eeca16c5ee14f3421b67fc18a45f1b55bc3
+  IsDeleted: false
+- RecordId: 1a8ff3bc-256e-45fe-98a0-68ca9df48161
+  DisplayName: Pages Breadcrumb
+  CheckSum: ac51a4e68545efb319a16329d2ed943391a968543cf5efe0980bc79bff12e285
+  IsDeleted: false
+- RecordId: 33a8015a-c653-4020-b8f8-0523809511b8
+  DisplayName: Power Virtual Agents
+  CheckSum: 823c33acf393404099b7ac63b6354241fb5d384fccfb0d089854edd401322c4d
+  IsDeleted: false
+- RecordId: 51e06f07-dc59-4697-ab26-d544572ae8da
+  DisplayName: Search Results
+  CheckSum: 92ad2ed511c129f94de2c48e14f534098e927c1819594aee72ad7fc8afeda42e
+  IsDeleted: false
+- RecordId: 7cf735f3-31a3-4ae9-bea8-e9bdbf328e1c
+  DisplayName: Pagination
+  CheckSum: b651903f5ea2bf525217e2fd1741a72737230a508afb0d01cce6b643b9f7a9a0
+  IsDeleted: false
+- RecordId: 94adbff5-b5ef-44b9-aecc-2c1c61e3318f
+  DisplayName: Footer
+  CheckSum: 1521b17c6e65ff435ef5137750b9f3d85231405c26221f4189bdf9322301923f
+  IsDeleted: false
+- RecordId: a779593f-1afe-42db-a24d-25c1e6b53eaf
+  DisplayName: Breadcrumbs
+  CheckSum: 268b1fa3f596f9762395489e5189894acec5e0cb374c3a0a79246fca6a42cd71
+  IsDeleted: false
+- RecordId: b5f52af7-bf59-4400-a64c-32f575fc82cf
+  DisplayName: Page Header
+  CheckSum: a5e8abd6bae0bcbb818390b931b6936b631cad1a71c8c819c0d2281abec1f863
+  IsDeleted: false
+- RecordId: d6d6eec1-0009-470f-a110-6292aafbd544
+  DisplayName: Search
+  CheckSum: a9ce78ebf6f3d6fc3e33fb4b7e50262b0f03d93bb0841cc74e7877be686512f1
+  IsDeleted: false
+- RecordId: f00375ff-77f4-4c71-b0f8-ba8a06d350ad
+  DisplayName: Layout 2 Column Wide Left
+  CheckSum: 7308061584846006226f6d5b34c076cf5fb3b0c1a6363435262b88b27c5acd0e
+  IsDeleted: false
+- RecordId: fe2a54b9-740d-44a4-bd66-a1cd8ebb119d
+  DisplayName: Languages Dropdown
+  CheckSum: 1c75c473bfb7d2c7ca8e231d7b4e591b9c9aed170e84f27bcca8743ad971d0e8
+  IsDeleted: false
+annotation:
+- RecordId: cf4cf84e-ab8d-f011-b4cc-7c1e5202188c
+  DisplayName: theme.css
+  CheckSum: c9fbab469fd8bf0ed678d542c44675d187d9f8d65eca80c899599c82359b1c6a
+  IsDeleted: false
+- RecordId: d04cf84e-ab8d-f011-b4cc-7c1e5202188c
+  DisplayName: Cat-PC.png
+  CheckSum: 8a2c459fd19ff84847bc0288df281debb5919e7495c3461577a49bb9bd040e15
+  IsDeleted: false
+- RecordId: d64cf84e-ab8d-f011-b4cc-7c1e5202188c
+  DisplayName: Logo-sm-64.png
+  CheckSum: cd6f3076298f9bddae2c266203c40af62cd96b09ff1447e60506996e6b0ea4ee
+  IsDeleted: false
+- RecordId: d84cf84e-ab8d-f011-b4cc-7c1e5202188c
+  DisplayName: portalbasictheme.css
+  CheckSum: 6c888358512e20d6785113ebac7e9fa01dfde8a691819d58cd86b83e4856f0f1
+  IsDeleted: false
+- RecordId: da4cf84e-ab8d-f011-b4cc-7c1e5202188c
+  DisplayName: bootstrap.min.css
+  CheckSum: 95a38db2c112f637b94ef539a5fc407bcd003b9ab851bfcd48668bde08e3d668
+  IsDeleted: false

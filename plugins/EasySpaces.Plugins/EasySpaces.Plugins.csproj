@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net462</TargetFramework>
+    <AssemblyName>EasySpaces.Plugins</AssemblyName>
+    <RootNamespace>EasySpaces.Plugins</RootNamespace>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <SignAssembly>false</SignAssembly>
+    <!--<AssemblyOriginatorKeyFile>EasySpaces.snk</AssemblyOriginatorKeyFile>-->
+    <DelaySign>false</DelaySign>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.CrmSdk.CoreAssemblies" Version="9.0.2.46" />
+    <PackageReference Include="Microsoft.CrmSdk.Workflow" Version="9.0.2.46" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
+    <Reference Include="System.Activities" />
+    <Reference Include="System.Activities.Presentation" />
+    <Reference Include="System.Workflow.Activities" />
+    <Reference Include="System.Workflow.ComponentModel" />
+    <Reference Include="System.Workflow.Runtime" />
+  </ItemGroup>
+
+</Project>

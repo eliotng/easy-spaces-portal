@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ImportExportXml version="9.2.24013.180" SolutionPackageVersion="9.2" languagecode="1033" generatedBy="CrmLive" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <SolutionManifest>
+    <UniqueName>EasySpacesCore</UniqueName>
+    <LocalizedNames>
+      <LocalizedName description="Easy Spaces Core" languagecode="1033" />
+    </LocalizedNames>
+    <Descriptions>
+      <Description description="Core entities and relationships for Easy Spaces" languagecode="1033" />
+    </Descriptions>
+    <Version>1.0.0.0</Version>
+    <Managed>2</Managed>
+    <Publisher>
+      <UniqueName>EasySpacesPublisher</UniqueName>
+      <LocalizedNames>
+        <LocalizedName description="Easy Spaces" languagecode="1033" />
+      </LocalizedNames>
+      <Descriptions>
+        <Description description="Easy Spaces Publisher" languagecode="1033" />
+      </Descriptions>
+      <EMailAddress>support@easyspaces.com</EMailAddress>
+      <SupportingWebsiteUrl>https://www.easyspaces.com</SupportingWebsiteUrl>
+      <CustomizationPrefix>es</CustomizationPrefix>
+      <CustomizationOptionValuePrefix>10000</CustomizationOptionValuePrefix>
+      <Addresses>
+        <Address>
+          <AddressNumber>1</AddressNumber>
+          <AddressTypeCode>1</AddressTypeCode>
+          <City>San Francisco</City>
+          <StateOrProvince>CA</StateOrProvince>
+          <Country>USA</Country>
+          <PostalCode>94105</PostalCode>
+        </Address>
+      </Addresses>
+    </Publisher>
+    <RootComponents>
+      <!-- Entities -->
+      <RootComponent type="1" schemaName="es_market" behavior="0" />
+      <RootComponent type="1" schemaName="es_space" behavior="0" />
+      <RootComponent type="1" schemaName="es_reservation" behavior="0" />
+      
+      <!-- Option Sets -->
+      <RootComponent type="9" schemaName="es_spacetype" behavior="0" />
+      <RootComponent type="9" schemaName="es_spacestatus" behavior="0" />
+      <RootComponent type="9" schemaName="es_reservationstatus" behavior="0" />
+      <RootComponent type="9" schemaName="es_paymentstatus" behavior="0" />
+      <RootComponent type="9" schemaName="es_paymentmethod" behavior="0" />
+      <RootComponent type="9" schemaName="es_region" behavior="0" />
+      
+      <!-- Security Roles -->
+      <RootComponent type="20" schemaName="es_easyspacesadmin" behavior="0" />
+      <RootComponent type="20" schemaName="es_easyspacesmanager" behavior="0" />
+      <RootComponent type="20" schemaName="es_easyspacesuser" behavior="0" />
+      
+      <!-- Connection Roles -->
+      <RootComponent type="63" schemaName="es_spaceapprover" behavior="0" />
+    </RootComponents>
+    <MissingDependencies />
+  </SolutionManifest>
+</ImportExportXml>

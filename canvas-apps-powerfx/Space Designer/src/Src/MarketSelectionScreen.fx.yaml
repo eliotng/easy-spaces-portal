@@ -1,0 +1,36 @@
+MarketSelectionScreen As screen:
+    Fill: =RGBA(255, 255, 255, 1)
+    Height: =Max(App.Height, App.MinScreenHeight)
+    Width: =Max(App.Width, App.MinScreenWidth)
+    LoadingSpinner: =LoadingSpinner.None
+    LoadingSpinnerColor: =App.Theme.Colors.Primary
+    OnVisible: |
+        =false
+    Size: =1 + CountRows(App.SizeBreakpoints) - CountIf(App.SizeBreakpoints, Value >= Self.Width)
+    HeaderContainer As groupContainer.verticalAutoLayoutContainer:
+        width: ="Parent.Width"
+        fill: ="RGBA(0, 120, 212, 1)"
+
+        AppTitle As label:
+            text: =""Space Designer""
+            color: ="White"
+            font: ="Segoe UI"
+            weight: ="Semibold"
+
+
+        UserInfo As label:
+            text: =""Welcome, " & User().FullName"
+            x: ="Parent.Width - 320"
+            align: ="Right"
+            color: ="White"
+
+
+    MarketGallery As gallery:
+        items: ="Filter(Markets, es_status = 'es_status (Markets)'.Active)"
+        width: ="Parent.Width - 40"
+        height: ="Parent.Height - 120"
+        layout: ="Vertical"
+        showScrollbar: =true
+        onSelect: ="Set(selectedMarket, ThisItem); Navigate(SpaceListScreen, ScreenTransition.Cover)"
+
+

@@ -1,0 +1,20 @@
+App As appinfo:
+    BackgroundColor: =#f3f2f1
+    MinScreenHeight: =640
+    MinScreenWidth: =640
+    OnStart: |
+        =// Initialize app
+        Set(currentUser, User());
+        ClearCollect(colData, []);
+                Set(currentUser, User());
+        Set(selectedMarket, First(Markets));
+        Set(selectedSpace, {});
+        Set(filterCriteria, @{spacetype=All; theme=All; capacity=0; availability=All});
+        Set(viewMode, gallery);
+
+Host As hostControl.DefaultHostControlVariant:
+    OnCancel: =false
+    OnEdit: =false
+    OnNew: =false
+    OnSave: =false
+    OnView: =false

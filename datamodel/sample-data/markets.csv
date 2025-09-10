@@ -1,0 +1,12 @@
+es_name,es_city,es_state,es_country,es_region,es_maxcapacity,es_status,es_description,es_phone,es_email
+"San Diego Market","San Diego","CA","United States","North America",2000,1,"San Diego market location serving Southern California","619-555-0100","sandiego@easyspaces.com"
+"Seattle Market","Seattle","WA","United States","North America",2500,1,"Seattle market location serving Pacific Northwest","206-555-0101","seattle@easyspaces.com"
+"Chicago Market","Chicago","IL","United States","North America",3000,1,"Chicago market location serving Midwest region","312-555-0102","chicago@easyspaces.com"
+"San Francisco Market","San Francisco","CA","United States","North America",2800,1,"San Francisco market location serving Bay Area","415-555-0103","sanfrancisco@easyspaces.com"
+"San Antonio Market","San Antonio","TX","United States","North America",1800,1,"San Antonio market location serving South Texas","210-555-0104","sanantonio@easyspaces.com"
+"Denver Market","Denver","CO","United States","North America",2200,1,"Denver market location serving Rocky Mountain region","303-555-0105","denver@easyspaces.com"
+"Portland Market","Portland","OR","United States","North America",1600,1,"Portland market location serving Oregon","503-555-0106","portland@easyspaces.com"
+"Burbank Market","Burbank","CA","United States","North America",1500,1,"Burbank market location serving Los Angeles area","818-555-0107","burbank@easyspaces.com"
+"Pittsburgh Market","Pittsburgh","PA","United States","North America",1700,1,"Pittsburgh market location serving Western Pennsylvania","412-555-0108","pittsburgh@easyspaces.com"
+"New York Market","New York","NY","United States","North America",4000,1,"New York market location serving Tri-State area","212-555-0109","newyork@easyspaces.com"
+"Minneapolis Market","Minneapolis","MN","United States","North America",2000,1,"Minneapolis market location serving Twin Cities","612-555-0110","minneapolis@easyspaces.com"
