@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!-- 
     Easy Spaces Portal - Dynamics 365 Migration
-    Version: 2.0.2
+    Version: 2.0.3
     Released: December 2024
     Last Updated: September 10, 2025
     Repository: https://github.com/eliotng/easy-spaces-portal
@@ -407,7 +407,7 @@
         <div class="container">
             <a class="navbar-brand" href="#home" onclick="showTab('home'); return false;">
                 <i class="fas fa-building me-2"></i>Easy Spaces
-                <span class="badge bg-warning text-dark ms-2 px-2 py-1" style="font-size: 0.7em; font-weight: bold;">v2.0.2</span>
+                <span class="badge bg-warning text-dark ms-2 px-2 py-1" style="font-size: 0.7em; font-weight: bold;">v2.0.3</span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -1922,9 +1922,18 @@
                                 <label class="form-label">Select Space <span class="text-danger">*</span></label>
                                 <select class="form-select" id="spaceSelect" required>
                                     <option value="">-- Choose a Space --</option>
-                                    <option value="executive">Executive Suite - $800/day</option>
-                                    <option value="madison">Madison Conference Room - $400/day</option>
-                                    <option value="innovation">Innovation Hub - $1,200/day</option>
+                                    <option value="executive-suite">Executive Suite - $800/day</option>
+                                    <option value="madison-conference">Madison Conference Room - $400/day</option>
+                                    <option value="innovation-hub">Innovation Hub - $1,200/day</option>
+                                    <option value="creative-studio">Creative Studio - $600/day</option>
+                                    <option value="tech-lab">Tech Lab - $1,500/day</option>
+                                    <option value="skyline-penthouse">Skyline Penthouse - $2,000/day</option>
+                                    <option value="garden-terrace">Garden Terrace - $900/day</option>
+                                    <option value="collaborative-zone">Collaborative Zone - $500/day</option>
+                                    <option value="boardroom-elite">Boardroom Elite - $1,800/day</option>
+                                    <option value="startup-space">Startup Space - $350/day</option>
+                                    <option value="luxury-lounge">Luxury Lounge - $1,100/day</option>
+                                    <option value="workshop-area">Workshop Area - $700/day</option>
                                 </select>
                             </div>
                             <div class="col-md-6">
@@ -2438,6 +2447,10 @@
         const reservationsData = [];
         let reservationCounter = 1;
         
+        // Leads Data
+        const leadsData = [];
+        let leadCounter = 1;
+        
         // Activity Feed Data
         const activityFeed = [];
         
@@ -2735,6 +2748,83 @@
             return `${Math.floor(seconds / 86400)} days ago`;
         }
         
+        // Update contacts table
+        function updateContactsTable() {
+            const tableBody = document.getElementById('contactsTable');
+            if (!tableBody) return;
+            
+            tableBody.innerHTML = '';
+            
+            contactsData.forEach(contact => {
+                const initials = contact.name.split(' ').map(n => n[0]).join('').toUpperCase();
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>
+                        <div class="d-flex align-items-center">
+                            <div class="rounded-circle bg-primary text-white p-2 me-2" style="width: 40px; height: 40px; display: flex; align-items: center; justify-content: center;">${initials}</div>
+                            <strong>${contact.name}</strong>
+                        </div>
+                    </td>
+                    <td>${contact.company}</td>
+                    <td>${contact.email}</td>
+                    <td>${contact.phone}</td>
+                    <td><span class="badge bg-${contact.type === 'VIP' ? 'warning' : contact.type === 'Premium' ? 'info' : 'secondary'}">${contact.type}</span></td>
+                    <td>
+                        <button class="btn btn-sm btn-info" onclick="viewContact('${contact.name}')"><i class="fas fa-eye"></i></button>
+                        <button class="btn btn-sm btn-warning" onclick="editContact('${contact.name}')"><i class="fas fa-edit"></i></button>
+                        <button class="btn btn-sm btn-primary" onclick="emailContact('${contact.email}')"><i class="fas fa-envelope"></i></button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+        
+        // Update leads table
+        function updateLeadsTable() {
+            const tableBody = document.getElementById('leadsTable');
+            if (!tableBody) return;
+            
+            tableBody.innerHTML = '';
+            
+            leadsData.forEach(lead => {
+                const row = document.createElement('tr');
+                const statusColor = {
+                    'New': 'primary',
+                    'Contacted': 'info',
+                    'Qualified': 'warning',
+                    'Proposal': 'success',
+                    'Negotiation': 'danger'
+                };
+                const scoreColor = {
+                    'Hot': 'danger',
+                    'Warm': 'warning',
+                    'Cold': 'secondary'
+                };
+                
+                row.innerHTML = `
+                    <td><strong>${lead.name}</strong></td>
+                    <td>${lead.company}</td>
+                    <td>${lead.email}</td>
+                    <td><span class="badge bg-${statusColor[lead.status] || 'secondary'}">${lead.status}</span></td>
+                    <td>
+                        <div class="progress" style="width: 100px;">
+                            <div class="progress-bar bg-${scoreColor[lead.score]}" style="width: ${lead.score === 'Hot' ? '100' : lead.score === 'Warm' ? '60' : '30'}%"></div>
+                        </div>
+                    </td>
+                    <td>$${(lead.value || 0).toLocaleString()}</td>
+                    <td>
+                        <button class="btn btn-sm btn-success" onclick="createProposal('${lead.name}')">
+                            <i class="fas fa-file-alt"></i>
+                        </button>
+                        <button class="btn btn-sm btn-info" onclick="followUp('${lead.name}')">
+                            <i class="fas fa-phone"></i>
+                        </button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+        
         function viewReservation(id) {
             showNotification(`Viewing reservation ${id}`, 'info');
         }
@@ -2802,6 +2892,9 @@
             addActivity(`New contact added: <strong>${newContact.name}</strong> from ${newContact.company}`, 'user');
             updateRecentActivities();
             
+            // Update contacts table
+            updateContactsTable();
+            
             // Close modal
             bootstrap.Modal.getInstance(document.getElementById('contactModal')).hide();
             
@@ -2848,9 +2941,28 @@
                 return;
             }
             
+            // Create lead object
+            const newLead = {
+                id: `LEAD-${String(leadCounter++).padStart(3, '0')}`,
+                name: `${firstName} ${lastName}`,
+                email: email,
+                phone: phone,
+                company: company,
+                source: source,
+                status: status,
+                value: parseInt(value),
+                score: document.getElementById('leadScore').value || 'Warm',
+                notes: document.getElementById('leadNotes').value,
+                createdAt: new Date()
+            };
+            leadsData.push(newLead);
+            
             // Add activity
-            addActivity(`New lead: <strong>${firstName} ${lastName}</strong> from ${company}`, 'user');
+            addActivity(`New lead: <strong>${newLead.name}</strong> from ${company}`, 'user');
             updateRecentActivities();
+            
+            // Update leads table
+            updateLeadsTable();
             
             // Close modal
             bootstrap.Modal.getInstance(document.getElementById('leadModal')).hide();
