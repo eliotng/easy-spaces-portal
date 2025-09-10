@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!-- 
     Easy Spaces Portal - Dynamics 365 Migration
-    Version: 2.0.1
+    Version: 2.0.2
     Released: December 2024
     Last Updated: September 10, 2025
     Repository: https://github.com/eliotng/easy-spaces-portal
@@ -407,7 +407,7 @@
         <div class="container">
             <a class="navbar-brand" href="#home" onclick="showTab('home'); return false;">
                 <i class="fas fa-building me-2"></i>Easy Spaces
-                <span class="badge bg-warning text-dark ms-2 px-2 py-1" style="font-size: 0.7em; font-weight: bold;">v2.0.1</span>
+                <span class="badge bg-warning text-dark ms-2 px-2 py-1" style="font-size: 0.7em; font-weight: bold;">v2.0.2</span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -2138,6 +2138,13 @@
                 // Initialize analytics charts if analytics tab
                 if (tabName === 'analytics') {
                     initializeCharts();
+                    // Initialize sample activities if first load
+                    if (activityFeed.length === 0) {
+                        addActivity('John Anderson booked Executive Suite', 'success');
+                        addActivity('New lead: Robert Williams from Future Tech', 'user');
+                        addActivity('Reservation RES-002 updated', 'warning');
+                        updateRecentActivities();
+                    }
                 }
             }
             
@@ -2427,6 +2434,13 @@
             showNotification('Showing space locations on map', 'info');
         }
 
+        // Reservations Data
+        const reservationsData = [];
+        let reservationCounter = 1;
+        
+        // Activity Feed Data
+        const activityFeed = [];
+        
         // Contact Data (simulating Dataverse Contact Entity)
         const contactsData = [
             { id: '1', name: 'John Anderson', email: 'john@techcorp.com', phone: '(555) 123-4567', company: 'TechCorp Solutions', type: 'VIP' },
@@ -2576,16 +2590,151 @@
                 contactsData.push(newContact);
             }
             
+            // Get space details
+            const spaceOptions = document.getElementById('spaceSelect').selectedOptions[0];
+            const spaceText = spaceOptions.text;
+            const spaceName = spaceText.split(' - ')[0];
+            const priceMatch = spaceText.match(/\$(\d+)\/day/);
+            const pricePerDay = priceMatch ? parseInt(priceMatch[1]) : 0;
+            
+            // Calculate total days and amount
+            const checkInDate = new Date(checkIn);
+            const checkOutDate = new Date(checkOut);
+            const days = Math.ceil((checkOutDate - checkInDate) / (1000 * 60 * 60 * 24));
+            const totalAmount = days * pricePerDay;
+            
+            // Create reservation object
+            const reservation = {
+                id: `RES-${String(reservationCounter++).padStart(3, '0')}`,
+                space: spaceName,
+                customerName: name,
+                customerEmail: email,
+                checkIn: checkIn,
+                checkOut: checkOut,
+                status: 'Confirmed',
+                amount: totalAmount,
+                createdAt: new Date()
+            };
+            
+            // Add to reservations data
+            reservationsData.push(reservation);
+            
+            // Add to activity feed
+            addActivity(`${name} booked ${spaceName}`, 'success');
+            
+            // Update the reservations table if we're on that tab
+            updateReservationsTable();
+            
+            // Update recent activities
+            updateRecentActivities();
+            
             // Close modal
             bootstrap.Modal.getInstance(document.getElementById('reservationModal')).hide();
             
             // Show success notification
-            showNotification(`Reservation created successfully for ${name}!`, 'success');
+            showNotification(`Reservation ${reservation.id} created successfully for ${name}!`, 'success');
             
             // Clear form
             document.getElementById('reservationForm').reset();
         }
 
+        // Add activity to feed
+        function addActivity(message, type = 'info') {
+            const icons = {
+                'success': 'fa-check-circle text-success',
+                'info': 'fa-info-circle text-info',
+                'warning': 'fa-edit text-warning',
+                'user': 'fa-user-plus text-primary'
+            };
+            
+            activityFeed.unshift({
+                message: message,
+                icon: icons[type] || icons['info'],
+                timestamp: new Date()
+            });
+            
+            // Keep only last 20 activities
+            if (activityFeed.length > 20) {
+                activityFeed.pop();
+            }
+        }
+        
+        // Update reservations table
+        function updateReservationsTable() {
+            const tableBody = document.getElementById('reservationsTable');
+            if (!tableBody) return;
+            
+            // Clear existing rows (except the header example)
+            tableBody.innerHTML = '';
+            
+            // Add all reservations
+            reservationsData.forEach(reservation => {
+                const row = document.createElement('tr');
+                const checkInDate = new Date(reservation.checkIn).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+                const checkOutDate = new Date(reservation.checkOut).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+                
+                row.innerHTML = `
+                    <td><strong>${reservation.id}</strong></td>
+                    <td>${reservation.space}</td>
+                    <td>
+                        <div>${reservation.customerName}</div>
+                        <small class="text-muted">${reservation.customerEmail}</small>
+                    </td>
+                    <td>${checkInDate}</td>
+                    <td>${checkOutDate}</td>
+                    <td><span class="badge bg-success">${reservation.status}</span></td>
+                    <td><strong>$${reservation.amount.toLocaleString()}</strong></td>
+                    <td>
+                        <div class="btn-group btn-group-sm">
+                            <button class="btn btn-info" onclick="viewReservation('${reservation.id}')">
+                                <i class="fas fa-eye"></i>
+                            </button>
+                            <button class="btn btn-warning" onclick="editReservation('${reservation.id}')">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button class="btn btn-primary" onclick="sendInvoice('${reservation.id}')">
+                                <i class="fas fa-file-invoice"></i>
+                            </button>
+                        </div>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
+        
+        // Update recent activities display
+        function updateRecentActivities() {
+            const activityContainer = document.querySelector('.list-group-flush');
+            if (!activityContainer) return;
+            
+            activityContainer.innerHTML = '';
+            
+            // Show last 5 activities
+            activityFeed.slice(0, 5).forEach(activity => {
+                const timeAgo = getTimeAgo(activity.timestamp);
+                const activityItem = document.createElement('div');
+                activityItem.className = 'list-group-item d-flex justify-content-between align-items-center';
+                activityItem.innerHTML = `
+                    <div>
+                        <i class="fas ${activity.icon} me-2"></i>
+                        ${activity.message}
+                    </div>
+                    <small class="text-muted">${timeAgo}</small>
+                `;
+                activityContainer.appendChild(activityItem);
+            });
+        }
+        
+        // Get time ago string
+        function getTimeAgo(date) {
+            const seconds = Math.floor((new Date() - date) / 1000);
+            
+            if (seconds < 60) return 'just now';
+            if (seconds < 3600) return `${Math.floor(seconds / 60)} minutes ago`;
+            if (seconds < 86400) return `${Math.floor(seconds / 3600)} hours ago`;
+            return `${Math.floor(seconds / 86400)} days ago`;
+        }
+        
         function viewReservation(id) {
             showNotification(`Viewing reservation ${id}`, 'info');
         }
@@ -2649,6 +2798,10 @@
             };
             contactsData.push(newContact);
             
+            // Add activity
+            addActivity(`New contact added: <strong>${newContact.name}</strong> from ${newContact.company}`, 'user');
+            updateRecentActivities();
+            
             // Close modal
             bootstrap.Modal.getInstance(document.getElementById('contactModal')).hide();
             
@@ -2694,6 +2847,10 @@
                 showNotification('Please fill in all required fields', 'warning');
                 return;
             }
+            
+            // Add activity
+            addActivity(`New lead: <strong>${firstName} ${lastName}</strong> from ${company}`, 'user');
+            updateRecentActivities();
             
             // Close modal
             bootstrap.Modal.getInstance(document.getElementById('leadModal')).hide();
