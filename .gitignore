@@ -11,10 +11,14 @@
 
 # JSON configuration files
 *.json
+!package.json
 
 # Markdown files (documentation)
 *.md
 !README.md
+!DEPLOYMENT_STATUS.md
+!TEST_REPORT.md
+!TEST_CASES_LIST.md
 
 # Keep only HTML files for the website
 !index.html
