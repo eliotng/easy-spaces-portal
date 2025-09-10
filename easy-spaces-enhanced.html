@@ -15,6 +15,7 @@
     <title>Easy Spaces - Premium Space Management Platform</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <style>
         :root {
             --primary-gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -1937,6 +1938,7 @@
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
     <script>
         // Tab Management
         function showTab(tabName) {
@@ -2111,7 +2113,7 @@
                 });
             });
             
-            // Create and show map modal with interactive map
+            // Create and show map modal with Leaflet map
             const mapModal = document.createElement('div');
             mapModal.className = 'modal fade';
             mapModal.id = 'mapModal';
@@ -2123,45 +2125,7 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                         </div>
                         <div class="modal-body">
-                            <div id="mapContainer" style="height: 600px; width: 100%; position: relative; background: #f0f0f0; border-radius: 10px; overflow: hidden;">
-                                <!-- Interactive SVG Map -->
-                                <svg viewBox="0 0 1000 600" style="width: 100%; height: 100%;" xmlns="http://www.w3.org/2000/svg">
-                                    <!-- US Map Background -->
-                                    <rect width="1000" height="600" fill="#e3f2fd"/>
-                                    
-                                    <!-- Map outline (simplified US shape) -->
-                                    <path d="M 100 300 Q 200 250 300 280 T 500 260 Q 700 250 850 300 L 850 450 Q 700 470 500 460 Q 300 470 100 450 Z" 
-                                          fill="#f5f5f5" stroke="#999" stroke-width="2"/>
-                                    
-                                    <!-- City markers -->
-                                    ${Object.entries(locationData).map(([city, spaces]) => {
-                                        // City positions on the map
-                                        const cityPositions = {
-                                            'San Francisco': { x: 150, y: 320 },
-                                            'New York': { x: 800, y: 280 },
-                                            'Chicago': { x: 600, y: 290 },
-                                            'Seattle': { x: 140, y: 250 },
-                                            'Los Angeles': { x: 180, y: 380 },
-                                            'Boston': { x: 820, y: 260 },
-                                            'Austin': { x: 500, y: 420 },
-                                            'Denver': { x: 450, y: 320 },
-                                            'Miami': { x: 750, y: 480 },
-                                            'Portland': { x: 120, y: 270 },
-                                            'Atlanta': { x: 680, y: 400 },
-                                            'Phoenix': { x: 280, y: 390 }
-                                        };
-                                        const pos = cityPositions[city] || { x: 500, y: 300 };
-                                        return `
-                                            <g class="city-marker" data-city="${city}" style="cursor: pointer;">
-                                                <circle cx="${pos.x}" cy="${pos.y}" r="12" fill="#667eea" opacity="0.8"/>
-                                                <circle cx="${pos.x}" cy="${pos.y}" r="8" fill="#fff"/>
-                                                <text x="${pos.x}" y="${pos.y - 20}" text-anchor="middle" fill="#333" font-size="12" font-weight="bold">${city}</text>
-                                                <text x="${pos.x}" y="${pos.y + 5}" text-anchor="middle" fill="#667eea" font-size="10" font-weight="bold">${spaces.length}</text>
-                                            </g>
-                                        `;
-                                    }).join('')}
-                                </svg>
-                            </div>
+                            <div id="mapContainer" style="height: 500px; width: 100%; border-radius: 10px; overflow: hidden;"></div>
                             <div class="mt-3">
                                 <h6>Available Spaces by Location:</h6>
                                 <div class="row" id="locationsList">
@@ -2206,32 +2170,89 @@
             const modal = new bootstrap.Modal(document.getElementById('mapModal'));
             modal.show();
             
-            // Add interactivity to map markers
+            // Initialize Leaflet map after modal is shown
             setTimeout(() => {
-                const markers = document.querySelectorAll('.city-marker');
-                markers.forEach(marker => {
-                    marker.addEventListener('click', function() {
-                        const city = this.dataset.city;
-                        // Highlight the corresponding card
-                        const cards = document.querySelectorAll('#locationsList .card');
-                        cards.forEach(card => {
-                            card.classList.remove('border-warning', 'border-3');
-                            if (card.querySelector('.card-title').textContent.includes(city)) {
-                                card.classList.add('border-warning', 'border-3');
-                                card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                            }
+                // Initialize the map
+                const map = L.map('mapContainer').setView([39.8283, -98.5795], 4); // Center of USA
+                
+                // Add OpenStreetMap tiles
+                L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                    attribution: '© OpenStreetMap contributors',
+                    maxZoom: 19
+                }).addTo(map);
+                
+                // City coordinates
+                const cityCoordinates = {
+                    'San Francisco': [37.7749, -122.4194],
+                    'New York': [40.7128, -74.0060],
+                    'Chicago': [41.8781, -87.6298],
+                    'Seattle': [47.6062, -122.3321],
+                    'Los Angeles': [34.0522, -118.2437],
+                    'Boston': [42.3601, -71.0589],
+                    'Austin': [30.2672, -97.7431],
+                    'Denver': [39.7392, -104.9903],
+                    'Miami': [25.7617, -80.1918],
+                    'Portland': [45.5152, -122.6784],
+                    'Atlanta': [33.7490, -84.3880],
+                    'Phoenix': [33.4484, -112.0740]
+                };
+                
+                // Add markers for each city with spaces
+                Object.entries(locationData).forEach(([city, spaces]) => {
+                    const coords = cityCoordinates[city];
+                    if (coords) {
+                        // Create custom icon
+                        const customIcon = L.divIcon({
+                            className: 'custom-div-icon',
+                            html: `<div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); 
+                                        color: white; padding: 5px 10px; border-radius: 20px; 
+                                        font-weight: bold; box-shadow: 0 2px 6px rgba(0,0,0,0.3);">
+                                    ${spaces.length}
+                                   </div>`,
+                            iconSize: [30, 30],
+                            iconAnchor: [15, 15]
                         });
-                    });
-                    
-                    // Add hover effect
-                    marker.addEventListener('mouseenter', function() {
-                        this.querySelector('circle').setAttribute('r', '15');
-                    });
-                    marker.addEventListener('mouseleave', function() {
-                        this.querySelector('circle').setAttribute('r', '12');
-                    });
+                        
+                        // Create marker
+                        const marker = L.marker(coords, { icon: customIcon }).addTo(map);
+                        
+                        // Create popup content
+                        const popupContent = `
+                            <div style="min-width: 200px;">
+                                <h6 style="color: #667eea; margin-bottom: 10px;">
+                                    <i class="fas fa-map-pin"></i> ${city}
+                                </h6>
+                                <p style="margin-bottom: 8px;">
+                                    <strong>${spaces.length} Space${spaces.length > 1 ? 's' : ''} Available</strong>
+                                </p>
+                                ${spaces.map(space => `
+                                    <div style="padding: 5px 0; border-top: 1px solid #eee;">
+                                        <strong style="color: #333;">${space.name}</strong><br>
+                                        <small style="color: #666;">${space.type} • ${space.price}</small>
+                                    </div>
+                                `).join('')}
+                            </div>
+                        `;
+                        
+                        marker.bindPopup(popupContent);
+                        
+                        // Add click event to highlight corresponding card
+                        marker.on('click', function() {
+                            const cards = document.querySelectorAll('#locationsList .card');
+                            cards.forEach(card => {
+                                card.classList.remove('border-warning', 'border-3');
+                                if (card.querySelector('.card-title').textContent.includes(city)) {
+                                    card.classList.add('border-warning', 'border-3');
+                                    card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                                }
+                            });
+                        });
+                    }
                 });
-            }, 100);
+                
+                // Invalidate size to ensure proper rendering
+                map.invalidateSize();
+            }, 500);
             
             showNotification('Showing space locations on map', 'info');
         }
