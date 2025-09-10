@@ -1886,41 +1886,58 @@
                 <div class="modal-body">
                     <form id="reservationForm">
                         <div class="row g-3">
+                            <div class="col-md-12">
+                                <label class="form-label">Select Contact <span class="text-danger">*</span></label>
+                                <select class="form-select" id="contactSelect" required onchange="populateContactDetails()">
+                                    <option value="">-- Choose a Contact --</option>
+                                    <option value="new">+ Create New Contact</option>
+                                    <optgroup label="Existing Contacts">
+                                        <!-- Contacts will be populated here -->
+                                    </optgroup>
+                                </select>
+                                <small class="text-muted">Select from existing contacts or create a new one</small>
+                            </div>
+                            
+                            <!-- Contact Details (shown when creating new or viewing selected) -->
                             <div class="col-md-6">
-                                <label class="form-label">Customer Name</label>
-                                <input type="text" class="form-control" id="customerName" required>
+                                <label class="form-label">Customer Name <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="customerName" required readonly>
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label">Email</label>
-                                <input type="email" class="form-control" id="customerEmail" required>
+                                <label class="form-label">Email <span class="text-danger">*</span></label>
+                                <input type="email" class="form-control" id="customerEmail" required readonly>
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label">Phone</label>
-                                <input type="tel" class="form-control" id="customerPhone">
+                                <label class="form-label">Phone <span class="text-danger">*</span></label>
+                                <input type="tel" class="form-control" id="customerPhone" required readonly>
                             </div>
                             <div class="col-md-6">
                                 <label class="form-label">Company</label>
-                                <input type="text" class="form-control" id="customerCompany">
+                                <input type="text" class="form-control" id="customerCompany" readonly>
                             </div>
+                            
+                            <div class="col-12"><hr></div>
+                            
                             <div class="col-md-12">
-                                <label class="form-label">Select Space</label>
-                                <select class="form-select" id="spaceSelect">
-                                    <option>Executive Suite - $800/day</option>
-                                    <option>Madison Conference Room - $400/day</option>
-                                    <option>Innovation Hub - $1,200/day</option>
+                                <label class="form-label">Select Space <span class="text-danger">*</span></label>
+                                <select class="form-select" id="spaceSelect" required>
+                                    <option value="">-- Choose a Space --</option>
+                                    <option value="executive">Executive Suite - $800/day</option>
+                                    <option value="madison">Madison Conference Room - $400/day</option>
+                                    <option value="innovation">Innovation Hub - $1,200/day</option>
                                 </select>
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label">Check-in Date</label>
+                                <label class="form-label">Check-in Date <span class="text-danger">*</span></label>
                                 <input type="date" class="form-control" id="checkIn" required>
                             </div>
                             <div class="col-md-6">
-                                <label class="form-label">Check-out Date</label>
+                                <label class="form-label">Check-out Date <span class="text-danger">*</span></label>
                                 <input type="date" class="form-control" id="checkOut" required>
                             </div>
                             <div class="col-md-12">
                                 <label class="form-label">Special Requests</label>
-                                <textarea class="form-control" rows="3" id="specialRequests"></textarea>
+                                <textarea class="form-control" rows="3" id="specialRequests" placeholder="Any special requirements or requests..."></textarea>
                             </div>
                         </div>
                     </form>
@@ -1929,6 +1946,159 @@
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                     <button type="button" class="btn btn-action" onclick="saveReservation()">
                         <i class="fas fa-check me-1"></i>Create Reservation
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Creation Modal -->
+    <div class="modal fade" id="contactModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-user-plus me-2"></i>Create New Contact
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="contactForm">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">First Name <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="contactFirstName" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Last Name <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="contactLastName" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Email <span class="text-danger">*</span></label>
+                                <input type="email" class="form-control" id="contactEmail" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Phone <span class="text-danger">*</span></label>
+                                <input type="tel" class="form-control" id="contactPhone" required>
+                            </div>
+                            <div class="col-md-12">
+                                <label class="form-label">Company <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="contactCompany" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Job Title</label>
+                                <input type="text" class="form-control" id="contactJobTitle">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Contact Type <span class="text-danger">*</span></label>
+                                <select class="form-select" id="contactType" required>
+                                    <option value="">-- Select Type --</option>
+                                    <option value="Regular">Regular</option>
+                                    <option value="VIP">VIP</option>
+                                    <option value="Premium">Premium</option>
+                                    <option value="Partner">Partner</option>
+                                </select>
+                            </div>
+                            <div class="col-md-12">
+                                <label class="form-label">Address</label>
+                                <input type="text" class="form-control" id="contactAddress">
+                            </div>
+                            <div class="col-md-12">
+                                <label class="form-label">Notes</label>
+                                <textarea class="form-control" rows="3" id="contactNotes"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-success" onclick="saveContact()">
+                        <i class="fas fa-save me-1"></i>Save Contact
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lead Creation Modal -->
+    <div class="modal fade" id="leadModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-user-tag me-2"></i>Create New Lead
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="leadForm">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">First Name <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="leadFirstName" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Last Name <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="leadLastName" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Email <span class="text-danger">*</span></label>
+                                <input type="email" class="form-control" id="leadEmail" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Phone <span class="text-danger">*</span></label>
+                                <input type="tel" class="form-control" id="leadPhone" required>
+                            </div>
+                            <div class="col-md-12">
+                                <label class="form-label">Company <span class="text-danger">*</span></label>
+                                <input type="text" class="form-control" id="leadCompany" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Lead Source <span class="text-danger">*</span></label>
+                                <select class="form-select" id="leadSource" required>
+                                    <option value="">-- Select Source --</option>
+                                    <option value="Website">Website</option>
+                                    <option value="Referral">Referral</option>
+                                    <option value="Social Media">Social Media</option>
+                                    <option value="Event">Event</option>
+                                    <option value="Cold Call">Cold Call</option>
+                                    <option value="Email Campaign">Email Campaign</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Lead Status <span class="text-danger">*</span></label>
+                                <select class="form-select" id="leadStatus" required>
+                                    <option value="">-- Select Status --</option>
+                                    <option value="New">New</option>
+                                    <option value="Contacted">Contacted</option>
+                                    <option value="Qualified">Qualified</option>
+                                    <option value="Proposal">Proposal</option>
+                                    <option value="Negotiation">Negotiation</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Estimated Value <span class="text-danger">*</span></label>
+                                <input type="number" class="form-control" id="leadValue" min="0" required>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Lead Score</label>
+                                <select class="form-select" id="leadScore">
+                                    <option value="Hot">Hot (80-100)</option>
+                                    <option value="Warm" selected>Warm (50-79)</option>
+                                    <option value="Cold">Cold (0-49)</option>
+                                </select>
+                            </div>
+                            <div class="col-md-12">
+                                <label class="form-label">Notes</label>
+                                <textarea class="form-control" rows="3" id="leadNotes" placeholder="Additional information about the lead..."></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-success" onclick="saveLead()">
+                        <i class="fas fa-save me-1"></i>Save Lead
                     </button>
                 </div>
             </div>
@@ -2257,10 +2427,98 @@
             showNotification('Showing space locations on map', 'info');
         }
 
+        // Contact Data (simulating Dataverse Contact Entity)
+        const contactsData = [
+            { id: '1', name: 'John Anderson', email: 'john@techcorp.com', phone: '(555) 123-4567', company: 'TechCorp Solutions', type: 'VIP' },
+            { id: '2', name: 'Sarah Johnson', email: 'sarah@innovate.io', phone: '(555) 234-5678', company: 'Innovate.io', type: 'Regular' },
+            { id: '3', name: 'Michael Chen', email: 'mchen@globalbank.com', phone: '(555) 345-6789', company: 'Global Bank', type: 'VIP' },
+            { id: '4', name: 'Emily Wilson', email: 'ewilson@startupx.com', phone: '(555) 456-7890', company: 'StartupX', type: 'Regular' },
+            { id: '5', name: 'David Martinez', email: 'david@enterprise.net', phone: '(555) 567-8901', company: 'Enterprise Network', type: 'Premium' },
+            { id: '6', name: 'Lisa Thompson', email: 'lisa@creative.agency', phone: '(555) 678-9012', company: 'Creative Agency', type: 'Regular' },
+            { id: '7', name: 'Robert Taylor', email: 'rtaylor@consulting.pro', phone: '(555) 789-0123', company: 'Consulting Pro', type: 'VIP' },
+            { id: '8', name: 'Jennifer Davis', email: 'jdavis@techstartup.io', phone: '(555) 890-1234', company: 'Tech Startup Inc', type: 'Regular' },
+            { id: '9', name: 'William Brown', email: 'wbrown@finance.corp', phone: '(555) 901-2345', company: 'Finance Corp', type: 'Premium' },
+            { id: '10', name: 'Maria Garcia', email: 'mgarcia@retail.com', phone: '(555) 012-3456', company: 'Retail Plus', type: 'Regular' }
+        ];
+
+        // Populate contact dropdown
+        function populateContactDropdown() {
+            const select = document.getElementById('contactSelect');
+            const optgroup = select.querySelector('optgroup');
+            
+            // Clear existing options
+            optgroup.innerHTML = '';
+            
+            // Add contacts
+            contactsData.forEach(contact => {
+                const option = document.createElement('option');
+                option.value = contact.id;
+                option.textContent = `${contact.name} - ${contact.company}`;
+                optgroup.appendChild(option);
+            });
+        }
+
+        // Populate contact details when selected
+        function populateContactDetails() {
+            const select = document.getElementById('contactSelect');
+            const value = select.value;
+            
+            const nameField = document.getElementById('customerName');
+            const emailField = document.getElementById('customerEmail');
+            const phoneField = document.getElementById('customerPhone');
+            const companyField = document.getElementById('customerCompany');
+            
+            if (value === 'new') {
+                // Enable fields for new contact
+                nameField.removeAttribute('readonly');
+                emailField.removeAttribute('readonly');
+                phoneField.removeAttribute('readonly');
+                companyField.removeAttribute('readonly');
+                
+                // Clear fields
+                nameField.value = '';
+                emailField.value = '';
+                phoneField.value = '';
+                companyField.value = '';
+                
+                nameField.focus();
+            } else if (value) {
+                // Find contact and populate
+                const contact = contactsData.find(c => c.id === value);
+                if (contact) {
+                    nameField.value = contact.name;
+                    emailField.value = contact.email;
+                    phoneField.value = contact.phone;
+                    companyField.value = contact.company;
+                    
+                    // Make fields readonly
+                    nameField.setAttribute('readonly', true);
+                    emailField.setAttribute('readonly', true);
+                    phoneField.setAttribute('readonly', true);
+                    companyField.setAttribute('readonly', true);
+                }
+            } else {
+                // Clear fields if no selection
+                nameField.value = '';
+                emailField.value = '';
+                phoneField.value = '';
+                companyField.value = '';
+                
+                // Make fields readonly
+                nameField.setAttribute('readonly', true);
+                emailField.setAttribute('readonly', true);
+                phoneField.setAttribute('readonly', true);
+                companyField.setAttribute('readonly', true);
+            }
+        }
+
         // Reservation Management
         function createReservation() {
             const modal = new bootstrap.Modal(document.getElementById('reservationModal'));
             document.getElementById('reservationForm').reset();
+            
+            // Populate contacts dropdown
+            populateContactDropdown();
             
             // Set today's date
             const today = new Date().toISOString().split('T')[0];
@@ -2271,21 +2529,61 @@
         }
 
         function saveReservation() {
+            const contactSelect = document.getElementById('contactSelect').value;
             const name = document.getElementById('customerName').value;
             const email = document.getElementById('customerEmail').value;
+            const phone = document.getElementById('customerPhone').value;
+            const spaceSelect = document.getElementById('spaceSelect').value;
+            const checkIn = document.getElementById('checkIn').value;
+            const checkOut = document.getElementById('checkOut').value;
             
-            if (name && email) {
-                // Close modal
-                bootstrap.Modal.getInstance(document.getElementById('reservationModal')).hide();
-                
-                // Show success notification
-                showNotification(`Reservation created successfully for ${name}!`, 'success');
-                
-                // Clear form
-                document.getElementById('reservationForm').reset();
-            } else {
-                showNotification('Please fill in all required fields', 'warning');
+            // Validate required fields
+            if (!contactSelect) {
+                showNotification('Please select a contact', 'warning');
+                return;
             }
+            
+            if (!name || !email || !phone) {
+                showNotification('Please fill in all contact details', 'warning');
+                return;
+            }
+            
+            if (!spaceSelect) {
+                showNotification('Please select a space', 'warning');
+                return;
+            }
+            
+            if (!checkIn || !checkOut) {
+                showNotification('Please select check-in and check-out dates', 'warning');
+                return;
+            }
+            
+            if (new Date(checkOut) < new Date(checkIn)) {
+                showNotification('Check-out date must be after check-in date', 'warning');
+                return;
+            }
+            
+            // If creating new contact, add to contacts data
+            if (contactSelect === 'new') {
+                const newContact = {
+                    id: (contactsData.length + 1).toString(),
+                    name: name,
+                    email: email,
+                    phone: phone,
+                    company: document.getElementById('customerCompany').value || 'N/A',
+                    type: 'Regular'
+                };
+                contactsData.push(newContact);
+            }
+            
+            // Close modal
+            bootstrap.Modal.getInstance(document.getElementById('reservationModal')).hide();
+            
+            // Show success notification
+            showNotification(`Reservation created successfully for ${name}!`, 'success');
+            
+            // Clear form
+            document.getElementById('reservationForm').reset();
         }
 
         function viewReservation(id) {
@@ -2321,7 +2619,44 @@
 
         // Contact Management
         function createContact() {
-            showNotification('Opening new contact form...', 'info');
+            const modal = new bootstrap.Modal(document.getElementById('contactModal'));
+            document.getElementById('contactForm').reset();
+            modal.show();
+        }
+
+        function saveContact() {
+            const firstName = document.getElementById('contactFirstName').value;
+            const lastName = document.getElementById('contactLastName').value;
+            const email = document.getElementById('contactEmail').value;
+            const phone = document.getElementById('contactPhone').value;
+            const company = document.getElementById('contactCompany').value;
+            const type = document.getElementById('contactType').value;
+            
+            // Validate required fields
+            if (!firstName || !lastName || !email || !phone || !company || !type) {
+                showNotification('Please fill in all required fields', 'warning');
+                return;
+            }
+            
+            // Add new contact to data
+            const newContact = {
+                id: (contactsData.length + 1).toString(),
+                name: `${firstName} ${lastName}`,
+                email: email,
+                phone: phone,
+                company: company,
+                type: type
+            };
+            contactsData.push(newContact);
+            
+            // Close modal
+            bootstrap.Modal.getInstance(document.getElementById('contactModal')).hide();
+            
+            // Show success notification
+            showNotification(`Contact ${newContact.name} created successfully!`, 'success');
+            
+            // Clear form
+            document.getElementById('contactForm').reset();
         }
 
         function viewContact(name) {
@@ -2338,7 +2673,36 @@
 
         // Lead Management
         function createLead() {
-            showNotification('Creating new lead...', 'info');
+            const modal = new bootstrap.Modal(document.getElementById('leadModal'));
+            document.getElementById('leadForm').reset();
+            document.getElementById('leadStatus').value = 'New';
+            modal.show();
+        }
+        
+        function saveLead() {
+            const firstName = document.getElementById('leadFirstName').value;
+            const lastName = document.getElementById('leadLastName').value;
+            const email = document.getElementById('leadEmail').value;
+            const phone = document.getElementById('leadPhone').value;
+            const company = document.getElementById('leadCompany').value;
+            const source = document.getElementById('leadSource').value;
+            const status = document.getElementById('leadStatus').value;
+            const value = document.getElementById('leadValue').value;
+            
+            // Validate required fields
+            if (!firstName || !lastName || !email || !phone || !company || !source || !status || !value) {
+                showNotification('Please fill in all required fields', 'warning');
+                return;
+            }
+            
+            // Close modal
+            bootstrap.Modal.getInstance(document.getElementById('leadModal')).hide();
+            
+            // Show success notification
+            showNotification(`Lead ${firstName} ${lastName} created successfully!`, 'success');
+            
+            // Clear form
+            document.getElementById('leadForm').reset();
         }
         
         function createProposal(name) {

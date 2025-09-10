@@ -1,0 +1,30 @@
+{
+  "name": "es-customer-list",
+  "version": "1.0.0",
+  "description": "PCF control for displaying customers in a card layout",
+  "main": "index.ts",
+  "scripts": {
+    "build": "pcf-scripts build",
+    "clean": "pcf-scripts clean",
+    "start": "pcf-scripts start",
+    "test": "pcf-scripts test",
+    "refreshTypes": "pcf-scripts refreshTypes",
+    "package": "msbuild /t:build /restore /p:Configuration=Release",
+    "push": "pac pcf push --publisher-prefix es"
+  },
+  "dependencies": {
+    "@types/node": "^18.16.0",
+    "@types/powerapps-component-framework": "^1.3.4"
+  },
+  "devDependencies": {
+    "eslint": "^8.41.0",
+    "pcf-scripts": "^1.0.0",
+    "pcf-start": "^1.0.0",
+    "typescript": "^4.9.5"
+  },
+  "author": "Easy Spaces",
+  "license": "MIT",
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

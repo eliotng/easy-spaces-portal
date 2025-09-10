@@ -1,0 +1,2 @@
+{"Timestamp":"2025-09-10 12:25:25.010","Message":"Deployment cancelled by user","Level":"Warning","DeploymentId":"0b4d140d-cfe3-41ce-92e0-4abd6a53427a","Data":null}
+{"Timestamp":"2025-09-10 12:25:25.024","Message":"Monitoring system stopped","Level":"Info","DeploymentId":"0b4d140d-cfe3-41ce-92e0-4abd6a53427a","Data":null}
