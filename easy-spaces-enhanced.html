@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <!-- 
     Easy Spaces Portal - Dynamics 365 Migration
-    Version: 2.0.4
+    Version: 2.0.5
     Released: December 2024
     Last Updated: September 10, 2025
     Repository: https://github.com/eliotng/easy-spaces-portal
@@ -399,7 +399,7 @@
 
     <!-- Version Indicator -->
     <div style="position: fixed; top: 10px; right: 10px; z-index: 9999; background: #ffc107; color: #000; padding: 5px 10px; border-radius: 5px; font-weight: bold; font-size: 14px; box-shadow: 0 2px 5px rgba(0,0,0,0.2);">
-        v2.0.4
+        v2.0.5
     </div>
 
     <!-- Enhanced Navigation -->
@@ -407,7 +407,7 @@
         <div class="container">
             <a class="navbar-brand" href="#home" onclick="showTab('home'); return false;">
                 <i class="fas fa-building me-2"></i>Easy Spaces
-                <span class="badge bg-warning text-dark ms-2 px-2 py-1" style="font-size: 0.7em; font-weight: bold;">v2.0.4</span>
+                <span class="badge bg-warning text-dark ms-2 px-2 py-1" style="font-size: 0.7em; font-weight: bold;">v2.0.5</span>
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -2114,6 +2114,77 @@
         </div>
     </div>
 
+    <!-- View/Edit Reservation Modal -->
+    <div class="modal fade" id="viewReservationModal" tabindex="-1">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">
+                        <i class="fas fa-calendar-check me-2"></i><span id="reservationModalTitle">View Reservation</span>
+                    </h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <form id="viewReservationForm">
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <label class="form-label">Reservation ID</label>
+                                <input type="text" class="form-control" id="viewReservationId" readonly>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Status</label>
+                                <select class="form-select" id="viewReservationStatus">
+                                    <option value="Confirmed">Confirmed</option>
+                                    <option value="Pending">Pending</option>
+                                    <option value="Cancelled">Cancelled</option>
+                                    <option value="Completed">Completed</option>
+                                </select>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Customer Name</label>
+                                <input type="text" class="form-control" id="viewCustomerName" readonly>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Customer Email</label>
+                                <input type="email" class="form-control" id="viewCustomerEmail" readonly>
+                            </div>
+                            <div class="col-md-12">
+                                <label class="form-label">Space</label>
+                                <input type="text" class="form-control" id="viewSpace" readonly>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Check-in Date</label>
+                                <input type="date" class="form-control" id="viewCheckIn">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Check-out Date</label>
+                                <input type="date" class="form-control" id="viewCheckOut">
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Total Amount</label>
+                                <input type="text" class="form-control" id="viewAmount" readonly>
+                            </div>
+                            <div class="col-md-6">
+                                <label class="form-label">Created Date</label>
+                                <input type="text" class="form-control" id="viewCreatedDate" readonly>
+                            </div>
+                            <div class="col-md-12">
+                                <label class="form-label">Notes</label>
+                                <textarea class="form-control" rows="3" id="viewNotes"></textarea>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="saveReservationChanges" onclick="saveReservationChanges()" style="display:none;">
+                        <i class="fas fa-save me-1"></i>Save Changes
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -2841,16 +2912,120 @@
         }
         
         function viewReservation(id) {
-            showNotification(`Viewing reservation ${id}`, 'info');
+            const reservation = reservationsData.find(r => r.id === id);
+            if (!reservation) {
+                showNotification(`Reservation ${id} not found`, 'warning');
+                return;
+            }
+            
+            // Populate modal with reservation data
+            document.getElementById('viewReservationId').value = reservation.id;
+            document.getElementById('viewReservationStatus').value = reservation.status || 'Confirmed';
+            document.getElementById('viewCustomerName').value = reservation.customerName;
+            document.getElementById('viewCustomerEmail').value = reservation.customerEmail;
+            document.getElementById('viewSpace').value = reservation.space;
+            document.getElementById('viewCheckIn').value = reservation.checkIn;
+            document.getElementById('viewCheckOut').value = reservation.checkOut;
+            document.getElementById('viewAmount').value = `$${reservation.amount.toLocaleString()}`;
+            document.getElementById('viewCreatedDate').value = new Date(reservation.createdAt).toLocaleDateString();
+            document.getElementById('viewNotes').value = reservation.notes || '';
+            
+            // Set as view mode
+            document.getElementById('reservationModalTitle').textContent = 'View Reservation';
+            document.getElementById('viewReservationStatus').disabled = true;
+            document.getElementById('viewCheckIn').disabled = true;
+            document.getElementById('viewCheckOut').disabled = true;
+            document.getElementById('viewNotes').disabled = true;
+            document.getElementById('saveReservationChanges').style.display = 'none';
+            
+            // Show modal
+            const modal = new bootstrap.Modal(document.getElementById('viewReservationModal'));
+            modal.show();
         }
 
         function editReservation(id) {
-            createReservation();
-            showNotification(`Editing reservation ${id}`, 'info');
+            const reservation = reservationsData.find(r => r.id === id);
+            if (!reservation) {
+                showNotification(`Reservation ${id} not found`, 'warning');
+                return;
+            }
+            
+            // Store current editing reservation ID
+            window.currentEditingReservationId = id;
+            
+            // Populate modal with reservation data
+            document.getElementById('viewReservationId').value = reservation.id;
+            document.getElementById('viewReservationStatus').value = reservation.status || 'Confirmed';
+            document.getElementById('viewCustomerName').value = reservation.customerName;
+            document.getElementById('viewCustomerEmail').value = reservation.customerEmail;
+            document.getElementById('viewSpace').value = reservation.space;
+            document.getElementById('viewCheckIn').value = reservation.checkIn;
+            document.getElementById('viewCheckOut').value = reservation.checkOut;
+            document.getElementById('viewAmount').value = `$${reservation.amount.toLocaleString()}`;
+            document.getElementById('viewCreatedDate').value = new Date(reservation.createdAt).toLocaleDateString();
+            document.getElementById('viewNotes').value = reservation.notes || '';
+            
+            // Set as edit mode
+            document.getElementById('reservationModalTitle').textContent = 'Edit Reservation';
+            document.getElementById('viewReservationStatus').disabled = false;
+            document.getElementById('viewCheckIn').disabled = false;
+            document.getElementById('viewCheckOut').disabled = false;
+            document.getElementById('viewNotes').disabled = false;
+            document.getElementById('saveReservationChanges').style.display = 'inline-block';
+            
+            // Show modal
+            const modal = new bootstrap.Modal(document.getElementById('viewReservationModal'));
+            modal.show();
+        }
+        
+        function saveReservationChanges() {
+            const id = window.currentEditingReservationId;
+            const reservation = reservationsData.find(r => r.id === id);
+            
+            if (!reservation) {
+                showNotification('Error saving changes', 'danger');
+                return;
+            }
+            
+            // Update reservation data
+            reservation.status = document.getElementById('viewReservationStatus').value;
+            reservation.checkIn = document.getElementById('viewCheckIn').value;
+            reservation.checkOut = document.getElementById('viewCheckOut').value;
+            reservation.notes = document.getElementById('viewNotes').value;
+            
+            // Recalculate amount if dates changed
+            const checkInDate = new Date(reservation.checkIn);
+            const checkOutDate = new Date(reservation.checkOut);
+            const days = Math.ceil((checkOutDate - checkInDate) / (1000 * 60 * 60 * 24));
+            
+            // Get price per day from space name (simplified - you might want to store this separately)
+            const priceMatch = reservation.space.match(/\$(\d+)/);
+            const pricePerDay = priceMatch ? parseInt(priceMatch[1]) : 800;
+            reservation.amount = days * pricePerDay;
+            
+            // Update table
+            updateReservationsTable();
+            
+            // Add activity
+            addActivity(`Reservation ${id} updated`, 'warning');
+            updateRecentActivities();
+            
+            // Close modal
+            bootstrap.Modal.getInstance(document.getElementById('viewReservationModal')).hide();
+            
+            // Show notification
+            showNotification(`Reservation ${id} updated successfully!`, 'success');
         }
 
         function sendInvoice(id) {
-            showNotification(`Invoice sent for reservation ${id}`, 'success');
+            const reservation = reservationsData.find(r => r.id === id);
+            if (reservation) {
+                showNotification(`Invoice sent to ${reservation.customerEmail} for reservation ${id}`, 'success');
+                addActivity(`Invoice sent for reservation ${id}`, 'info');
+                updateRecentActivities();
+            } else {
+                showNotification(`Reservation ${id} not found`, 'warning');
+            }
         }
 
         function filterReservations(status) {
@@ -3134,7 +3309,7 @@
     <footer class="bg-dark text-white py-3 mt-5">
         <div class="container text-center">
             <small>
-                Easy Spaces Portal v2.0.4 | 
+                Easy Spaces Portal v2.0.5 | 
                 <span id="deploymentDate">December 2024</span> | 
                 <a href="https://github.com/eliotng/easy-spaces-portal" class="text-white">GitHub</a> | 
                 Dynamics 365 Migration | 
